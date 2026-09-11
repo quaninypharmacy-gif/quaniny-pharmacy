@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>المنتجات | صيدلية كوانيني</title>
+<meta name="description" content="منتجات العناية والتجميل من صيدلية كوانيني — اطلب أونلاين والدفع عند الاستلام.">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+<div class="pagehead"><div class="wrap"><h1>منتجات العناية والتجميل</h1><p>اختار، ضيف للسلة، وأكّد الطلب — توصيل لحد باب البيت.</p></div></div>
+<section><div class="wrap"><div class="prod-grid" id="grid"></div></div></section>
+</main>
+<script src="app.js"></script>
+<script>
+chrome('products.html');
+var g=document.getElementById('grid'),h='';
+for(var i=0;i<PRODUCTS.length;i++){var p=PRODUCTS[i];
+h+='<div class="prod-card"><a class="thumb" href="product.html?id='+p.id+'"><img src="'+p.img+'" alt="'+p.name+'" loading="lazy"></a><div class="prod-body"><div class="prod-brand">'+p.brand+'</div><a class="prod-name" href="product.html?id='+p.id+'">'+p.name+'</a><div class="prod-price">'+p.price+' جنيه</div><button class="add-btn" data-id="'+p.id+'">أضف للسلة</button></div></div>';}
+g.innerHTML=h;
+g.addEventListener('click',function(e){var b=e.target.closest('.add-btn');if(!b)return;addToCart(b.getAttribute('data-id'));b.textContent='تمت الإضافة ✓';b.classList.add('added');setTimeout(function(){b.textContent='أضف للسلة';b.classList.remove('added')},1600);});
+</script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>اسأل الصيدلي | صيدلية كوانيني</title>
+<meta name="description" content="اسأل صيدلي كوانيني عن دواء، جرعة، بديل، أو توافر منتج.">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+<div class="pagehead"><div class="wrap"><h1>اسأل الصيدلي</h1><p>اكتب سؤالك وهيوصلنا على واتساب مباشرة، وصيدلي هيرد عليك خلال مواعيد العمل.</p></div></div>
+<section><div class="wrap">
+<div class="form-card">
+<div class="field"><label for="name">اسمك</label><input id="name" type="text"></div>
+<div class="field"><label for="q">سؤالك</label><textarea id="q" placeholder="مثال: هل منتج كذا متوفر عندكو؟"></textarea></div>
+<button class="submit-btn" id="send">ابعت السؤال على واتساب</button>
+<p class="form-hint">عايز تصرف روشتة؟ <a href="delivery.html">صوّرها وابعتها من هنا</a>.</p>
+</div>
+<div class="disclaimer">ملحوظة مهمة: الإجابات هنا إرشادية وما تغنيش عن الكشف الطبي. لو فيه أعراض شديدة أو حالة طارئة، اتوجه للطبيب أو أقرب مستشفى فورًا.</div>
+</div></section>
+</main>
+<script src="app.js"></script>
+<script>
+chrome('ask.html');
+document.getElementById('send').addEventListener('click',function(){
+ var n=document.getElementById('name').value.trim(),q=document.getElementById('q').value.trim();
+ if(!q){alert('من فضلك اكتب سؤالك الأول.');return}
+ var m='سؤال للصيدلي\n';if(n)m+='الاسم: '+n+'\n';m+='السؤال: '+q;
+ window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(m),'_blank');
+});
+</script>
+</body>
+</html>

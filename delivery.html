@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>صرف الروشتة والتعاقدات | صيدلية كوانيني</title>
+<meta name="description" content="صوّر روشتتك وابعتها، واحنا نوصللك داخل شبين القناطر — صرف يومي ومزمن وتعاقدات تأمين.">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+<div class="pagehead green" id="ph"><div class="wrap"><h1 id="phTitle">صوّر الروشتة — نوصلك في دقايق</h1><p id="phSub">ارفع صورة الروشتة واكتب عنوانك، وهنتصل بيك لتأكيد الطلب. الخدمة داخل شبين القناطر.</p></div></div>
+<section><div class="wrap" style="max-width:640px" id="box">
+<div class="form-card">
+<div class="field"><label>نوع الصرف</label>
+<div class="care-grid">
+<div class="care-opt sel" data-care="daily"><span class="t">صرف يومي</span><span class="s">روشتة عادية أو حالة عارضة</span></div>
+<div class="care-opt" data-care="monthly"><span class="t">صرف شهري</span><span class="s">علاج مزمن مستمر</span></div>
+</div></div>
+<div class="field" id="coField" style="display:none"><label for="co">شركة التأمين</label><input id="co" type="text" placeholder="مثال: MetLife"></div>
+<div class="field"><label>صورة الروشتة (لغاية 3 صور)</label>
+<label class="photo-btn" for="file">📷 اضغط لتصوير أو اختيار صورة</label>
+<input id="file" type="file" accept="image/*" multiple style="display:none">
+<div class="thumbs" id="thumbs"></div></div>
+<div class="field"><label for="n">الاسم</label><input id="n" type="text" autocomplete="name"></div>
+<div class="field"><label for="t">رقم التليفون</label><input id="t" type="tel" inputmode="numeric" autocomplete="tel" placeholder="01xxxxxxxxx"></div>
+<div class="field"><label for="a">العنوان بالتفصيل</label><textarea id="a" placeholder="المنطقة، الشارع، علامة مميزة"></textarea></div>
+<div class="field"><label for="nt">ملاحظات (اختياري)</label><textarea id="nt" style="min-height:70px" placeholder="لو مفيش صورة، اكتب أسماء الأدوية هنا"></textarea></div>
+<label class="consent"><input type="checkbox" id="cs"><span>موافق على إرسال صورة الروشتة وبياناتي لفريق صيدلية كوانيني لتنفيذ الطلب فقط.</span></label>
+<button class="submit-btn" id="send">إرسال فوري للصيدلية</button>
+<a class="wa-btn" id="wa" href="#">أو أرسل على واتساب</a>
+<p class="form-hint">الإرسال الفوري بيوصل للصيدلية علطول من غير ما تكلم حد. الدفع عند الاستلام.</p>
+<div class="err" id="err" style="display:none"></div>
+</div>
+<div class="disclaimer">ملحوظة: صرف الأدوية بيتم طبقًا للروشتة وبمراجعة الصيدلي. الأدوية اللي بتحتاج روشتة ما بتتصرفش من غيرها.</div>
+</div></section>
+</main>
+<script src="app.js"></script>
+<script>
+chrome('delivery.html');
+function qp(n){var m=new RegExp('[?&]'+n+'=([^&]*)').exec(location.search);return m?decodeURIComponent(m[1]):''}
+var mode=qp('mode')==='contract'?'contract':'rx',care='daily',photos=[];
+if(mode==='contract'){
+ document.getElementById('ph').classList.remove('green');
+ document.getElementById('phTitle').textContent='صرف التعاقدات بقى أسهل';
+ document.getElementById('phSub').textContent='صوّر روشتة التأمين واكتب شركتك، وهنراجع التغطية ونتصل بيك.';
+ document.getElementById('coField').style.display='';
+ document.getElementById('send').classList.add('purple');
+}
+document.querySelectorAll('.care-opt').forEach(function(el){el.addEventListener('click',function(){document.querySelectorAll('.care-opt').forEach(function(x){x.classList.remove('sel')});el.classList.add('sel');care=el.getAttribute('data-care');});});
+function shrink(file){return new Promise(function(res,rej){
+ var fr=new FileReader();
+ fr.onload=function(){var im=new Image();im.onload=function(){
+  var s=Math.min(1,1000/Math.max(im.width,im.height)),c=document.createElement('canvas');
+  c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);
+  c.getContext('2d').drawImage(im,0,0,c.width,c.height);
+  res(c.toDataURL('image/jpeg',0.6));
+ };im.onerror=rej;im.src=fr.result};
+ fr.onerror=rej;fr.readAsDataURL(file);});}
+function drawThumbs(){var t=document.getElementById('thumbs'),h='';
+ for(var i=0;i<photos.length;i++){h+='<div class="th"><img src="'+photos[i]+'" alt=""><button data-i="'+i+'">×</button></div>'}
+ t.innerHTML=h;}
+document.getElementById('thumbs').addEventListener('click',function(e){var b=e.target.closest('button[data-i]');if(!b)return;photos.splice(+b.getAttribute('data-i'),1);drawThumbs();});
+document.getElementById('file').addEventListener('change',async function(e){
+ var fs=Array.prototype.slice.call(e.target.files||[]);
+ for(var i=0;i<fs.length&&photos.length<3;i++){try{photos.push(await shrink(fs[i]))}catch(x){}}
+ drawThumbs();e.target.value='';
+});
+function showErr(m){var e=document.getElementById('err');e.textContent=m;e.style.display='';}
+function collect(){
+ return {name:document.getElementById('n').value.trim(),phone:document.getElementById('t').value.trim(),address:document.getElementById('a').value.trim(),note:document.getElementById('nt').value.trim(),company:document.getElementById('co').value.trim()};
+}
+document.getElementById('wa').addEventListener('click',function(e){
+ e.preventDefault();var d=collect();
+ var m=(mode==='contract'?'طلب صرف تعاقدات':'طلب صرف روشتة')+'\n';
+ if(d.name)m+='الاسم: '+d.name+'\n';
+ if(d.phone)m+='التليفون: '+d.phone+'\n';
+ if(d.address)m+='العنوان: '+d.address+'\n';
+ if(mode==='contract'&&d.company)m+='شركة التأمين: '+d.company+'\n';
+ m+='نوع الصرف: '+(care==='monthly'?'شهري (مزمن)':'يومي')+'\n';
+ if(d.note)m+='ملاحظات: '+d.note+'\n';
+ m+='\n(هرفق صورة الروشتة هنا)';
+ window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(m),'_blank');
+});
+document.getElementById('send').addEventListener('click',async function(){
+ var btn=this,d=collect();
+ document.getElementById('err').style.display='none';
+ if(d.name.length<2){showErr('من فضلك اكتب اسمك.');return}
+ if(!/^0?1[0-9]{9}$/.test(d.phone.replace(/\s|-/g,''))){showErr('رقم التليفون مش مظبوط.');return}
+ if(d.address.length<6){showErr('من فضلك اكتب العنوان بالتفصيل.');return}
+ if(!photos.length&&!d.note){showErr('ارفع صورة الروشتة أو اكتب الأدوية في الملاحظات.');return}
+ if(!document.getElementById('cs').checked){showErr('لازم توافق على إرسال البيانات للصيدلية.');return}
+ btn.disabled=true;btn.textContent='جاري الإرسال...';
+ try{
+  var r=await fetch('/api/prescription',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:d.name,phone:d.phone,address:d.address,note:d.note,company:d.company,mode:mode,careType:care,photos:photos,consent:true})});
+  var j=await r.json().catch(function(){return{}});
+  if(!r.ok||!j.ok)throw new Error((j&&j.error)||('http_'+r.status));
+  document.getElementById('ph').style.display='none';
+  document.getElementById('box').innerHTML='<div class="receipt"><div class="tick">✓</div><h2>تم استلام طلبك</h2><p>فريق الصيدلية هيراجع الروشتة ويتصل بيك لتأكيد الطلب.</p><div class="no">'+j.orderNo+'</div><div class="meta">صور مستلمة: <b>'+j.photos+'</b>'+(j.refillDue?'<br>هنفكرك بإعادة الصرف قبل ما يخلص':'')+'</div><span class="cod">الدفع عند الاستلام</span><p style="margin-top:22px"><a href="index.html">ارجع للرئيسية</a></p></div>';
+ }catch(e){
+  btn.disabled=false;btn.textContent='إرسال فوري للصيدلية';
+  showErr('معلش، حصلت مشكلة في الإرسال ('+(e.message||'')+'). جرّب واتساب أو اتصل على '+PHONE+'.');
+ }
+});
+</script>
+</body>
+</html>
