@@ -1,6 +1,6 @@
 ---
 name: quaniny-website
-description: اقرأ الـ skill ده قبل أي شغل على موقع صيدلية كوانيني (quaninypharmacy.vercel.app) — إضافة صفحة، تعديل الـ Cart أو التأمين أو التوصيل، شغل SEO، أو أي قرار معماري (architecture). بيحتوي على قرار الـ stack (HTML/CSS/JS + Vercel Functions + Supabase دلوقتي، و Next.js عند trigger محدد مكتوب جوه)، بنية الروابط (cleanUrls)، مبدأ صفحة المنتج الديناميكية وحدوده في السيو، أولويات V1، قايمة أعطال تشغيلية حصلت فعلًا (ESM/.mjs، req.body، Environment Variables، نوم Supabase)، وباك-لوج V2. استخدمه كمان لو المستخدم ذكر "موقع كوانيني"، "quaniny website"، الـ GitHub repo بتاع الموقع، أو ملفات زي index.html أو delivery.html أو cart.html أو app.js أو order.mjs أو prescription.mjs أو refills.mjs، أو سأل عن قرار تقني للموقع حتى لو مقالش "website" صراحة.
+description: اقرأ الـ skill ده قبل أي شغل على موقع صيدلية كوانيني (quaniny.com) — إضافة صفحة، تعديل الـ Cart أو التأمين أو التوصيل، شغل SEO، أو أي قرار معماري (architecture). بيحتوي على قرار الـ stack (HTML/CSS/JS + Vercel Functions + Supabase دلوقتي، و Next.js عند trigger محدد مكتوب جوه)، بنية الروابط (cleanUrls)، مبدأ صفحة المنتج الديناميكية وحدوده في السيو، أولويات V1، قايمة أعطال تشغيلية حصلت فعلًا (ESM/.mjs، req.body، Environment Variables، نوم Supabase)، وباك-لوج V2. استخدمه كمان لو المستخدم ذكر "موقع كوانيني"، "quaniny website"، الـ GitHub repo بتاع الموقع، أو ملفات زي index.html أو delivery.html أو cart.html أو app.js أو order.mjs أو prescription.mjs أو refills.mjs، أو سأل عن قرار تقني للموقع حتى لو مقالش "website" صراحة.
 ---
 
 # Quaniny Pharmacy Website — Architecture & Decisions
@@ -26,7 +26,8 @@ description: اقرأ الـ skill ده قبل أي شغل على موقع صي�
 
 ## الوضع الحالي
 
-- **الرابط:** https://quaninypharmacy.vercel.app — ⚠️ **الدومين المخصص لسه ناقص**، ومينفعش إعلان مدفوع من غيره
+- **الرابط:** https://quaniny.com — الـ apex هو الأساسي، و`www` بيحوّل عليه. `quaninypharmacy.vercel.app` لسه شغال كـ alias من Vercel
+- **المسجّل:** Vercel (نفس الحساب)، تجديد تلقائي مفعّل. سجلات DNS متظبطة أوتوماتيك — متلمسهاش
 - **الريبو:** `quaninypharmacy-gif/quaniny-pharmacy` → مشروع Vercel `quaninypharmacy`، production branch `main`، auto-deploy على كل push
 - **الفروع:** أرض الدلتا (بجوار مسجد مهران) · منشأة الكرام (بجوار منزل العمدة)
 - **المواعيد:** يوميًا 12 ظهرًا – 12 منتصف الليل، إجازة الجمعة
@@ -88,8 +89,8 @@ description: اقرأ الـ skill ده قبل أي شغل على موقع صي�
 الـ base URL مكتوب في `canonical` و`og:*` و`sitemap.xml` و`robots.txt`. أول ما الدومين المخصص يشتغل، بدّله كله بأمر واحد من جذر الريبو:
 
 ```bash
-grep -rl "quaninypharmacy.vercel.app" --include="*.html" --include="*.xml" --include="*.txt" . \
-  | xargs sed -i "s|https://quaninypharmacy.vercel.app|https://NEW-DOMAIN.com|g"
+grep -rl "quaniny.com" --include="*.html" --include="*.xml" --include="*.txt" . \
+  | xargs sed -i "s|https://quaniny.com|https://NEW-DOMAIN.com|g"
 ```
 
 وبعدها: أضف الدومين في Vercel → Project Settings → Domains، وأعِد إرسال `sitemap.xml` في Google Search Console.
@@ -142,7 +143,7 @@ TG_BOT_TOKEN · TG_CHAT_ID · SUPABASE_URL · SUPABASE_SERVICE_KEY (service_role
 
 ## أولويات V1 — بالترتيب
 
-0. **الدومين المخصص** — فوق كل حاجة. الموقع على `.vercel.app`، مينفعش في إعلان مدفوع، وبيضر كل بند تحته
+0. ~~**الدومين المخصص**~~ ✅ اتعمل — `quaniny.com`، والـ canonical و`og:*` و`sitemap.xml` و`robots.txt` كلهم عليه
 1. **تصحيح مواعيد Google Business** — مسجلة "Open 24 hours" وده غلط. عطل شغال بيضر أكتر من أي قرار تقني
 2. Technical SEO: title + meta description + canonical + OG لكل صفحة
 3. `sitemap.xml` + `robots.txt`

@@ -5,4 +5,4 @@ Allow: /
 Disallow: /cart
 Disallow: /api/
 
-Sitemap: https://quaninypharmacy.vercel.app/sitemap.xml
+Sitemap: https://quaniny.com/sitemap.xml
