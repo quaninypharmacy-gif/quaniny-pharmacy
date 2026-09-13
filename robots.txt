@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# صفحات مش للفهرسة
+Disallow: /cart
+Disallow: /api/
+
+Sitemap: https://quaninypharmacy.vercel.app/sitemap.xml

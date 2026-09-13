@@ -4,9 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>اسأل الصيدلي | صيدلية كوانيني</title>
-<meta name="description" content="اسأل صيدلي كوانيني عن دواء، جرعة، بديل، أو توافر منتج.">
+<meta name="description" content="اسأل صيدلي كوانيني عن دواء أو جرعة أو بديل أو توافر منتج — سؤالك بيوصل على واتساب وصيدلي بيرد خلال مواعيد العمل.">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="/style.css">
+<link rel="icon" href="/logo.webp" type="image/webp">
+<link rel="canonical" href="https://quaninypharmacy.vercel.app/ask">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="صيدلية كوانيني">
+<meta property="og:locale" content="ar_EG">
+<meta property="og:url" content="https://quaninypharmacy.vercel.app/ask">
+<meta property="og:title" content="اسأل الصيدلي | صيدلية كوانيني">
+<meta property="og:description" content="اسأل صيدلي كوانيني عن دواء أو جرعة أو بديل أو توافر منتج — سؤالك بيوصل على واتساب وصيدلي بيرد خلال مواعيد العمل.">
+<meta property="og:image" content="https://quaninypharmacy.vercel.app/logo.webp">
+<meta name="twitter:card" content="summary">
 </head>
 <body>
 <main>
@@ -16,14 +26,14 @@
 <div class="field"><label for="name">اسمك</label><input id="name" type="text"></div>
 <div class="field"><label for="q">سؤالك</label><textarea id="q" placeholder="مثال: هل منتج كذا متوفر عندكو؟"></textarea></div>
 <button class="submit-btn" id="send">ابعت السؤال على واتساب</button>
-<p class="form-hint">عايز تصرف روشتة؟ <a href="delivery.html">صوّرها وابعتها من هنا</a>.</p>
+<p class="form-hint">عايز تصرف روشتة؟ <a href="/delivery">صوّرها وابعتها من هنا</a>.</p>
 </div>
 <div class="disclaimer">ملحوظة مهمة: الإجابات هنا إرشادية وما تغنيش عن الكشف الطبي. لو فيه أعراض شديدة أو حالة طارئة، اتوجه للطبيب أو أقرب مستشفى فورًا.</div>
 </div></section>
 </main>
-<script src="app.js"></script>
+<script src="/app.js"></script>
 <script>
-chrome('ask.html');
+chrome('/ask');
 document.getElementById('send').addEventListener('click',function(){
  var n=document.getElementById('name').value.trim(),q=document.getElementById('q').value.trim();
  if(!q){alert('من فضلك اكتب سؤالك الأول.');return}

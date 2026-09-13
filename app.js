@@ -30,14 +30,17 @@ function addToCart(id) { var c = getCart(), f = false; for (var i = 0; i < c.len
 function setQty(id, q) { var c = getCart(); for (var i = 0; i < c.length; i++) { if (c[i].id === id) { c[i].q = q; if (q < 1) c.splice(i, 1); break; } } saveCart(c); }
 function updateBadge() { var e = document.getElementById('cartCount'); if (e) { var n = cartCount(); e.textContent = n; e.style.display = n ? '' : 'none'; } }
 
-/* ---- الهيدر والنav والفوتر المشتركين بين كل الصفحات ---- */
+/* ---- الهيدر والنav والفوتر المشتركين بين كل الصفحات ----
+   المسارات كلها root-absolute (بتبدأ بـ /) عشان الصفحات اللي جوه
+   مجلدات زي /insurance/* تشتغل صح. cleanUrls شغال في vercel.json. */
 function chrome(active) {
   var nav = [
-    ['index.html', 'الرئيسية'],
-    ['delivery.html', 'صرف الروشتة'],
-    ['products.html', 'المنتجات'],
-    ['branches.html', 'فروعنا'],
-    ['ask.html', 'اسأل الصيدلي']
+    ['/', 'الرئيسية'],
+    ['/delivery', 'صرف الروشتة'],
+    ['/insurance', 'التأمين'],
+    ['/products', 'المنتجات'],
+    ['/branches', 'فروعنا'],
+    ['/ask', 'اسأل الصيدلي']
   ];
   var links = '';
   for (var i = 0; i < nav.length; i++) {
@@ -45,9 +48,9 @@ function chrome(active) {
   }
   document.body.insertAdjacentHTML('afterbegin',
     '<header><div class="wrap header-row">' +
-    '<a class="brand" href="index.html"><img src="logo.webp" alt="شعار صيدلية كوانيني"><span class="brand-name">صيدلية كوانيني</span></a>' +
+    '<a class="brand" href="/"><img src="/logo.webp" alt="شعار صيدلية كوانيني"><span class="brand-name">صيدلية كوانيني</span></a>' +
     '<div class="header-right"><a class="header-phone" href="tel:' + PHONE + '">' + PHONE + '</a>' +
-    '<a class="cart-link" href="cart.html">السلة<span class="cart-count" id="cartCount">0</span></a></div>' +
+    '<a class="cart-link" href="/cart">السلة<span class="cart-count" id="cartCount">0</span></a></div>' +
     '</div></header><nav class="mainnav"><div class="wrap">' + links + '</div></nav>');
   document.body.insertAdjacentHTML('beforeend',
     '<footer><div class="wrap"><div style="margin-bottom:10px">' + links.replace(/ class="active"/g, '') + '</div>' +

@@ -6,7 +6,8 @@
 <title>السلة وإتمام الطلب | صيدلية كوانيني</title>
 <meta name="robots" content="noindex">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="/style.css">
+<link rel="icon" href="/logo.webp" type="image/webp">
 </head>
 <body>
 <main>
@@ -28,12 +29,12 @@
 </div>
 </div></section>
 </main>
-<script src="app.js"></script>
+<script src="/app.js"></script>
 <script>
-chrome('products.html');
+chrome('/products');
 function render(){
  var c=getCart(),box=document.getElementById('items'),h='',tot=0;
- if(!c.length){box.innerHTML='<div class="empty"><p>السلة فاضية.</p><p><a href="products.html">تصفح المنتجات</a></p></div>';document.getElementById('checkout').style.display='none';return}
+ if(!c.length){box.innerHTML='<div class="empty"><p>السلة فاضية.</p><p><a href="/products">تصفح المنتجات</a></p></div>';document.getElementById('checkout').style.display='none';return}
  for(var i=0;i<c.length;i++){var p=P(c[i].id);if(!p)continue;tot+=p.price*c[i].q;
  h+='<div class="cart-row"><img src="'+p.img+'" alt="'+p.name+'"><div class="cart-info"><div class="n">'+p.name+'</div><div class="p">'+p.price+' جنيه</div></div><div class="qty"><button data-a="-" data-id="'+p.id+'">−</button><span>'+c[i].q+'</span><button data-a="+" data-id="'+p.id+'">+</button></div></div>';}
  box.innerHTML=h;document.getElementById('checkout').style.display='';document.getElementById('total').textContent=tot+' جنيه';
@@ -57,7 +58,7 @@ document.getElementById('send').addEventListener('click',async function(){
   if(!r.ok||!d.ok)throw new Error((d&&d.error)||('http_'+r.status));
   try{localStorage.removeItem('qcart')}catch(e){}
   document.getElementById('ph').style.display='none';
-  document.querySelector('section .wrap').innerHTML='<div class="receipt"><div class="tick">✓</div><h2>تم استلام طلبك</h2><p>فريق الصيدلية هيراجعه ويتصل بيك لتأكيد الموعد.</p><div class="no">'+d.orderNo+'</div><div class="meta">الإجمالي: <b>'+d.total+' جنيه</b></div><span class="cod">الدفع عند الاستلام</span><p style="margin-top:22px"><a href="products.html">ارجع للمنتجات</a></p></div>';
+  document.querySelector('section .wrap').innerHTML='<div class="receipt"><div class="tick">✓</div><h2>تم استلام طلبك</h2><p>فريق الصيدلية هيراجعه ويتصل بيك لتأكيد الموعد.</p><div class="no">'+d.orderNo+'</div><div class="meta">الإجمالي: <b>'+d.total+' جنيه</b></div><span class="cod">الدفع عند الاستلام</span><p style="margin-top:22px"><a href="/products">ارجع للمنتجات</a></p></div>';
   updateBadge();
  }catch(e){
   btn.disabled=false;btn.textContent='تأكيد الطلب';

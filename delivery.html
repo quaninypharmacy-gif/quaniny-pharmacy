@@ -3,10 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>صرف الروشتة والتعاقدات | صيدلية كوانيني</title>
-<meta name="description" content="صوّر روشتتك وابعتها، واحنا نوصللك داخل شبين القناطر — صرف يومي ومزمن وتعاقدات تأمين.">
+<title>صرف الروشتة والتعاقدات بالتوصيل | صيدلية كوانيني</title>
+<meta name="description" content="صوّر روشتتك وابعتها لصيدلية كوانيني، ونوصلك في شبين القناطر — صرف يومي، علاج شهري مزمن، وتعاقدات تأمين. الدفع عند الاستلام.">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="/style.css">
+<link rel="icon" href="/logo.webp" type="image/webp">
+<link rel="canonical" href="https://quaninypharmacy.vercel.app/delivery">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="صيدلية كوانيني">
+<meta property="og:locale" content="ar_EG">
+<meta property="og:url" content="https://quaninypharmacy.vercel.app/delivery">
+<meta property="og:title" content="صرف الروشتة والتعاقدات بالتوصيل | صيدلية كوانيني">
+<meta property="og:description" content="صوّر روشتتك وابعتها لصيدلية كوانيني، ونوصلك في شبين القناطر — صرف يومي، علاج شهري مزمن، وتعاقدات تأمين. الدفع عند الاستلام.">
+<meta property="og:image" content="https://quaninypharmacy.vercel.app/logo.webp">
+<meta name="twitter:card" content="summary">
 </head>
 <body>
 <main>
@@ -36,9 +46,9 @@
 <div class="disclaimer">ملحوظة: صرف الأدوية بيتم طبقًا للروشتة وبمراجعة الصيدلي. الأدوية اللي بتحتاج روشتة ما بتتصرفش من غيرها.</div>
 </div></section>
 </main>
-<script src="app.js"></script>
+<script src="/app.js"></script>
 <script>
-chrome('delivery.html');
+chrome('/delivery');
 function qp(n){var m=new RegExp('[?&]'+n+'=([^&]*)').exec(location.search);return m?decodeURIComponent(m[1]):''}
 var mode=qp('mode')==='contract'?'contract':'rx',care='daily',photos=[];
 if(mode==='contract'){
@@ -46,6 +56,7 @@ if(mode==='contract'){
  document.getElementById('phTitle').textContent='صرف التعاقدات بقى أسهل';
  document.getElementById('phSub').textContent='صوّر روشتة التأمين واكتب شركتك، وهنراجع التغطية ونتصل بيك.';
  document.getElementById('coField').style.display='';
+ var co=qp('company');if(co)document.getElementById('co').value=co;
  document.getElementById('send').classList.add('purple');
 }
 document.querySelectorAll('.care-opt').forEach(function(el){el.addEventListener('click',function(){document.querySelectorAll('.care-opt').forEach(function(x){x.classList.remove('sel')});el.classList.add('sel');care=el.getAttribute('data-care');});});
@@ -97,7 +108,7 @@ document.getElementById('send').addEventListener('click',async function(){
   var j=await r.json().catch(function(){return{}});
   if(!r.ok||!j.ok)throw new Error((j&&j.error)||('http_'+r.status));
   document.getElementById('ph').style.display='none';
-  document.getElementById('box').innerHTML='<div class="receipt"><div class="tick">✓</div><h2>تم استلام طلبك</h2><p>فريق الصيدلية هيراجع الروشتة ويتصل بيك لتأكيد الطلب.</p><div class="no">'+j.orderNo+'</div><div class="meta">صور مستلمة: <b>'+j.photos+'</b>'+(j.refillDue?'<br>هنفكرك بإعادة الصرف قبل ما يخلص':'')+'</div><span class="cod">الدفع عند الاستلام</span><p style="margin-top:22px"><a href="index.html">ارجع للرئيسية</a></p></div>';
+  document.getElementById('box').innerHTML='<div class="receipt"><div class="tick">✓</div><h2>تم استلام طلبك</h2><p>فريق الصيدلية هيراجع الروشتة ويتصل بيك لتأكيد الطلب.</p><div class="no">'+j.orderNo+'</div><div class="meta">صور مستلمة: <b>'+j.photos+'</b>'+(j.refillDue?'<br>هنفكرك بإعادة الصرف قبل ما يخلص':'')+'</div><span class="cod">الدفع عند الاستلام</span><p style="margin-top:22px"><a href="/">ارجع للرئيسية</a></p></div>';
  }catch(e){
   btn.disabled=false;btn.textContent='إرسال فوري للصيدلية';
   showErr('معلش، حصلت مشكلة في الإرسال ('+(e.message||'')+'). جرّب واتساب أو اتصل على '+PHONE+'.');
