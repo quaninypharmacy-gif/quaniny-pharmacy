@@ -144,7 +144,7 @@ TG_BOT_TOKEN · TG_CHAT_ID · SUPABASE_URL · SUPABASE_SERVICE_KEY (service_role
 ## أولويات V1 — بالترتيب
 
 0. ~~**الدومين المخصص**~~ ✅ اتعمل — `quaniny.com`، والـ canonical و`og:*` و`sitemap.xml` و`robots.txt` كلهم عليه
-1. **تصحيح مواعيد Google Business** — مسجلة "Open 24 hours" وده غلط. عطل شغال بيضر أكتر من أي قرار تقني
+1. **تصحيح مواعيد Google Business** — مسجلة "Open 24 hours" وده غلط. عطل شغال بيضر أكتر من أي قرار تقني. ⏳ **البند الوحيد الفاضل من V1** — مستني مراجعة تحقق الفرع الأول تخلص، ومتلمسش الملف قبلها
 2. Technical SEO: title + meta description + canonical + OG لكل صفحة
 3. `sitemap.xml` + `robots.txt`
 4. **صفحات التأمين** (`/insurance/*`) — الشريحة رقم 2، أقوى ورقة
@@ -152,7 +152,7 @@ TG_BOT_TOKEN · TG_CHAT_ID · SUPABASE_URL · SUPABASE_SERVICE_KEY (service_role
 6. تحسين السرعة و Core Web Vitals
 7. CTA واحد أساسي واضح لكل صفحة — مش عشرات الـ CTAs بنفس القوة
 8. Smart Free Delivery messaging
-9. Google Search Console
+9. ~~Google Search Console~~ ✅ اتعمل — خاصية **Domain** لـ `quaniny.com`، التحقق بسجل TXT على الدومين (`Domain name provider`). **متمسحش السجل** — جوجل بيعيد فحصه وبيلغي التحقق لو اتشال
 
 > **⚠️ تصحيح:** النسخ القديمة كانت حاطة صفحات التأمين تحت «مؤجّل عمدًا». **ده كان غلط** — دي أقوى شريحة عند العميل. اترفعت لـ V1.
 
