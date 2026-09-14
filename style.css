@@ -159,3 +159,5 @@ footer a{color:rgba(255,255,255,.8);text-decoration:none;margin:0 8px}
 .ins-item .n{font-family:'Cairo',sans-serif;font-weight:800;color:var(--purple-deep);font-size:1rem;display:block;margin-bottom:3px}
 .ins-item .k{font-size:.82rem;color:var(--ink-soft)}
 @media(max-width:640px){.steps li{padding-inline-end:56px}.cta-row a{flex:1;text-align:center}}
+.areas{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:880px;margin:0 auto}
+.areas .area{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:7px 15px;font-size:.89rem;color:var(--ink)}
