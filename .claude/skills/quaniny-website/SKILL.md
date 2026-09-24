@@ -144,6 +144,7 @@ grep -rl "quaniny.com" --include="*.html" --include="*.xml" --include="*.txt" . 
 ## تكاملات قائمة (متلمسهاش من غير داعي)
 
 - **Supabase** — جدول `orders` (order_no, kind: shop/prescription, care_type: daily/monthly, customer_name, phone, address, items jsonb, total, note, refill_due_on, refill_notified_at). Project: `ammsdrawszucoozamlvo`
+  - **أي جدول جديد لازم يكون معاه `grant` صريح لـ `service_role`** في نفس الـ SQL (شوف آخر `schema.sql`). من 30 أكتوبر 2026 Supabase مبقتش بتدي صلاحيات تلقائي للجداول الجديدة في `public`، ومن غير الـ grant الـ API بيرجع `permission denied`. متدّيش `anon`/`authenticated` لجداول فيها بيانات عملاء
 - **Telegram** — إشعار لكل أوردر. ملفات الـ API **لازم** تكون `.mjs` مع `"type": "module"` في package.json
 - **Cron** — `/api/refills` الساعة 9 صباحًا، تذكير بتعاقدات العلاج الشهري المستحقة خلال 25 يوم
 - **`/api/health`** — تشخيص. **افتحها أول حاجة لما أي حاجة تقع**

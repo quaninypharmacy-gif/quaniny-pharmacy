@@ -23,3 +23,9 @@ create index if not exists orders_created_idx on public.orders (created_at desc)
 
 -- الجدول مقفول قدام الجمهور؛ السيرفر بيستخدم service key فبيعدّي فوق RLS
 alter table public.orders enable row level security;
+
+-- من 30 أكتوبر 2026 Supabase مبقتش بتدي صلاحيات تلقائي لأي جدول جديد في public.
+-- الصلاحية لـ service_role بس (اللي السيرفر بيستخدمه). متدّيش anon ولا authenticated —
+-- الجدول فيه بيانات عملاء وروشتات.
+grant select, insert, update, delete on public.orders to service_role;
+grant usage, select on sequence public.orders_id_seq to service_role;
