@@ -19,6 +19,7 @@
 <section><div class="wrap" style="max-width:640px">
 <div id="items"></div>
 <div id="checkout" style="display:none">
+<div class="freeship" id="fs"></div>
 <div class="total-box"><span>الإجمالي</span><span id="total"></span></div>
 <div class="form-card">
 <div class="field"><label for="n">الاسم</label><input id="n" type="text" autocomplete="name"></div>
@@ -34,12 +35,26 @@
 </div></section>
 </main>
 <script>
+/* بيوري العميل قد إيه ناقصه للتوصيل المجاني. الرقم من FREE_DELIVERY_MIN
+   في app.js — متكتبوش هنا تاني. */
+function freeship(tot){
+ var el=document.getElementById('fs');if(!el)return;
+ if(tot>=FREE_DELIVERY_MIN){
+  el.className='freeship done';
+  el.innerHTML='<span class="ico">🛵</span><span class="txt"><b>التوصيل مجاني على طلبك</b></span>';
+ }else{
+  var left=FREE_DELIVERY_MIN-tot;
+  el.className='freeship';
+  el.innerHTML='<span class="ico">🛵</span><span class="txt">ناقصك <b>'+left+' جنيه</b> والتوصيل يبقى مجاني'+
+   '<span class="track"><i style="width:'+Math.round(tot/FREE_DELIVERY_MIN*100)+'%"></i></span></span>';
+ }
+}
 function render(){
  var c=getCart(),box=document.getElementById('items'),h='',tot=0;
  if(!c.length){box.innerHTML='<div class="empty"><p>السلة فاضية.</p><p><a href="/products">تصفح المنتجات</a></p></div>';document.getElementById('checkout').style.display='none';return}
  for(var i=0;i<c.length;i++){var p=P(c[i].id);if(!p)continue;tot+=p.price*c[i].q;
  h+='<div class="cart-row"><img src="'+p.img+'" alt="'+p.name+'"><div class="cart-info"><div class="n">'+p.name+'</div><div class="p">'+p.price+' جنيه</div></div><div class="qty"><button data-a="-" data-id="'+p.id+'">−</button><span>'+c[i].q+'</span><button data-a="+" data-id="'+p.id+'">+</button></div></div>';}
- box.innerHTML=h;document.getElementById('checkout').style.display='';document.getElementById('total').textContent=tot+' جنيه';
+ box.innerHTML=h;document.getElementById('checkout').style.display='';document.getElementById('total').textContent=tot+' جنيه';freeship(tot);
 }
 render();
 document.getElementById('items').addEventListener('click',function(e){var b=e.target.closest('button[data-id]');if(!b)return;var id=b.getAttribute('data-id'),c=getCart(),q=0;for(var i=0;i<c.length;i++)if(c[i].id===id)q=c[i].q;setQty(id,b.getAttribute('data-a')==='+'?q+1:q-1);render();});

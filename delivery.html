@@ -25,7 +25,8 @@
 <script>chrome('/delivery');</script>
 <main>
 <div class="pagehead green" id="ph"><div class="wrap"><h1 id="phTitle">صوّر الروشتة — نوصلك في دقايق</h1><p id="phSub">ارفع صورة الروشتة واكتب عنوانك، وهنتصل بيك لتأكيد الطلب. بنوصّل في 66 منطقة بالقليوبية.</p></div></div>
-<section><div class="wrap" style="max-width:640px" id="box">
+<section>
+<div class="wrap" style="max-width:640px"><div class="freeship plain" id="fs"><span class="ico">🛵</span><span class="txt">التوصيل <b>مجاني</b> للطلبات من <b>200 جنيه</b> فأكتر</span></div></div><div class="wrap" style="max-width:640px" id="box">
 <div class="form-card">
 <div class="field"><label>نوع الصرف</label>
 <div class="care-grid">
@@ -58,6 +59,7 @@ if(mode==='contract'){
  document.getElementById('phTitle').textContent='صرف التعاقدات بقى أسهل';
  document.getElementById('phSub').textContent='صوّر روشتة التأمين واكتب شركتك، وهنراجع التغطية ونتصل بيك.';
  document.getElementById('coField').style.display='';
+ document.getElementById('fs').innerHTML='<span class="ico">🛵</span><span class="txt">عرض التوصيل المجاني للطلبات من 200 جنيه <b>مش شامل روشتات التأمين</b>.</span>';
  var co=qp('company');if(co)document.getElementById('co').value=co;
  document.getElementById('send').classList.add('purple');
 }
