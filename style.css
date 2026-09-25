@@ -123,6 +123,11 @@ section{padding:48px 0}
 .contact .section-head h2{color:#fff}
 .contact .section-head p{color:rgba(255,255,255,.75)}
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.contact-grid.one{grid-template-columns:minmax(0,420px);justify-content:center}
+/* ممر المناديب — لينك نصي هادي عن قصد. الهدف إن المريض يشوف
+   رقم واحد بس؛ أي زرار هنا بيزاحم كارت خدمة العملاء. */
+.supp-link{text-align:center;margin-top:22px;font-family:'Tajawal',sans-serif;font-size:.92rem;color:rgba(255,255,255,.66)}
+.supp-link a{color:rgba(255,255,255,.92);text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px;margin-inline-start:6px}
 @media(max-width:800px){.contact-grid{grid-template-columns:1fr}}
 .contact-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:var(--radius);padding:24px 22px}
 .contact-card h3{color:#fff;font-size:1.03rem;margin-bottom:6px}
