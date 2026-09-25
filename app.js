@@ -70,7 +70,13 @@ function addToCart(id) {
   track('add_to_cart', { currency: 'EGP', value: p ? p.price : 0, item_id: id });
 }
 function setQty(id, q) { var c = getCart(); for (var i = 0; i < c.length; i++) { if (c[i].id === id) { c[i].q = q; if (q < 1) c.splice(i, 1); break; } } saveCart(c); }
-function updateBadge() { var e = document.getElementById('cartCount'); if (e) { var n = cartCount(); e.textContent = n; e.style.display = n ? '' : 'none'; } }
+function updateBadge() {
+  var n = cartCount();
+  ['cartCount', 'qbarCount'].forEach(function (id) {
+    var e = document.getElementById(id);
+    if (e) { e.textContent = n; e.style.display = n ? '' : 'none'; }
+  });
+}
 
 /* ---- الهيدر والنav والفوتر المشتركين بين كل الصفحات ----
    المسارات كلها root-absolute (بتبدأ بـ /) عشان الصفحات اللي جوه
@@ -119,5 +125,17 @@ function chrome(active) {
     document.body.insertAdjacentHTML('beforeend',
       '<footer><div class="wrap"><div style="margin-bottom:10px">' + links.replace(/ class="active"/g, '') + '</div>' +
       '© 2026 صيدلية كوانيني — جميع الحقوق محفوظة</div></footer>');
+
+    /* الصفحة الحالية من المسار الفعلي مش من الـ active — لأن cart.html
+       بتنادي chrome('/products') فالـ active مش بيوصف الصفحة نفسها. */
+    var here = (location.pathname.replace(/\/$/, '') || '/');
+    var on = function (p) { return here === p ? ' class="on"' : ''; };
+    document.body.insertAdjacentHTML('beforeend',
+      '<nav class="qbar" aria-label="إجراءات سريعة">' +
+      '<a' + on('/delivery') + ' href="/delivery?mode=rx"><span class="i" aria-hidden="true">📷</span>صوّر الروشتة</a>' +
+      '<a' + on('/cart') + ' href="/cart"><span class="i" aria-hidden="true">🛒</span>السلة<span class="qb" id="qbarCount">0</span></a>' +
+      '<a href="https://wa.me/' + WA + '" target="_blank" rel="noopener"><span class="i" aria-hidden="true">💬</span>واتساب</a>' +
+      '</nav>');
+    updateBadge();
   });
 }

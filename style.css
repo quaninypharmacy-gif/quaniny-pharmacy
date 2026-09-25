@@ -197,3 +197,22 @@ a.ins-item:hover{border-color:var(--purple);transform:translateY(-2px)}
 .freeship.done{background:#F2FBF6;border-color:#BFE8CE;color:var(--green-deep)}
 .freeship.done b{color:var(--green-deep)}
 .freeship.plain{justify-content:center;text-align:center;max-width:640px;margin-inline:auto}
+
+/* ===== شريط الإجراءات الثابت — موبايل بس =====
+   الجمهور كله جاي من فيسبوك وواتساب على الموبايل، والصفحات طويلة
+   (مناطق التوصيل 66 منطقة، التأمين 31 كارت). الزرار المهم لازم يفضل
+   في إيد العميل مع التمرير بدل ما يرجع لفوق يدوّر عليه.
+   ⚠️ الـ padding-bottom على الـ body مكتوب في CSS مش JS — لو اتحط
+   بالجافاسكريبت هيعمل إزاحة والـ CLS هيرجع من صفر. */
+.qbar{display:none}
+@media(max-width:640px){
+  /* الشريط 64px + مساحة أمان. الـ env() ضروري: على آيفون الشريط
+     بياخد padding زيادة من safe-area، ومن غيرها بيغطي آخر الفوتر. */
+  body{padding-bottom:calc(74px + env(safe-area-inset-bottom))}
+  .qbar{display:grid;grid-template-columns:repeat(3,1fr);position:fixed;inset-inline:0;bottom:0;z-index:60;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-top:1px solid var(--line);box-shadow:0 -2px 14px rgba(59,31,92,.07);padding-bottom:env(safe-area-inset-bottom)}
+  .qbar a{position:relative;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 4px 10px;text-decoration:none;color:var(--ink-soft);font-family:'Cairo',sans-serif;font-weight:700;font-size:.72rem}
+  .qbar a .i{font-size:1.2rem;line-height:1.1}
+  .qbar a.on{color:var(--purple-deep)}
+  .qbar a.on::before{content:"";position:absolute;top:0;inset-inline:22%;height:3px;border-radius:0 0 4px 4px;background:var(--purple)}
+  .qbar .qb{position:absolute;top:5px;inset-inline-end:calc(50% - 24px);background:var(--orange);color:#fff;font-family:'Tajawal',sans-serif;font-size:.62rem;font-weight:700;min-width:16px;height:16px;border-radius:9px;display:grid;place-items:center;padding:0 4px}
+}
