@@ -60,6 +60,7 @@ render();
 document.getElementById('items').addEventListener('click',function(e){var b=e.target.closest('button[data-id]');if(!b)return;var id=b.getAttribute('data-id'),c=getCart(),q=0;for(var i=0;i<c.length;i++)if(c[i].id===id)q=c[i].q;setQty(id,b.getAttribute('data-a')==='+'?q+1:q-1);render();});
 function showErr(m){var e=document.getElementById('err');e.textContent=m;e.style.display='';}
 document.getElementById('send').addEventListener('click',async function(){
+ track('begin_checkout',{currency:'EGP',value:getCart().reduce(function(t,i){var p=P(i.id);return t+(p?p.price*i.q:0)},0)});
  var btn=this,n=document.getElementById('n').value.trim(),t=document.getElementById('t').value.trim(),a=document.getElementById('a').value.trim(),nt=document.getElementById('nt').value.trim();
  document.getElementById('err').style.display='none';
  if(n.length<2){showErr('من فضلك اكتب اسمك.');return}
@@ -75,6 +76,7 @@ document.getElementById('send').addEventListener('click',async function(){
   if(!r.ok||!d.ok)throw new Error((d&&d.error)||('http_'+r.status));
   try{localStorage.removeItem('qcart')}catch(e){}
   document.getElementById('ph').style.display='none';
+  track('purchase',{transaction_id:d.orderNo,currency:'EGP',value:d.total});
   document.querySelector('section .wrap').innerHTML='<div class="receipt"><div class="tick">✓</div><h2>تم استلام طلبك</h2><p>فريق الصيدلية هيراجعه ويتصل بيك لتأكيد الموعد.</p><div class="no">'+d.orderNo+'</div><div class="meta">الإجمالي: <b>'+d.total+' جنيه</b></div><span class="cod">الدفع عند الاستلام</span><p style="margin-top:22px"><a href="/products">ارجع للمنتجات</a></p></div>';
   updateBadge();
  }catch(e){

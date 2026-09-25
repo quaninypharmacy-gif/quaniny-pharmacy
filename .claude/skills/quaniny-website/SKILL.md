@@ -154,6 +154,31 @@ grep -rl "quaniny.com" --include="*.html" --include="*.xml" --include="*.txt" . 
 - **صور الموقع WebP متضغوطة**: `logo.webp` ~2.5KB، `insurance.webp` ~16KB، `rily-gro.webp` ~21KB. متكبّرهاش من غير سبب
 - **الريبو مسطّح** عدا `/api` و`/insurance` و`/pharmacy`. إعادة تنظيم كاملة (`/pages`, `/styles`, `/assets`) **مؤجلة بقرار** — بتغيّر روابط مفهرسة. نفّذها بس مع rewrites مظبوطة وسبب حقيقي
 
+## القياس (Analytics) — والقاعدة اللي متتكسرش
+
+طبقة GA4 في `app.js`. **الـ `GA_ID` فاضي لحد ما صاحب الصيدلية يعمل الخاصية** — ولحد ساعتها السكربت **مش بيحمّل أي حاجة ولا بيبعت أي حاجة**.
+
+> ### 🔴 ممنوع تبعت أي بيانات شخصية في أي حدث
+>
+> لا اسم · لا تليفون عميل · لا عنوان · **لا اسم شركة التأمين** · ولا أي حاجة عن الروشتة أو صورها.
+>
+> دي بيانات صحية. إرسالها لجوجل **مخالف لسياسة جوجل نفسها** وغلط أخلاقيًا. بنقيس **إن الفعل حصل**، مش مين عمله ولا بيتعالج من إيه.
+>
+> `company` موجودة في الفورم وبتتبعت للصيدلية — **ومتتبعتش للقياس أبدًا.**
+
+| الحدث | فين | البيانات |
+|---|---|---|
+| `phone_click` / `whatsapp_click` / `map_click` | تفويض في `chrome()` — بيمسك كل الروابط في الموقع كله | رقم الصيدلية بس |
+| `add_to_cart` | `addToCart()` في `app.js` — بتغطي `/products` و`/product` | `item_id` + السعر |
+| `begin_checkout` · `purchase` | `cart.html` | القيمة + رقم الطلب |
+| `prescription_start` · `insurance_start` | `delivery.html` عند الفتح | مفيش |
+| `prescription_photo` | بعد الضغط | العدد بس |
+| `prescription_submit` · `insurance_submit` | بعد نجاح الإرسال | رقم الطلب بس |
+
+**للتجربة من غير GA_ID:** `window.__trackDebug = true` في الكونسول، والأحداث هتتطبع.
+
+**اتجرب فعليًا بمتصفح (سبتمبر 2026):** الـ8 أحداث كلها اشتغلت في مكانها، واختبار تسريب ببيانات حساسة متعمدة رجع **صفر تسريب**.
+
 ## تكاملات قائمة (متلمسهاش من غير داعي)
 
 - **Supabase** — جدول `orders` (order_no, kind: shop/prescription, care_type: daily/monthly, customer_name, phone, address, items jsonb, total, note, refill_due_on, refill_notified_at). Project: `ammsdrawszucoozamlvo`

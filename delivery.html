@@ -54,6 +54,7 @@
 <script>
 function qp(n){var m=new RegExp('[?&]'+n+'=([^&]*)').exec(location.search);return m?decodeURIComponent(m[1]):''}
 var mode=qp('mode')==='contract'?'contract':'rx',care='daily',photos=[];
+track(mode==='contract'?'insurance_start':'prescription_start',{});
 if(mode==='contract'){
  document.getElementById('ph').classList.remove('green');
  document.getElementById('phTitle').textContent='صرف التعاقدات بقى أسهل';
@@ -80,6 +81,7 @@ document.getElementById('thumbs').addEventListener('click',function(e){var b=e.t
 document.getElementById('file').addEventListener('change',async function(e){
  var fs=Array.prototype.slice.call(e.target.files||[]);
  for(var i=0;i<fs.length&&photos.length<3;i++){try{photos.push(await shrink(fs[i]))}catch(x){}}
+ track('prescription_photo',{count:photos.length});
  drawThumbs();e.target.value='';
 });
 function showErr(m){var e=document.getElementById('err');e.textContent=m;e.style.display='';}
@@ -112,6 +114,7 @@ document.getElementById('send').addEventListener('click',async function(){
   var j=await r.json().catch(function(){return{}});
   if(!r.ok||!j.ok)throw new Error((j&&j.error)||('http_'+r.status));
   document.getElementById('ph').style.display='none';
+  track(mode==='contract'?'insurance_submit':'prescription_submit',{transaction_id:j.orderNo});
   document.getElementById('box').innerHTML='<div class="receipt"><div class="tick">✓</div><h2>تم استلام طلبك</h2><p>فريق الصيدلية هيراجع الروشتة ويتصل بيك لتأكيد الطلب.</p><div class="no">'+j.orderNo+'</div><div class="meta">صور مستلمة: <b>'+j.photos+'</b>'+(j.refillDue?'<br>هنفكرك بإعادة الصرف قبل ما يخلص':'')+'</div><span class="cod">الدفع عند الاستلام</span><p style="margin-top:22px"><a href="/">ارجع للرئيسية</a></p></div>';
  }catch(e){
   btn.disabled=false;btn.textContent='إرسال فوري للصيدلية';
