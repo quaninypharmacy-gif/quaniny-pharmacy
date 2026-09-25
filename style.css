@@ -8,10 +8,10 @@
    =================================================================== */
 :root{
   /* ---- اللون ---- */
-  --bg:#FBF8FF;--surface:#fff;--surface-2:#F5F0FB;
+  --bg:#F8F7FB;--surface:#fff;--surface-2:#F3EFF8;
   --ink:#241934;--ink-soft:#5B4E70;--line:#E6DEF2;--line-strong:#D5C9E8;
 
-  --purple:#5B2A8C;--purple-deep:#3B1F5C;      /* أبيض فوقهم 9.75:1 و12.6:1 */
+  --purple:#5B2A8C;--purple-deep:#33204D;      /* مسحوبين من المرجع: #302040 فوتر · #381850 أزرار */
   --blue:#2B4C9B;--blue-deep:#1E3570;          /* أبيض فوقه 8.05:1 */
   --green:#157A42;--green-bright:#1FA95B;      /* أبيض فوق --green 5.39:1 */
 
@@ -88,14 +88,22 @@ nav.mainnav a.active{background:#fff;color:var(--purple-deep)}
 .hours-pill{display:inline-block;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);color:#fff;font-family:'Cairo',sans-serif;font-weight:700;font-size:var(--fs-sm);padding:9px var(--s4);border-radius:var(--r-pill)}
 
 .action-wrap{max-width:640px;margin:-26px auto 0;padding:0 clamp(18px,4vw,22px);position:relative;z-index:5}
-.act-card{display:flex;align-items:center;gap:var(--s3);border-radius:var(--r-lg);padding:var(--s5) var(--s4);margin-bottom:var(--s3);color:#fff;text-decoration:none;box-shadow:var(--shadow-md);transition:transform .18s,box-shadow .18s}
-.act-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
-/* أسطح مصمتة بدل التدرّجات — وده اللي صلّح التباين كمان:
-   الأبيض فوق التدرّج الأخضر القديم كان 2.60:1 وفوق البرتقالي 2.24:1. */
-.act-green{background:var(--green)}
-.act-blue{background:var(--blue)}
-.act-purple{background:var(--purple)}
-.act-feat{background:var(--orange-deep);padding:var(--s5) var(--s4);gap:var(--s4);margin-bottom:var(--s4);box-shadow:var(--shadow-lg)}
+.act-card{display:flex;align-items:center;gap:var(--s3);border-radius:var(--r-lg);padding:var(--s5) var(--s4);margin-bottom:var(--s3);text-decoration:none;transition:transform .18s,box-shadow .18s,border-color .18s}
+.act-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+/* أسطح باهتة بنص داكن — مأخوذة من مرجع التصميم. الباهت بيخلّي
+   الكارت المميّز المصمت هو اللحظة القوية الوحيدة فوق الطيّة،
+   بدل أربع كتل مشبعة بتتنافس على نفس الانتباه. */
+.act-card:not(.act-feat){background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow-sm)}
+.act-card:not(.act-feat) .act-txt .t{color:var(--purple-deep)}
+.act-card:not(.act-feat) .act-txt .s{color:var(--ink-soft)}
+.act-card:not(.act-feat) .act-arrow{color:var(--purple)}
+.act-card.act-green{background:#F0F8F3;border-color:#CBE5D6}
+.act-green .act-ico{background:#DCEFE4}
+.act-card.act-blue{background:#F1F5FB;border-color:#CFDCEF}
+.act-blue .act-ico{background:#DEE8F6}
+.act-card.act-purple{background:#F7F2FB;border-color:#E2D5EE}
+.act-purple .act-ico{background:#EBE0F4}
+.act-feat{background:var(--orange-deep);color:#fff;padding:var(--s5) var(--s4);gap:var(--s4);margin-bottom:var(--s4);box-shadow:var(--shadow-lg)}
 .act-feat .act-ico{width:62px;height:62px;font-size:1.9rem}
 .act-feat .act-txt .t{font-size:var(--fs-lg)}
 .act-tag{display:inline-block;background:rgba(255,255,255,.22);font-family:'Cairo',sans-serif;font-weight:700;font-size:var(--fs-xs);padding:3px var(--s3);border-radius:var(--r-pill);margin-bottom:6px}
