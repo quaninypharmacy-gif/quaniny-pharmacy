@@ -90,6 +90,7 @@ function updateBadge() {
 function chrome(active) {
   var nav = [
     ['/', 'الرئيسية'],
+    ['/chronic-care', 'العلاج الشهري'],
     ['/delivery', 'صرف الروشتة'],
     ['/insurance', 'التأمين'],
     ['/products', 'المنتجات'],
