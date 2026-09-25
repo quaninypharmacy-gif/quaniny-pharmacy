@@ -104,33 +104,6 @@ nav.mainnav a.active::after{content:"";position:absolute;inset-inline:var(--s3);
 .hero p.lead{font-size:var(--fs-lg);color:rgba(255,255,255,.94);max-width:540px;margin:0 auto var(--s5);line-height:1.65}
 .hours-pill{display:inline-block;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);color:#fff;font-family:'Cairo',sans-serif;font-weight:700;font-size:var(--fs-sm);padding:9px var(--s4);border-radius:var(--r-pill)}
 
-.action-wrap{max-width:640px;margin:-26px auto 0;padding:0 clamp(18px,4vw,22px);position:relative;z-index:5}
-.act-card{display:flex;align-items:center;gap:var(--s3);border-radius:var(--r-lg);padding:var(--s5) var(--s4);margin-bottom:var(--s3);text-decoration:none;transition:transform .18s,box-shadow .18s,border-color .18s}
-.act-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
-/* أسطح باهتة بنص داكن — مأخوذة من مرجع التصميم. الباهت بيخلّي
-   الكارت المميّز المصمت هو اللحظة القوية الوحيدة فوق الطيّة،
-   بدل أربع كتل مشبعة بتتنافس على نفس الانتباه. */
-.act-card:not(.act-feat){background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow-sm)}
-.act-card:not(.act-feat) .act-txt .t{color:var(--purple-deep)}
-.act-card:not(.act-feat) .act-txt .s{color:var(--ink-soft)}
-.act-card:not(.act-feat) .act-arrow{color:var(--purple)}
-.act-card.act-green{background:#F0F8F3;border-color:#CBE5D6}
-.act-green .act-ico{background:#DCEFE4}
-.act-card.act-blue{background:#F1F5FB;border-color:#CFDCEF}
-.act-blue .act-ico{background:#DEE8F6}
-.act-card.act-purple{background:#F7F2FB;border-color:#E2D5EE}
-.act-purple .act-ico{background:#EBE0F4}
-.act-feat{background:var(--orange-deep);color:#fff;padding:var(--s5) var(--s4);gap:var(--s4);margin-bottom:var(--s4);box-shadow:var(--shadow-lg)}
-.act-feat .act-ico{width:62px;height:62px;font-size:1.9rem}
-.act-feat .act-txt .t{font-size:var(--fs-lg)}
-.act-tag{display:inline-block;background:rgba(255,255,255,.22);font-family:'Cairo',sans-serif;font-weight:700;font-size:var(--fs-xs);padding:3px var(--s3);border-radius:var(--r-pill);margin-bottom:6px}
-.act-sep{text-align:center;color:var(--ink-soft);font-size:var(--fs-sm);margin:0 0 var(--s3)}
-.act-ico{width:56px;height:56px;border-radius:var(--r-md);background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:1.7rem;flex-shrink:0}
-.act-txt{flex:1;min-width:0}
-.act-txt .t{font-family:'Cairo',sans-serif;font-weight:800;font-size:var(--fs-base);display:block;margin-bottom:3px;line-height:1.4}
-.act-txt .s{font-size:var(--fs-sm);color:rgba(255,255,255,.93);display:block;line-height:1.55}
-.act-arrow{font-size:1.4rem;opacity:.75}
-
 .pagehead{background:var(--purple-deep);color:#fff;padding:clamp(30px,7vw,38px) 0 clamp(28px,6vw,34px);text-align:center}
 .pagehead.green{background:var(--green)}
 .pagehead.blue{background:var(--blue)}
@@ -370,3 +343,79 @@ a.ins-item:hover{border-color:var(--purple);transform:translateY(-2px);box-shado
   .qbar a.on::before{content:"";position:absolute;top:0;inset-inline:22%;height:3px;border-radius:0 0 var(--r-xs) var(--r-xs);background:var(--purple)}
   .qbar .qb{position:absolute;top:5px;inset-inline-end:calc(50% - 24px);background:var(--orange-deep);color:#fff;font-family:'Tajawal',sans-serif;font-size:.75rem;font-weight:700;min-width:19px;height:19px;border-radius:var(--r-pill);display:grid;place-items:center;padding:0 4px}
 }
+
+/* ===================================================================
+   أقسام الرئيسية — مبنية على مرجع التصميم
+   الصور لسه مش موصلة، فمكانها `.ph` بنسبة أبعاد ثابتة عشان الـ CLS
+   يفضل صفر قبل وبعد ما تتحط. لما توصل: بدّل الـ div بـ <img> بنفس
+   الـ width/height ومتغيّرش الحاوية.
+   =================================================================== */
+.ph{display:grid;place-items:center;border-radius:var(--r-lg);background:var(--surface-2);border:1px solid var(--line);font-size:2.6rem;color:var(--purple);overflow:hidden}
+.ph-hero{aspect-ratio:4/3;width:100%}
+.ph-promo{aspect-ratio:16/10;width:100%}
+
+.hero2{background:var(--surface-2);border-bottom:1px solid var(--line);padding:clamp(28px,6vw,52px) 0}
+.hero2-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(20px,4vw,44px);align-items:center}
+@media(max-width:860px){.hero2-grid{grid-template-columns:1fr;gap:var(--s5)}}
+.hero2-txt h1{font-size:clamp(1.55rem,4.2vw,2.5rem);line-height:1.3;margin-bottom:var(--s3);color:var(--purple-deep)}
+.hero2-txt .lead{font-size:var(--fs-lg);color:var(--ink-soft);margin:0 0 var(--s4);line-height:1.7}
+.hero2-txt .hours-pill{display:inline-flex;align-items:center;gap:var(--s2);background:var(--surface);border:1px solid var(--line-strong);color:var(--purple-deep);font-family:'Cairo',sans-serif;font-weight:700;font-size:var(--fs-sm);padding:10px var(--s4);border-radius:var(--r-pill);margin:0}
+.hero2-media{position:relative}
+.script-note{position:absolute;top:var(--s3);inset-inline-start:var(--s3);background:var(--surface);border:1px solid var(--orange-soft);color:var(--orange-ink);font-family:'Cairo',sans-serif;font-weight:800;font-size:var(--fs-sm);padding:6px var(--s3);border-radius:var(--r-pill);box-shadow:var(--shadow-sm)}
+
+/* أربع بوابات المسارات — كل واحدة بتينت خفيف وأيقونة ملوّنة */
+.pillars{padding:clamp(26px,5vw,40px) 0 0}
+.pill-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--s3)}
+@media(max-width:900px){.pill-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:400px){.pill-grid{grid-template-columns:1fr}}
+.pill{display:flex;flex-direction:column;gap:6px;padding:var(--s5) var(--s4) var(--s4);border-radius:var(--r-lg);border:1px solid var(--line);background:var(--surface);text-decoration:none;transition:transform .18s,box-shadow .18s,border-color .18s}
+.pill:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
+.pill-ico{width:52px;height:52px;border-radius:var(--r-md);display:grid;place-items:center;font-size:1.55rem;margin-bottom:var(--s2)}
+.pill-t{font-family:'Cairo',sans-serif;font-weight:800;font-size:var(--fs-base);color:var(--purple-deep);line-height:1.45}
+.pill-s{font-size:var(--fs-sm);color:var(--ink-soft);line-height:1.6;flex:1}
+.pill-go{margin-top:var(--s3);width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-size:var(--fs-md);background:var(--surface-2);color:var(--purple)}
+.pill-orange{background:#FDF4EC;border-color:#F2DCC6}
+.pill-orange .pill-ico{background:#FAE7D4}
+.pill-orange .pill-go{background:#FAE7D4;color:var(--orange-ink)}
+.pill-green{background:#F0F8F3;border-color:#CBE5D6}
+.pill-green .pill-ico,.pill-green .pill-go{background:#DCEFE4;color:var(--green)}
+.pill-blue{background:#F1F5FB;border-color:#CFDCEF}
+.pill-blue .pill-ico,.pill-blue .pill-go{background:#DEE8F6;color:var(--blue)}
+.pill-purple{background:#F7F2FB;border-color:#E2D5EE}
+.pill-purple .pill-ico,.pill-purple .pill-go{background:#EBE0F4;color:var(--purple)}
+
+/* بانرات عرضية: نص + صورة */
+.band{padding:clamp(24px,5vw,36px) 0}
+.promo{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(18px,3.5vw,36px);align-items:center;border-radius:var(--r-lg);border:1px solid var(--line);padding:clamp(20px,3.5vw,32px);margin-bottom:var(--s4)}
+.promo:last-child{margin-bottom:0}
+@media(max-width:760px){.promo{grid-template-columns:1fr}}
+.promo-purple{background:#F7F2FB;border-color:#E2D5EE}
+.promo-mint{background:#F0F8F3;border-color:#CBE5D6}
+.promo-lav{background:#F4F2FA;border-color:#DED8EE}
+.promo-txt h2{display:flex;align-items:center;gap:var(--s2);font-size:clamp(1.15rem,2.8vw,1.5rem);margin-bottom:var(--s3)}
+.promo-ico{font-size:1.2em}
+.promo-txt p{color:var(--ink-soft);margin:0 0 var(--s4);line-height:1.75}
+
+.btn{display:inline-flex;align-items:center;gap:var(--s2);min-height:46px;padding:0 var(--s5);border-radius:var(--r-sm);font-family:'Cairo',sans-serif;font-weight:700;font-size:var(--fs-md);text-decoration:none;transition:background .18s,border-color .18s,color .18s}
+.btn.sm{min-height:40px;padding:0 var(--s4);font-size:var(--fs-sm)}
+.btn-solid{background:var(--purple-deep);color:#fff}
+.btn-solid:hover{background:var(--purple)}
+.btn-outline{background:var(--surface);color:var(--purple-deep);border:1px solid var(--line-strong)}
+.btn-outline:hover{border-color:var(--purple);color:var(--purple)}
+
+.sec-head{display:flex;flex-wrap:wrap;gap:var(--s3) var(--s4);align-items:flex-end;justify-content:space-between;margin-bottom:var(--s5)}
+.sec-head h2{font-size:clamp(1.2rem,3vw,1.6rem);margin-bottom:6px}
+.sec-head p{color:var(--ink-soft);font-size:var(--fs-md);margin:0}
+.sec-more{display:inline-flex;align-items:center;gap:6px;padding:9px 0;font-family:'Cairo',sans-serif;font-weight:700;font-size:var(--fs-sm);color:var(--purple);text-decoration:none}
+.sec-more:hover{text-decoration:underline;text-underline-offset:4px}
+
+.br-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s3)}
+@media(max-width:780px){.br-grid{grid-template-columns:1fr}}
+.br-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:var(--s5) var(--s4);display:flex;flex-direction:column;align-items:flex-start;gap:6px;text-decoration:none}
+.br-pin{font-size:1.4rem}
+.br-card h3{font-size:var(--fs-base)}
+.br-card p{color:var(--ink-soft);font-size:var(--fs-sm);margin:0 0 var(--s3);line-height:1.6}
+.br-card .btn{margin-top:auto}
+a.br-map{background:var(--surface-2);border-style:dashed;justify-content:center;align-items:center;text-align:center;transition:border-color .18s}
+a.br-map:hover{border-color:var(--purple)}
+a.br-map p{margin-bottom:0}
