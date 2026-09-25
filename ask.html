@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>اسأل الصيدلي | صيدلية كوانيني</title>
 <meta name="description" content="اسأل صيدلي كوانيني عن دواء أو جرعة أو بديل أو توافر منتج — سؤالك بيوصل على واتساب وصيدلي بيرد خلال مواعيد العمل.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/style.css">
 <link rel="icon" href="/logo.webp" type="image/webp">
@@ -17,8 +19,10 @@
 <meta property="og:description" content="اسأل صيدلي كوانيني عن دواء أو جرعة أو بديل أو توافر منتج — سؤالك بيوصل على واتساب وصيدلي بيرد خلال مواعيد العمل.">
 <meta property="og:image" content="https://quaniny.com/logo.webp">
 <meta name="twitter:card" content="summary">
+<script src="/app.js"></script>
 </head>
 <body>
+<script>chrome('/ask');</script>
 <main>
 <div class="pagehead"><div class="wrap"><h1>اسأل الصيدلي</h1><p>اكتب سؤالك وهيوصلنا على واتساب مباشرة، وصيدلي هيرد عليك خلال مواعيد العمل.</p></div></div>
 <section><div class="wrap">
@@ -31,9 +35,7 @@
 <div class="disclaimer">ملحوظة مهمة: الإجابات هنا إرشادية وما تغنيش عن الكشف الطبي. لو فيه أعراض شديدة أو حالة طارئة، اتوجه للطبيب أو أقرب مستشفى فورًا.</div>
 </div></section>
 </main>
-<script src="/app.js"></script>
 <script>
-chrome('/ask');
 document.getElementById('send').addEventListener('click',function(){
  var n=document.getElementById('name').value.trim(),q=document.getElementById('q').value.trim();
  if(!q){alert('من فضلك اكتب سؤالك الأول.');return}

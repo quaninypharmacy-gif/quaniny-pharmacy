@@ -32,7 +32,13 @@ function updateBadge() { var e = document.getElementById('cartCount'); if (e) { 
 
 /* ---- الهيدر والنav والفوتر المشتركين بين كل الصفحات ----
    المسارات كلها root-absolute (بتبدأ بـ /) عشان الصفحات اللي جوه
-   مجلدات زي /insurance/* تشتغل صح. cleanUrls شغال في vercel.json. */
+   مجلدات زي /insurance/* تشتغل صح. cleanUrls شغال في vercel.json.
+
+   ⚠️ chrome() لازم تتنادى في *أول* الـ body، مش في آخره.
+   كانت متنادية في الآخر، فالهيدر كان بيتحقن بعد ما المحتوى اترسم
+   وبينزّل الصفحة كلها 123px — CLS قياسه كان 0.146 على كل صفحة
+   (عتبة جوجل للأخضر 0.1). دلوقتي الهيدر بيتحط والـ body لسه فاضي،
+   فمفيش إزاحة أصلًا. */
 function chrome(active) {
   var nav = [
     ['/', 'الرئيسية'],
@@ -48,12 +54,17 @@ function chrome(active) {
   }
   document.body.insertAdjacentHTML('afterbegin',
     '<header><div class="wrap header-row">' +
-    '<a class="brand" href="/"><img src="/logo.webp" alt="شعار صيدلية كوانيني"><span class="brand-name">صيدلية كوانيني</span></a>' +
+    '<a class="brand" href="/"><img src="/logo.webp" width="40" height="40" alt="شعار صيدلية كوانيني"><span class="brand-name">صيدلية كوانيني</span></a>' +
     '<div class="header-right"><a class="header-phone" href="tel:' + PHONE + '">' + PHONE + '</a>' +
     '<a class="cart-link" href="/cart">السلة<span class="cart-count" id="cartCount">0</span></a></div>' +
     '</div></header><nav class="mainnav"><div class="wrap">' + links + '</div></nav>');
-  document.body.insertAdjacentHTML('beforeend',
-    '<footer><div class="wrap"><div style="margin-bottom:10px">' + links.replace(/ class="active"/g, '') + '</div>' +
-    '© 2026 صيدلية كوانيني — جميع الحقوق محفوظة</div></footer>');
   updateBadge();
+
+  /* الفوتر لازم يستنى باقي الصفحة تتقرا — لو اتحط دلوقتي بـ beforeend
+     هيقع فوق المحتوى لأن الـ body لسه فاضي. */
+  document.addEventListener('DOMContentLoaded', function () {
+    document.body.insertAdjacentHTML('beforeend',
+      '<footer><div class="wrap"><div style="margin-bottom:10px">' + links.replace(/ class="active"/g, '') + '</div>' +
+      '© 2026 صيدلية كوانيني — جميع الحقوق محفوظة</div></footer>');
+  });
 }

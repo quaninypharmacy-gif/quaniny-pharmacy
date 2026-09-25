@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>منتجات العناية والتجميل | صيدلية كوانيني</title>
 <meta name="description" content="منتجات العناية بالبشرة والشعر من صيدلية كوانيني — اطلب أونلاين، توصيل لباب البيت، والدفع عند الاستلام.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/style.css">
 <link rel="icon" href="/logo.webp" type="image/webp">
@@ -17,15 +19,15 @@
 <meta property="og:description" content="منتجات العناية بالبشرة والشعر من صيدلية كوانيني — اطلب أونلاين، توصيل لباب البيت، والدفع عند الاستلام.">
 <meta property="og:image" content="https://quaniny.com/logo.webp">
 <meta name="twitter:card" content="summary">
+<script src="/app.js"></script>
 </head>
 <body>
+<script>chrome('/products');</script>
 <main>
 <div class="pagehead"><div class="wrap"><h1>منتجات العناية والتجميل</h1><p>اختار، ضيف للسلة، وأكّد الطلب — توصيل لحد باب البيت.</p></div></div>
 <section><div class="wrap"><div class="prod-grid" id="grid"></div></div></section>
 </main>
-<script src="/app.js"></script>
 <script>
-chrome('/products');
 var g=document.getElementById('grid'),h='';
 for(var i=0;i<PRODUCTS.length;i++){var p=PRODUCTS[i];
 h+='<div class="prod-card"><a class="thumb" href="/product?id='+p.id+'"><img src="'+p.img+'" alt="'+p.name+'" loading="lazy"></a><div class="prod-body"><div class="prod-brand">'+p.brand+'</div><a class="prod-name" href="/product?id='+p.id+'">'+p.name+'</a><div class="prod-price">'+p.price+' جنيه</div><button class="add-btn" data-id="'+p.id+'">أضف للسلة</button></div></div>';}
