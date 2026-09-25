@@ -1,126 +1,569 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>صرف الروشتة والتعاقدات بالتوصيل | صيدلية كوانيني</title>
-<meta name="description" content="صوّر روشتتك وابعتها لصيدلية كوانيني، ونوصلك في شبين القناطر — صرف يومي، علاج شهري مزمن، وتعاقدات تأمين. الدفع عند الاستلام.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/style.css">
-<link rel="icon" href="/logo.webp" type="image/webp">
-<link rel="canonical" href="https://quaniny.com/delivery">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="صيدلية كوانيني">
-<meta property="og:locale" content="ar_EG">
-<meta property="og:url" content="https://quaniny.com/delivery">
-<meta property="og:title" content="صرف الروشتة والتعاقدات بالتوصيل | صيدلية كوانيني">
-<meta property="og:description" content="صوّر روشتتك وابعتها لصيدلية كوانيني، ونوصلك في شبين القناطر — صرف يومي، علاج شهري مزمن، وتعاقدات تأمين. الدفع عند الاستلام.">
-<meta property="og:image" content="https://quaniny.com/logo.webp">
-<meta name="twitter:card" content="summary">
-<script src="/app.js"></script>
-</head>
-<body>
-<script>chrome('/delivery');</script>
-<main>
-<div class="pagehead green" id="ph"><div class="wrap"><h1 id="phTitle">صوّر الروشتة — نوصلك في أسرع وقت</h1><p id="phSub">ارفع صورة الروشتة واكتب عنوانك، وهنتصل بيك لتأكيد الطلب. بنوصّل في 66 منطقة بالقليوبية.</p></div></div>
-<section>
-<div class="wrap" style="max-width:640px"><div class="links-row" style="margin:0 0 14px"><a href="/chronic-care">بتاخد علاج شهري مزمن؟ اعرف إزاي بنفكّرك</a></div><div class="freeship plain" id="fs"><span class="ico">🛵</span><span class="txt">التوصيل <b>مجاني</b> للطلبات من <b>200 جنيه</b> فأكتر</span></div></div><div class="wrap" style="max-width:640px" id="box">
-<div class="form-card">
-<div class="field"><label>نوع الصرف</label>
-<div class="care-grid">
-<div class="care-opt sel" data-care="daily"><span class="t">صرف يومي</span><span class="s">روشتة عادية أو حالة عارضة</span></div>
-<div class="care-opt" data-care="monthly"><span class="t">صرف شهري</span><span class="s">علاج مزمن مستمر</span></div>
-</div></div>
-<div class="field" id="coField" style="display:none"><label for="co">شركة التأمين</label><input id="co" type="text" placeholder="مثال: MetLife"></div>
-<div class="field"><label>صورة الروشتة (لغاية 3 صور)</label>
-<label class="photo-btn" for="file">📷 اضغط لتصوير أو اختيار صورة</label>
-<input id="file" type="file" accept="image/*" multiple style="display:none">
-<div class="thumbs" id="thumbs"></div></div>
-<div class="field"><label for="n">الاسم</label><input id="n" type="text" autocomplete="name"></div>
-<div class="field"><label for="t">رقم التليفون</label><input id="t" type="tel" inputmode="numeric" autocomplete="tel" placeholder="01xxxxxxxxx"></div>
-<div class="field"><label for="a">العنوان بالتفصيل</label><textarea id="a" placeholder="المنطقة، الشارع، علامة مميزة"></textarea></div>
-<div class="field"><label for="nt">ملاحظات (اختياري)</label><textarea id="nt" style="min-height:70px" placeholder="لو مفيش صورة، اكتب أسماء الأدوية هنا"></textarea></div>
-<label class="consent"><input type="checkbox" id="cs"><span>موافق على إرسال صورة الروشتة وبياناتي لفريق صيدلية كوانيني لتنفيذ الطلب فقط.</span></label>
-<button class="submit-btn" id="send">إرسال فوري للصيدلية</button>
-<a class="wa-btn" id="wa" href="#">أو أرسل على واتساب</a>
-<p class="form-hint">الإرسال الفوري بيوصل للصيدلية علطول من غير ما تكلم حد. الدفع عند الاستلام.<br><a href="/delivery-areas">شوف مناطق التوصيل</a></p>
-<div class="err" id="err" style="display:none"></div>
-</div>
-<div class="disclaimer">ملحوظة: صرف الأدوية بيتم طبقًا للروشتة وبمراجعة الصيدلي. الأدوية اللي بتحتاج روشتة ما بتتصرفش من غيرها.</div>
-</div></section>
-</main>
-<script>
-function qp(n){var m=new RegExp('[?&]'+n+'=([^&]*)').exec(location.search);return m?decodeURIComponent(m[1]):''}
-var mode=qp('mode')==='contract'?'contract':'rx',care='daily',photos=[];
-track(mode==='contract'?'insurance_start':'prescription_start',{});
-if(mode==='contract'){
- document.getElementById('ph').classList.remove('green');
- document.getElementById('phTitle').textContent='صرف التعاقدات بقى أسهل';
- document.getElementById('phSub').textContent='صوّر روشتة التأمين واكتب شركتك، وهنراجع التغطية ونتصل بيك.';
- document.getElementById('coField').style.display='';
- document.getElementById('fs').innerHTML='<span class="ico">🛵</span><span class="txt">عرض التوصيل المجاني للطلبات من 200 جنيه <b>مش شامل روشتات التأمين</b>.</span>';
- var co=qp('company');if(co)document.getElementById('co').value=co;
- document.getElementById('send').classList.add('purple');
-}
-document.querySelectorAll('.care-opt').forEach(function(el){el.addEventListener('click',function(){document.querySelectorAll('.care-opt').forEach(function(x){x.classList.remove('sel')});el.classList.add('sel');care=el.getAttribute('data-care');});});
-function shrink(file){return new Promise(function(res,rej){
- var fr=new FileReader();
- fr.onload=function(){var im=new Image();im.onload=function(){
-  var s=Math.min(1,1000/Math.max(im.width,im.height)),c=document.createElement('canvas');
-  c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);
-  c.getContext('2d').drawImage(im,0,0,c.width,c.height);
-  res(c.toDataURL('image/jpeg',0.6));
- };im.onerror=rej;im.src=fr.result};
- fr.onerror=rej;fr.readAsDataURL(file);});}
-function drawThumbs(){var t=document.getElementById('thumbs'),h='';
- for(var i=0;i<photos.length;i++){h+='<div class="th"><img src="'+photos[i]+'" alt=""><button data-i="'+i+'">×</button></div>'}
- t.innerHTML=h;}
-document.getElementById('thumbs').addEventListener('click',function(e){var b=e.target.closest('button[data-i]');if(!b)return;photos.splice(+b.getAttribute('data-i'),1);drawThumbs();});
-document.getElementById('file').addEventListener('change',async function(e){
- var fs=Array.prototype.slice.call(e.target.files||[]);
- for(var i=0;i<fs.length&&photos.length<3;i++){try{photos.push(await shrink(fs[i]))}catch(x){}}
- track('prescription_photo',{count:photos.length});
- drawThumbs();e.target.value='';
-});
-function showErr(m){var e=document.getElementById('err');e.textContent=m;e.style.display='';}
-function collect(){
- return {name:document.getElementById('n').value.trim(),phone:document.getElementById('t').value.trim(),address:document.getElementById('a').value.trim(),note:document.getElementById('nt').value.trim(),company:document.getElementById('co').value.trim()};
-}
-document.getElementById('wa').addEventListener('click',function(e){
- e.preventDefault();var d=collect();
- var m=(mode==='contract'?'طلب صرف تعاقدات':'طلب صرف روشتة')+'\n';
- if(d.name)m+='الاسم: '+d.name+'\n';
- if(d.phone)m+='التليفون: '+d.phone+'\n';
- if(d.address)m+='العنوان: '+d.address+'\n';
- if(mode==='contract'&&d.company)m+='شركة التأمين: '+d.company+'\n';
- m+='نوع الصرف: '+(care==='monthly'?'شهري (مزمن)':'يومي')+'\n';
- if(d.note)m+='ملاحظات: '+d.note+'\n';
- m+='\n(هرفق صورة الروشتة هنا)';
- window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(m),'_blank');
-});
-document.getElementById('send').addEventListener('click',async function(){
- var btn=this,d=collect();
- document.getElementById('err').style.display='none';
- if(d.name.length<2){showErr('من فضلك اكتب اسمك.');return}
- if(!/^0?1[0-9]{9}$/.test(d.phone.replace(/\s|-/g,''))){showErr('رقم التليفون مش مظبوط.');return}
- if(d.address.length<6){showErr('من فضلك اكتب العنوان بالتفصيل.');return}
- if(!photos.length&&!d.note){showErr('ارفع صورة الروشتة أو اكتب الأدوية في الملاحظات.');return}
- if(!document.getElementById('cs').checked){showErr('لازم توافق على إرسال البيانات للصيدلية.');return}
- btn.disabled=true;btn.textContent='جاري الإرسال...';
- try{
-  var r=await fetch('/api/prescription',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:d.name,phone:d.phone,address:d.address,note:d.note,company:d.company,mode:mode,careType:care,photos:photos,consent:true})});
-  var j=await r.json().catch(function(){return{}});
-  if(!r.ok||!j.ok)throw new Error((j&&j.error)||('http_'+r.status));
-  document.getElementById('ph').style.display='none';
-  track(mode==='contract'?'insurance_submit':'prescription_submit',{transaction_id:j.orderNo});
-  document.getElementById('box').innerHTML='<div class="receipt"><div class="tick">✓</div><h2>تم استلام طلبك</h2><p>فريق الصيدلية هيراجع الروشتة ويتصل بيك لتأكيد الطلب.</p><div class="no">'+j.orderNo+'</div><div class="meta">صور مستلمة: <b>'+j.photos+'</b>'+(j.refillDue?'<br>هنفكرك بإعادة الصرف قبل ما يخلص':'')+'</div><span class="cod">الدفع عند الاستلام</span><p style="margin-top:22px"><a href="/">ارجع للرئيسية</a></p></div>';
- }catch(e){
-  btn.disabled=false;btn.textContent='إرسال فوري للصيدلية';
-  showErr('معلش، حصلت مشكلة في الإرسال ('+(e.message||'')+'). جرّب واتساب أو اتصل على '+PHONE+'.');
- }
-});
-</script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>صرف الروشتة والتعاقدات بالتوصيل | صيدلية كوانيني</title>
+    <meta
+      name="description"
+      content="صوّر روشتتك وابعتها لصيدلية كوانيني، ونوصلك في شبين القناطر — صرف يومي، علاج شهري مزمن، وتعاقدات تأمين. الدفع عند الاستلام."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&family=Tajawal:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="/design.css" />
+    <link rel="icon" href="/logo.webp" type="image/webp" />
+    <link rel="canonical" href="https://quaniny.com/delivery" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="صيدلية كوانيني" />
+    <meta property="og:locale" content="ar_EG" />
+    <meta property="og:url" content="https://quaniny.com/delivery" />
+    <meta
+      property="og:title"
+      content="صرف الروشتة والتعاقدات بالتوصيل | صيدلية كوانيني"
+    />
+    <meta
+      property="og:description"
+      content="صوّر روشتتك وابعتها لصيدلية كوانيني، ونوصلك في شبين القناطر — صرف يومي، علاج شهري مزمن، وتعاقدات تأمين. الدفع عند الاستلام."
+    />
+    <meta property="og:image" content="https://quaniny.com/logo.webp" />
+    <meta name="twitter:card" content="summary" />
+    <script src="/app.js"></script>
+    <script src="/design.js" defer></script>
+  </head>
+  <body class="redesign prescription-page">
+    <script>
+      chrome("/delivery");
+    </script>
+    <main>
+      <section class="visual-hero" id="ph">
+        <img
+          class="hero-photo"
+          src="/assets/pharmacist.webp"
+          alt="صيدلانية تراجع الأدوية داخل الصيدلية"
+          width="1536"
+          height="1024"
+          fetchpriority="high"
+        />
+        <div class="wrap hero-layout">
+          <div class="hero-copy">
+            <h1 id="phTitle">صرف روشتتك الطبية<br />بكل سهولة وأمان</h1>
+            <p id="phSub">
+              ارسل روشتتك عبر الواتساب أو من خلال الموقع، وإحنا نراجعها ونجهّزها
+              ونتواصل معاك في أسرع وقت.
+            </p>
+            <div class="hero-assurances">
+              <span
+                ><svg class="icon" aria-hidden="true">
+                  <use href="/assets/icons.svg#pill"></use>
+                </svg>
+                مراجعة الأدوية</span
+              ><span
+                ><svg class="icon" aria-hidden="true">
+                  <use href="/assets/icons.svg#clock"></use>
+                </svg>
+                سرعة في التجهيز</span
+              ><span
+                ><svg class="icon" aria-hidden="true">
+                  <use href="/assets/icons.svg#shield"></use>
+                </svg>
+                متابعة مع الصيدلي</span
+              >
+            </div>
+            <a class="btn btn-solid" href="#request-form"
+              >ابدأ الآن
+              <svg class="icon" aria-hidden="true">
+                <use href="/assets/icons.svg#arrow"></use></svg
+            ></a>
+          </div>
+          <span class="hero-motto">صحتك<br />أولويتنا<span></span></span>
+        </div>
+      </section>
+      <section class="design-section wrap">
+        <div class="steps-panel">
+          <div class="center-head">
+            <h2>كيف تصرف روشتتك؟</h2>
+            <p>بخطوات بسيطة وسريعة، وفّر وقتك وجهدك.</p>
+          </div>
+          <div class="feature-grid step-grid">
+            <article class="feature-card tone-0">
+              <span class="step-number">1</span
+              ><span class="feature-icon"
+                ><svg class="icon" aria-hidden="true">
+                  <use href="/assets/icons.svg#clipboard"></use></svg
+              ></span>
+              <h3>أرسل الروشتة</h3>
+              <p>عبر واتساب أو من خلال موقعنا الإلكتروني.</p>
+            </article>
+            <article class="feature-card tone-1">
+              <span class="step-number">2</span
+              ><span class="feature-icon"
+                ><svg class="icon" aria-hidden="true">
+                  <use href="/assets/icons.svg#person"></use></svg
+              ></span>
+              <h3>تأكيد الطلب</h3>
+              <p>نتواصل معك للتأكد من البيانات والتكلفة.</p>
+            </article>
+            <article class="feature-card tone-2">
+              <span class="step-number">3</span
+              ><span class="feature-icon"
+                ><svg class="icon" aria-hidden="true">
+                  <use href="/assets/icons.svg#box"></use></svg
+              ></span>
+              <h3>تجهيز الأدوية</h3>
+              <p>نجهّز طلبك بعد مراجعة الصيدلي.</p>
+            </article>
+            <article class="feature-card tone-3">
+              <span class="step-number">4</span
+              ><span class="feature-icon"
+                ><svg class="icon" aria-hidden="true">
+                  <use href="/assets/icons.svg#truck"></use></svg
+              ></span>
+              <h3>الصرف والتوصيل</h3>
+              <p>استلم من الصيدلية أو اطلب التوصيل لمنزلك.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="design-section wrap">
+        <div class="visual-promo">
+          <img
+            src="/assets/prescription.webp"
+            alt=""
+            width="1536"
+            height="1024"
+            loading="lazy"
+          />
+          <div class="promo-copy">
+            <h2>أرسل روشتتك عبر الواتساب</h2>
+            <p>
+              صوّر الروشتة أو أرسلها كملف PDF، وسنتواصل معك لتأكيد تفاصيل الطلب.
+            </p>
+            <a class="btn btn-outline" href="https://wa.me/201036181518"
+              >تواصل معنا الآن
+              <svg class="icon" aria-hidden="true">
+                <use href="/assets/icons.svg#arrow"></use></svg
+            ></a>
+          </div>
+        </div>
+      </section>
+      <section class="design-section wrap">
+        <details class="rx-form" id="request-form">
+          <summary>
+            <svg class="icon" aria-hidden="true">
+              <use href="/assets/icons.svg#clipboard"></use>
+            </svg>
+            ارفع روشتتك من الموقع <span>ابدأ طلبك هنا</span>
+          </summary>
+          <div class="wrap" style="max-width: 640px">
+            <div class="links-row" style="margin: 0 0 14px">
+              <a href="/chronic-care"
+                >بتاخد علاج شهري مزمن؟ اعرف إزاي بنفكّرك</a
+              >
+            </div>
+            <div class="freeship plain" id="fs">
+              <span class="ico">🛵</span
+              ><span class="txt"
+                >التوصيل <b>مجاني</b> للطلبات من <b>200 جنيه</b> فأكتر</span
+              >
+            </div>
+          </div>
+          <div class="wrap" style="max-width: 640px" id="box">
+            <div class="form-card">
+              <div class="field">
+                <label>نوع الصرف</label>
+                <div class="care-grid">
+                  <button
+                    type="button"
+                    class="care-opt sel"
+                    aria-pressed="true"
+                    data-care="daily"
+                  >
+                    <span class="t">صرف يومي</span
+                    ><span class="s">روشتة عادية أو حالة عارضة</span>
+                  </button>
+                  <button
+                    type="button"
+                    class="care-opt"
+                    aria-pressed="false"
+                    data-care="monthly"
+                  >
+                    <span class="t">صرف شهري</span
+                    ><span class="s">علاج مزمن مستمر</span>
+                  </button>
+                </div>
+              </div>
+              <div class="field" id="coField" style="display: none">
+                <label for="co">شركة التأمين</label
+                ><input id="co" type="text" placeholder="مثال: MetLife" />
+              </div>
+              <div class="field">
+                <label>صورة الروشتة (لغاية 3 صور)</label>
+                <label class="photo-btn" for="file"
+                  >📷 اضغط لتصوير أو اختيار صورة</label
+                >
+                <input
+                  id="file"
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  class="visually-hidden"
+                />
+                <div class="thumbs" id="thumbs"></div>
+              </div>
+              <div class="field">
+                <label for="n">الاسم</label
+                ><input id="n" type="text" autocomplete="name" />
+              </div>
+              <div class="field">
+                <label for="t">رقم التليفون</label
+                ><input
+                  id="t"
+                  type="tel"
+                  inputmode="numeric"
+                  autocomplete="tel"
+                  placeholder="01xxxxxxxxx"
+                />
+              </div>
+              <div class="field">
+                <label for="a">العنوان بالتفصيل</label
+                ><textarea
+                  id="a"
+                  placeholder="المنطقة، الشارع، علامة مميزة"
+                ></textarea>
+              </div>
+              <div class="field">
+                <label for="nt">ملاحظات (اختياري)</label
+                ><textarea
+                  id="nt"
+                  style="min-height: 70px"
+                  placeholder="لو مفيش صورة، اكتب أسماء الأدوية هنا"
+                ></textarea>
+              </div>
+              <label class="consent"
+                ><input type="checkbox" id="cs" /><span
+                  >موافق على إرسال صورة الروشتة وبياناتي لفريق صيدلية كوانيني
+                  لتنفيذ الطلب فقط.</span
+                ></label
+              >
+              <button class="submit-btn" id="send">إرسال فوري للصيدلية</button>
+              <a class="wa-btn" id="wa" href="#">أو أرسل على واتساب</a>
+              <p class="form-hint">
+                الإرسال الفوري بيوصل للصيدلية علطول من غير ما تكلم حد. الدفع عند
+                الاستلام.<br /><a href="/delivery-areas">شوف مناطق التوصيل</a>
+              </p>
+              <div
+                role="alert"
+                class="err"
+                id="err"
+                style="display: none"
+              ></div>
+            </div>
+            <div class="disclaimer">
+              ملحوظة: صرف الأدوية بيتم طبقًا للروشتة وبمراجعة الصيدلي. الأدوية
+              اللي بتحتاج روشتة ما بتتصرفش من غيرها.
+            </div>
+          </div>
+        </details>
+      </section>
+      <section class="design-section wrap">
+        <div class="trust-strip">
+          <div>
+            <svg class="icon" aria-hidden="true">
+              <use href="/assets/icons.svg#headset"></use></svg
+            ><span>دعم ومتابعة خلال مواعيد العمل</span>
+          </div>
+          <div>
+            <svg class="icon" aria-hidden="true">
+              <use href="/assets/icons.svg#clock"></use></svg
+            ><span>سرعة في التجهيز والصرف</span>
+          </div>
+          <div>
+            <svg class="icon" aria-hidden="true">
+              <use href="/assets/icons.svg#card"></use></svg
+            ><span>الدفع عند الاستلام</span>
+          </div>
+          <div>
+            <svg class="icon" aria-hidden="true">
+              <use href="/assets/icons.svg#shield"></use></svg
+            ><span>الصرف بمراجعة الصيدلي</span>
+          </div>
+        </div>
+      </section>
+      <section class="design-section wrap">
+        <div class="insurance-partners">
+          <div>
+            <h2>متعاقدون مع شركات التأمين</h2>
+            <p>صرف روشتتك التأمينية بسهولة</p>
+            <a class="btn btn-outline" href="/insurance"
+              >تعرّف على شركات التأمين
+              <svg class="icon" aria-hidden="true">
+                <use href="/assets/icons.svg#arrow"></use></svg
+            ></a>
+          </div>
+          <img
+            src="/insurance.webp"
+            alt="شركات التأمين المتعاقدة مع الصيدلية"
+            width="760"
+            height="272"
+            loading="lazy"
+          />
+        </div>
+      </section>
+      <section class="design-section wrap">
+        <div class="sec-head">
+          <div>
+            <h2>الأسئلة الشائعة</h2>
+            <p>إجابات على أهم الأسئلة اللي تهمك</p>
+          </div>
+        </div>
+        <div class="faq">
+          <details>
+            <summary>هل يمكن صرف روشتة بدون بطاقة التأمين؟</summary>
+            <p>
+              ممكن تصرف بشكل عادي خارج التأمين. للصرف بالتأمين، نحتاج الكارنيه
+              والروشتة لمراجعة التغطية.
+            </p>
+          </details>
+          <details>
+            <summary>كم تستغرق مدة تجهيز الروشتة؟</summary>
+            <p>بنتواصل معاك لتأكيد توفر الأصناف وميعاد التجهيز والتوصيل.</p>
+          </details>
+          <details>
+            <summary>هل يمكن التوصيل إلى المنزل؟</summary>
+            <p>
+              أيوة، بنوصّل للمناطق الموضحة في صفحة مناطق التوصيل. اتصل بينا
+              لتأكيد منطقتك.
+            </p>
+          </details>
+          <details>
+            <summary>ما المستندات المطلوبة لصرف روشتة التأمين؟</summary>
+            <p>
+              ابعت صورة واضحة للروشتة وكارنيه التأمين. فريقنا هيوضح لك أي
+              موافقات إضافية حسب شركتك.
+            </p>
+          </details>
+        </div>
+      </section>
+      <section class="design-section wrap">
+        <div class="support-strip">
+          <div>
+            <svg class="icon" aria-hidden="true">
+              <use href="/assets/icons.svg#headset"></use>
+            </svg>
+            <h2>محتاج مساعدة؟</h2>
+            <p>فريق خدمة العملاء جاهز لخدمتك</p>
+          </div>
+          <a href="tel:01036181518"
+            ><svg class="icon" aria-hidden="true">
+              <use href="/assets/icons.svg#phone"></use>
+            </svg>
+            اتصل بنا <b dir="ltr">01036181518</b></a
+          ><a href="https://wa.me/201036181518" target="_blank" rel="noopener"
+            ><svg class="icon" aria-hidden="true">
+              <use href="/assets/icons.svg#chat"></use>
+            </svg>
+            تواصل معنا عبر واتساب <b dir="ltr">01036181518</b></a
+          >
+        </div>
+      </section>
+    </main>
+    <script>
+      function qp(n) {
+        var m = new RegExp("[?&]" + n + "=([^&]*)").exec(location.search);
+        return m ? decodeURIComponent(m[1]) : "";
+      }
+      var mode = qp("mode") === "contract" ? "contract" : "rx",
+        care = "daily",
+        photos = [];
+      track(mode === "contract" ? "insurance_start" : "prescription_start", {});
+      if (mode === "contract") {
+        document.getElementById("ph").classList.remove("green");
+        document.getElementById("phTitle").textContent =
+          "صرف التعاقدات بقى أسهل";
+        document.getElementById("phSub").textContent =
+          "صوّر روشتة التأمين واكتب شركتك، وهنراجع التغطية ونتصل بيك.";
+        document.getElementById("coField").style.display = "";
+        document.getElementById("fs").innerHTML =
+          '<span class="ico">🛵</span><span class="txt">عرض التوصيل المجاني للطلبات من 200 جنيه <b>مش شامل روشتات التأمين</b>.</span>';
+        var co = qp("company");
+        if (co) document.getElementById("co").value = co;
+        document.getElementById("send").classList.add("purple");
+      }
+      document.querySelectorAll(".care-opt").forEach(function (el) {
+        el.addEventListener("click", function () {
+          document.querySelectorAll(".care-opt").forEach(function (x) {
+            x.classList.remove("sel");
+            x.setAttribute("aria-pressed", "false");
+          });
+          el.classList.add("sel");
+          el.setAttribute("aria-pressed", "true");
+          care = el.getAttribute("data-care");
+        });
+      });
+      function shrink(file) {
+        return new Promise(function (res, rej) {
+          var fr = new FileReader();
+          fr.onload = function () {
+            var im = new Image();
+            im.onload = function () {
+              var s = Math.min(1, 1000 / Math.max(im.width, im.height)),
+                c = document.createElement("canvas");
+              c.width = Math.round(im.width * s);
+              c.height = Math.round(im.height * s);
+              c.getContext("2d").drawImage(im, 0, 0, c.width, c.height);
+              res(c.toDataURL("image/jpeg", 0.6));
+            };
+            im.onerror = rej;
+            im.src = fr.result;
+          };
+          fr.onerror = rej;
+          fr.readAsDataURL(file);
+        });
+      }
+      function drawThumbs() {
+        var t = document.getElementById("thumbs"),
+          h = "";
+        for (var i = 0; i < photos.length; i++) {
+          h +=
+            '<div class="th"><img src="' +
+            photos[i] +
+            '" alt=""><button data-i="' +
+            i +
+            '">×</button></div>';
+        }
+        t.innerHTML = h;
+      }
+      document.getElementById("thumbs").addEventListener("click", function (e) {
+        var b = e.target.closest("button[data-i]");
+        if (!b) return;
+        photos.splice(+b.getAttribute("data-i"), 1);
+        drawThumbs();
+      });
+      document
+        .getElementById("file")
+        .addEventListener("change", async function (e) {
+          var fs = Array.prototype.slice.call(e.target.files || []);
+          for (var i = 0; i < fs.length && photos.length < 3; i++) {
+            try {
+              photos.push(await shrink(fs[i]));
+            } catch (x) {}
+          }
+          track("prescription_photo", { count: photos.length });
+          drawThumbs();
+          e.target.value = "";
+        });
+      function showErr(m) {
+        var e = document.getElementById("err");
+        e.textContent = m;
+        e.style.display = "";
+      }
+      function collect() {
+        return {
+          name: document.getElementById("n").value.trim(),
+          phone: document.getElementById("t").value.trim(),
+          address: document.getElementById("a").value.trim(),
+          note: document.getElementById("nt").value.trim(),
+          company: document.getElementById("co").value.trim(),
+        };
+      }
+      document.getElementById("wa").addEventListener("click", function (e) {
+        e.preventDefault();
+        var d = collect();
+        var m =
+          (mode === "contract" ? "طلب صرف تعاقدات" : "طلب صرف روشتة") + "\n";
+        if (d.name) m += "الاسم: " + d.name + "\n";
+        if (d.phone) m += "التليفون: " + d.phone + "\n";
+        if (d.address) m += "العنوان: " + d.address + "\n";
+        if (mode === "contract" && d.company)
+          m += "شركة التأمين: " + d.company + "\n";
+        m +=
+          "نوع الصرف: " + (care === "monthly" ? "شهري (مزمن)" : "يومي") + "\n";
+        if (d.note) m += "ملاحظات: " + d.note + "\n";
+        m += "\n(هرفق صورة الروشتة هنا)";
+        window.open(
+          "https://wa.me/" + WA + "?text=" + encodeURIComponent(m),
+          "_blank",
+        );
+      });
+      document
+        .getElementById("send")
+        .addEventListener("click", async function () {
+          var btn = this,
+            d = collect();
+          document.getElementById("err").style.display = "none";
+          if (d.name.length < 2) {
+            showErr("من فضلك اكتب اسمك.");
+            return;
+          }
+          if (!/^0?1[0-9]{9}$/.test(d.phone.replace(/\s|-/g, ""))) {
+            showErr("رقم التليفون مش مظبوط.");
+            return;
+          }
+          if (d.address.length < 6) {
+            showErr("من فضلك اكتب العنوان بالتفصيل.");
+            return;
+          }
+          if (!photos.length && !d.note) {
+            showErr("ارفع صورة الروشتة أو اكتب الأدوية في الملاحظات.");
+            return;
+          }
+          if (!document.getElementById("cs").checked) {
+            showErr("لازم توافق على إرسال البيانات للصيدلية.");
+            return;
+          }
+          btn.disabled = true;
+          btn.textContent = "جاري الإرسال...";
+          try {
+            var r = await fetch("/api/prescription", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                name: d.name,
+                phone: d.phone,
+                address: d.address,
+                note: d.note,
+                company: d.company,
+                mode: mode,
+                careType: care,
+                photos: photos,
+                consent: true,
+              }),
+            });
+            var j = await r.json().catch(function () {
+              return {};
+            });
+            if (!r.ok || !j.ok)
+              throw new Error((j && j.error) || "http_" + r.status);
+            document.getElementById("ph").style.display = "none";
+            track(
+              mode === "contract" ? "insurance_submit" : "prescription_submit",
+              { transaction_id: j.orderNo },
+            );
+            document.getElementById("box").innerHTML =
+              '<div class="receipt"><div class="tick">✓</div><h2>تم استلام طلبك</h2><p>فريق الصيدلية هيراجع الروشتة ويتصل بيك لتأكيد الطلب.</p><div class="no">' +
+              j.orderNo +
+              '</div><div class="meta">صور مستلمة: <b>' +
+              j.photos +
+              "</b>" +
+              (j.refillDue ? "<br>هنفكرك بإعادة الصرف قبل ما يخلص" : "") +
+              '</div><span class="cod">الدفع عند الاستلام</span><p style="margin-top:22px"><a href="/">ارجع للرئيسية</a></p></div>';
+          } catch (e) {
+            btn.disabled = false;
+            btn.textContent = "إرسال فوري للصيدلية";
+            showErr(
+              "معلش، حصلت مشكلة في الإرسال (" +
+                (e.message || "") +
+                "). جرّب واتساب أو اتصل على " +
+                PHONE +
+                ".",
+            );
+          }
+        });
+    </script>
+  </body>
 </html>
