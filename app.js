@@ -103,10 +103,12 @@ function chrome(active) {
   }
   document.body.insertAdjacentHTML('afterbegin',
     '<header><div class="wrap header-row">' +
-    '<a class="brand" href="/"><img src="/logo.webp" width="40" height="40" alt="شعار صيدلية كوانيني"><span class="brand-name">صيدلية كوانيني</span></a>' +
-    '<div class="header-right"><a class="header-phone" href="tel:' + PHONE + '">' + PHONE + '</a>' +
-    '<a class="cart-link" href="/cart">السلة<span class="cart-count" id="cartCount">0</span></a></div>' +
-    '</div></header><nav class="mainnav"><div class="wrap">' + links + '</div></nav>');
+    '<a class="brand" href="/"><img src="/logo.webp" width="44" height="44" alt="شعار صيدلية كوانيني"><span class="brand-name">صيدلية كوانيني</span></a>' +
+    '<div class="header-right">' +
+    '<a class="header-phone" href="tel:' + PHONE + '"><span class="i" aria-hidden="true">📞</span>' + PHONE + '</a>' +
+    '<a class="header-wa" href="https://wa.me/' + WA + '" target="_blank" rel="noopener"><span class="i" aria-hidden="true">💬</span><span class="lbl">تواصل معنا</span></a>' +
+    '<a class="cart-link" href="/cart">السلة<span class="cart-count" id="cartCount">0</span></a>' +
+    '</div></div></header><nav class="mainnav"><div class="wrap">' + links + '</div></nav>');
   updateBadge();
 
   /* تفويض واحد بيمسك كل روابط الاتصال والواتساب في الموقع كله —
@@ -124,8 +126,35 @@ function chrome(active) {
      هيقع فوق المحتوى لأن الـ body لسه فاضي. */
   document.addEventListener('DOMContentLoaded', function () {
     document.body.insertAdjacentHTML('beforeend',
-      '<footer><div class="wrap"><div style="margin-bottom:10px">' + links.replace(/ class="active"/g, '') + '</div>' +
-      '© 2026 صيدلية كوانيني — جميع الحقوق محفوظة</div></footer>');
+      '<footer>' +
+      '<div class="wrap foot-grid">' +
+        '<div class="foot-brand">' +
+          '<img src="/logo.webp" width="52" height="52" alt="">' +
+          '<span class="fb-name">صيدلية كوانيني</span>' +
+          '<span class="fb-tag">صحتك.. أولويتنا</span>' +
+        '</div>' +
+        '<nav class="foot-col" aria-label="روابط مهمة"><h4>روابط مهمة</h4>' +
+          '<a href="/chronic-care">العلاج الشهري</a>' +
+          '<a href="/delivery">صرف الروشتة</a>' +
+          '<a href="/insurance">التأمين الطبي</a>' +
+          '<a href="/delivery-areas">مناطق التوصيل</a>' +
+        '</nav>' +
+        '<nav class="foot-col" aria-label="روابط سريعة"><h4>روابط سريعة</h4>' +
+          '<a href="/">الرئيسية</a>' +
+          '<a href="/products">المنتجات</a>' +
+          '<a href="/branches">فروعنا</a>' +
+          '<a href="/ask">اسأل الصيدلي</a>' +
+        '</nav>' +
+        '<div class="foot-col foot-contact"><h4>تواصل معنا</h4>' +
+          '<a href="tel:' + PHONE + '" class="fc-phone">' + PHONE + '</a>' +
+          '<a href="https://wa.me/' + WA + '" target="_blank" rel="noopener">واتساب</a>' +
+          '<span class="fc-hours">يوميًا 12 الضهر – 12 بالليل · الجمعة إجازة</span>' +
+        '</div>' +
+      '</div>' +
+      '<div class="foot-bar"><div class="wrap">' +
+        '<span>© 2026 صيدلية كوانيني — جميع الحقوق محفوظة</span>' +
+        '<span class="fb-loc"><span aria-hidden="true">📍</span> شبين القناطر — القليوبية — مصر</span>' +
+      '</div></div></footer>');
 
     /* الصفحة الحالية من المسار الفعلي مش من الـ active — لأن cart.html
        بتنادي chrome('/products') فالـ active مش بيوصف الصفحة نفسها. */
