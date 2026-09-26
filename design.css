@@ -2328,3 +2328,27 @@ nav.mainnav a:focus-visible,
     gap: 24px;
   }
 }
+
+/* Clear, individually linked partner marks on the home page. */
+.home-partners { background: var(--surface-2); padding: 64px 0; }
+.partners-heading { max-width: 620px; margin: 0 auto 28px; text-align: center; }
+.partners-heading h2 { color: var(--purple-deep); font-size: clamp(25px, 3vw, 34px); margin: 8px 0 12px; line-height: 1.5; }
+.partners-heading p { color: var(--ink-soft); margin: 0; line-height: 1.9; }
+.partners-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 14px; }
+.partner-tile { display: flex; align-items: center; justify-content: center; min-height: 116px; padding: 22px 16px; background: #fff; border: 1px solid var(--line); border-radius: 16px; transition: border-color .2s, box-shadow .2s; }
+.partner-tile img { display: block; width: 100%; max-width: 160px; height: 64px; object-fit: contain; }
+.partner-tile:hover, .partner-tile:focus-visible { border-color: var(--purple); box-shadow: 0 4px 16px #43205e10; }
+.partners-actions { display: flex; align-items: center; flex-direction: column; gap: 16px; margin-top: 28px; text-align: center; }
+.partners-actions .btn { gap: 16px; }
+.partners-actions p { margin: 0; color: var(--ink-soft); font-size: 15px; }
+.partners-actions p a { color: var(--green); font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
+@media (max-width: 800px) { .partners-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 480px) {
+  .home-partners { padding: 40px 0; }
+  .partners-heading { margin-bottom: 24px; }
+  .partners-heading p { font-size: 16px; }
+  .partners-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .partner-tile { min-height: 102px; padding: 20px 16px; border-radius: 12px; }
+  .partner-tile img { height: 56px; }
+  .partners-actions .btn { width: 100%; }
+}
