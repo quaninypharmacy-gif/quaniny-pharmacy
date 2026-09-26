@@ -1,6 +1,6 @@
 {
   "retrieved": "2026-09-26",
-  "notes": "Original brand assets; displayed with object-fit: contain, without recoloring. DMS and Diamond share the Diamond Medical Services logo. Smart Care remains text-only pending exact company identification.",
+  "notes": "Original brand assets; displayed with object-fit: contain, without recoloring. DMS and Diamond share the Diamond Medical Services logo. Smart Medical Services and WE logos supplied and identified by the site owner.",
   "logos": [
     {
       "key": "globemed",
@@ -52,9 +52,9 @@
     },
     {
       "key": "we",
-      "file": "assets/insurers/we.png",
-      "url": "https://www.te.eg/documents/d/guest/we-logo",
-      "bytes": 9906
+      "file": "assets/insurers/we-approved.jpg",
+      "source": "User-supplied logo",
+      "bytes": 4496
     },
     {
       "key": "dms",
@@ -139,6 +139,12 @@
       "file": "assets/insurers/mashreq.jpg",
       "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/49/45/90/49459066-9e6f-ee8b-6ba7-2ac86a852d69/AppIcon-1x_U007emarketing-0-7-0-0-85-220-0.png/1200x630wa.jpg",
       "bytes": 39490
+    },
+    {
+      "key": "smart",
+      "file": "assets/insurers/smart.png",
+      "source": "User-supplied logo; Smart Medical Services identified by owner",
+      "bytes": 11002
     }
   ]
 }
