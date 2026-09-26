@@ -1841,6 +1841,7 @@ nav.mainnav.expanded .nav-extra {
 }
 .ins-logo img[src$="/smart.png"] {
   transform: scale(1.8);
+  mix-blend-mode: multiply;
 }
 .inner-page .ins-logo-card .txt {
   width: 100%;
