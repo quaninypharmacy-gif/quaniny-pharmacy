@@ -1,0 +1,144 @@
+{
+  "retrieved": "2026-09-26",
+  "notes": "Original brand assets; displayed with object-fit: contain, without recoloring. DMS and Diamond share the Diamond Medical Services logo. Smart Care remains text-only pending exact company identification.",
+  "logos": [
+    {
+      "key": "globemed",
+      "file": "assets/insurers/globemed.svg",
+      "url": "https://www.globemedegypt.com/assets_web/images/logo-ar.svg",
+      "bytes": 5421
+    },
+    {
+      "key": "nextcare",
+      "file": "assets/insurers/nextcare.svg",
+      "url": "https://www.nextcarehealth.com/wp-content/uploads/2021/06/logo.svg",
+      "bytes": 2218
+    },
+    {
+      "key": "medright",
+      "file": "assets/insurers/medright.png",
+      "url": "https://med-right.net/frontend/assets/img/Med-Right-Logo.png",
+      "bytes": 10107
+    },
+    {
+      "key": "medsure",
+      "file": "assets/insurers/medsure.png",
+      "url": "https://www.medsure.com.eg/images/logo_icon.png",
+      "bytes": 77083
+    },
+    {
+      "key": "egymed",
+      "file": "assets/insurers/egymed.png",
+      "url": "https://www.egy-med.com/wp-content/uploads/2021/03/EGY_LOGO-1.png",
+      "bytes": 17841
+    },
+    {
+      "key": "future",
+      "file": "assets/insurers/future.png",
+      "url": "https://www.futurehealthcare.com.eg/public/uploads/settings/1748860955849246.png",
+      "bytes": 8168
+    },
+    {
+      "key": "mednet",
+      "file": "assets/insurers/mednet.svg",
+      "url": "https://mednet.com/web-assets/images/logo.svg",
+      "bytes": 19233
+    },
+    {
+      "key": "limitless",
+      "file": "assets/insurers/limitless.svg",
+      "url": "https://www.limitlesscare.com/images/logo-black.svg",
+      "bytes": 20146
+    },
+    {
+      "key": "we",
+      "file": "assets/insurers/we.png",
+      "url": "https://www.te.eg/documents/d/guest/we-logo",
+      "bytes": 9906
+    },
+    {
+      "key": "dms",
+      "file": "assets/insurers/dms.png",
+      "url": "https://www.dms-eg.net/assets/HomeTemplete/img/DMS_Logo.png",
+      "bytes": 31590
+    },
+    {
+      "key": "metlife",
+      "file": "assets/insurers/metlife.png",
+      "url": "https://townhospitaleg.com/wp-content/themes/airi-child/town-assets/insurers/metlife.png",
+      "bytes": 7364
+    },
+    {
+      "key": "axa",
+      "file": "assets/insurers/axa.png",
+      "url": "https://townhospitaleg.com/wp-content/themes/airi-child/town-assets/insurers/axa.png",
+      "bytes": 6994
+    },
+    {
+      "key": "ahly-medical",
+      "file": "assets/insurers/ahly-medical.png",
+      "url": "https://www.ahlymedical.com/wp-content/uploads/2020/08/logo1.png",
+      "bytes": 16531
+    },
+    {
+      "key": "misr-healthcare",
+      "file": "assets/insurers/misr-healthcare.png",
+      "url": "https://townhospitaleg.com/wp-content/themes/airi-child/town-assets/insurers/misr-healthcare.png",
+      "bytes": 22484
+    },
+    {
+      "key": "care-plus",
+      "file": "assets/insurers/care-plus.png",
+      "url": "https://townhospitaleg.com/wp-content/themes/airi-child/town-assets/insurers/care-plus.png",
+      "bytes": 7487
+    },
+    {
+      "key": "inaya",
+      "file": "assets/insurers/inaya.png",
+      "url": "https://play-lh.googleusercontent.com/6OnJKU0jqlcrbpMxQ8K7kLr4wCbgE4tlHBk7qbR7J_v3OUsbD9LiLlLMUydzJh0G_86KLa7dWTPhEggATHtonw=w240-h480",
+      "bytes": 15001
+    },
+    {
+      "key": "egycare",
+      "file": "assets/insurers/egycare.png",
+      "url": "https://townhospitaleg.com/wp-content/themes/airi-child/town-assets/insurers/egy-care.png",
+      "bytes": 13475
+    },
+    {
+      "key": "banque-misr",
+      "file": "assets/insurers/banque-misr.png",
+      "url": "https://townhospitaleg.com/wp-content/themes/airi-child/town-assets/insurers/banque-misr.png",
+      "bytes": 15133
+    },
+    {
+      "key": "wadi-el-neel",
+      "file": "assets/insurers/wadi-el-neel.png",
+      "url": "https://townhospitaleg.com/wp-content/themes/airi-child/town-assets/insurers/wadi-el-neel.png",
+      "bytes": 18314
+    },
+    {
+      "key": "nbe",
+      "file": "assets/insurers/nbe.png",
+      "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/32/National_Bank_of_Egypt.svg/960px-National_Bank_of_Egypt.svg.png?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail&_=20220920225644",
+      "bytes": 59598
+    },
+    {
+      "key": "elaraby",
+      "file": "assets/insurers/elaraby.png",
+      "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/14/Elaraby_Group.png/960px-Elaraby_Group.png?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail&_=20240826101915",
+      "bytes": 126669
+    },
+    {
+      "key": "sanmisr",
+      "file": "assets/insurers/sanmisr.jpg",
+      "url": "https://amayei.nyc3.digitaloceanspaces.com/2018/09/compa.jpg",
+      "bytes": 26954
+    },
+    {
+      "key": "mashreq",
+      "file": "assets/insurers/mashreq.jpg",
+      "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/49/45/90/49459066-9e6f-ee8b-6ba7-2ac86a852d69/AppIcon-1x_U007emarketing-0-7-0-0-85-220-0.png/1200x630wa.jpg",
+      "bytes": 39490
+    }
+  ]
+}
