@@ -1839,6 +1839,9 @@ nav.mainnav.expanded .nav-extra {
   height: 84px;
   object-fit: contain;
 }
+.ins-logo img[src$="/smart.png"] {
+  transform: scale(1.8);
+}
 .inner-page .ins-logo-card .txt {
   width: 100%;
 }
