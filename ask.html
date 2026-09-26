@@ -23,18 +23,18 @@
 <script src="/app.js"></script>
 <script src="/design.js" defer></script>
 </head>
-<body>
+<body class="inner-page">
 <script>chrome('/ask');</script>
 <main>
-<div class="pagehead"><div class="wrap"><h1>اسأل الصيدلي</h1><p>اكتب سؤالك وهيوصلنا على واتساب مباشرة، وصيدلي هيرد عليك خلال مواعيد العمل.</p></div></div>
+<div class="pagehead"><div class="wrap"><div class="page-emblem"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#headset"></use></svg></div><div class="eyebrow">صيدلية كوانيني · صحتك أولويتنا</div><h1>اسأل الصيدلي</h1><p>اكتب سؤالك وهيوصلنا على واتساب مباشرة، وصيدلي هيرد عليك خلال مواعيد العمل.</p></div></div>
 <section><div class="wrap">
-<div class="form-card">
+<div class="consultation-layout"><div class="form-card"><h2>إحنا هنا نسمعك</h2><p class="muted">اكتب تفاصيل سؤالك، وكمل المحادثة مع الصيدلي على واتساب.</p>
 <div class="field"><label for="name">اسمك</label><input id="name" type="text"></div>
 <div class="field"><label for="q">سؤالك</label><textarea id="q" placeholder="مثال: هل منتج كذا متوفر عندكو؟"></textarea></div>
 <button class="submit-btn" id="send">ابعت السؤال على واتساب</button>
 <p class="form-hint">عايز تصرف روشتة؟ <a href="/delivery">صوّرها وابعتها من هنا</a>.</p>
 </div>
-<div class="disclaimer">ملحوظة مهمة: الإجابات هنا إرشادية وما تغنيش عن الكشف الطبي. لو فيه أعراض شديدة أو حالة طارئة، اتوجه للطبيب أو أقرب مستشفى فورًا.</div>
+<aside class="consultation-aside"><img src="/assets/pharmacist.webp" alt="صيدلانية تراجع الأدوية" width="1200" height="800"><div class="aside-copy"><span class="eyebrow">سؤالك يهمنا</span><h2>خطوة بسيطة، وإجابة أوضح.</h2><p>عن توافر منتج أو طريقة استخدامه، فريق الصيدلية موجود لمساعدتك.</p><div class="service-line"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#clock"></use></svg><span>من 12 ظهرًا حتى 12 منتصف الليل<br>الجمعة إجازة</span></div><a class="btn btn-outline" href="tel:01036181518"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#phone"></use></svg>اتصل بالصيدلية</a></div></aside></div><div class="disclaimer">ملحوظة مهمة: الإجابات هنا إرشادية وما تغنيش عن الكشف الطبي. لو فيه أعراض شديدة أو حالة طارئة، اتوجه للطبيب أو أقرب مستشفى فورًا.</div>
 </div></section>
 </main>
 <script>
