@@ -1815,6 +1815,55 @@ nav.mainnav.expanded .nav-extra {
   text-align: center;
 }
 
+/* Original insurer marks retain their own colors and proportions. */
+.inner-page .ins-grid .ins-logo-card {
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  gap: 18px;
+  padding: 24px 18px;
+  min-height: 186px;
+  background: #fff;
+}
+.ins-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 84px;
+}
+.ins-logo img {
+  display: block;
+  width: 180px;
+  max-width: 100%;
+  height: 84px;
+  object-fit: contain;
+}
+.inner-page .ins-logo-card .txt {
+  width: 100%;
+}
+.inner-page .ins-logo-card .n {
+  font-size: 15px;
+  line-height: 1.7;
+}
+.inner-page .ins-logo-card .k {
+  text-align: center;
+  font-size: 13px;
+  margin-top: 3px;
+}
+.inner-page .ins-logo-card .note {
+  display: inline-block;
+  margin-top: 8px;
+}
+.inner-page .ins-grid .ins-text-only {
+  justify-content: center;
+  text-align: center;
+  min-height: 186px;
+  background: var(--surface-2);
+}
+.inner-page .ins-text-only .k {
+  text-align: center;
+}
 /* Site-wide identity. See BRAND.md before adding or changing a component. */
 :root {
   --surface-2: #f6f3f9;
