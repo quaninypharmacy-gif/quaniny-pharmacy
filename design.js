@@ -21,7 +21,9 @@
     "🛵": "truck",
   };
   document
-    .querySelectorAll(".i,.pill-ico,.br-pin,.fb-loc>span,.promo-ico")
+    .querySelectorAll(
+      ".i,.pill-ico,.br-pin,.fb-loc>span,.promo-ico,.freeship .ico",
+    )
     .forEach(function (el) {
       var name = replacements[el.textContent.trim()];
       if (name) el.innerHTML = icon(name);
