@@ -8,6 +8,8 @@ Production: `https://quaniny.com`, GitHub `quaninypharmacy-gif/quaniny-pharmacy`
 
 ## Shared references
 
+**Start with `WEBSITE.md`.** It is the single entry point: the full architecture, every route and API contract, the measured SEO and performance invariants, the closed-decision ledger with reasons, what is deferred versus rejected, and the open items. Read it before anything else; the files below are the depth behind it.
+
 Read `WORKING-AGREEMENT.md` for file ownership, the five pre-publish checks, and the hard limits none of us cross. `AUDIT.md` holds the measured state of the site and the open items, including the one fix assigned to Codex (the intermittent hero CLS spike, section 2).
 
 Claude's project memory lives in `.claude/skills/`: `quaniny-website` (architecture and the invariants that must survive any refactor), `impeccable` (visual quality bar and how to prove a change is visually neutral), `quaniny-content` (Arabic copy rules and health-claim limits), `quaniny-gbp`, `verify`, `quaniny-nextjs-migration`. They are the reason a full redesign did not break a single SEO invariant — keep them current.
