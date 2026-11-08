@@ -11,6 +11,7 @@ const ROOT = process.env.SITE_ROOT || path.resolve(__dirname, '../../../..');
 const PORT = Number(process.argv[2] || 8099);
 const T = { '.html':'text/html;charset=utf-8', '.css':'text/css', '.js':'text/javascript',
             '.mjs':'text/javascript', '.webp':'image/webp', '.png':'image/png',
+            '.svg':'image/svg+xml', '.jpg':'image/jpeg', '.jpeg':'image/jpeg',
             '.xml':'application/xml', '.json':'application/json', '.txt':'text/plain' };
 http.createServer((req, res) => {
   let u = decodeURIComponent(req.url.split('?')[0]);
