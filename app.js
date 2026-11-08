@@ -144,6 +144,7 @@ function chrome(active) {
           '<a href="/products">المنتجات</a>' +
           '<a href="/branches">فروعنا</a>' +
           '<a href="/ask">اسأل الصيدلي</a>' +
+          '<a href="/about">عن كوانيني</a>' +
         '</nav>' +
         '<div class="foot-col foot-contact"><h4>تواصل معنا</h4>' +
           '<a href="tel:' + PHONE + '" class="fc-phone">' + PHONE + '</a>' +
