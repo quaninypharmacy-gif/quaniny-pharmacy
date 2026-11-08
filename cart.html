@@ -48,7 +48,8 @@ function freeship(tot){
   var left=FREE_DELIVERY_MIN-tot;
   el.className='freeship';
   el.innerHTML='<span class="ico">🛵</span><span class="txt">ناقصك <b>'+left+' جنيه</b> والتوصيل يبقى مجاني'+
-   '<span class="track"><i style="width:'+Math.round(tot/FREE_DELIVERY_MIN*100)+'%"></i></span></span>';
+   '<span class="track"><i style="width:'+Math.round(tot/FREE_DELIVERY_MIN*100)+'%"></i></span>'+
+   '<small>الطلبات الأقل من '+FREE_DELIVERY_MIN+' جنيه رسوم توصيلها حسب عنوانك.</small></span>';
  }
 }
 function render(){
