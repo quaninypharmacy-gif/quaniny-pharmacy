@@ -164,7 +164,17 @@
             >
           </div>
           <div class="product-showcase">
-            <div class="prod-grid" id="homeProducts"></div>
+            <div class="prod-grid" id="homeProducts">
+              <!-- 🩹 10/11/2026: RILY GRO اتشال؛ الكارت ده ثابت لحد ما صور الأصناف تيجي -->
+              <div class="prod-card">
+                <a class="thumb" href="/products" tabindex="-1" aria-hidden="true"><img src="/logo.webp" alt="" width="150" height="150" loading="lazy"></a>
+                <div class="prod-body">
+                  <div class="prod-brand">الأدوية ومنتجات العناية</div>
+                  <a class="prod-name" href="/products">كل الأصناف بأسعارها — دوّر بالاسم أو المادة الفعالة</a>
+                  <div class="prod-price">توصيل مجاني من 200 جنيه</div>
+                </div>
+              </div>
+            </div>
             <aside class="product-editorial">
               <span>عناية كل يوم</span>
               <h3>اختيارات صغيرة.<br />فرق تحسّه.</h3>
@@ -395,50 +405,6 @@
           }
         ]
       }
-    </script>
-    <script>
-      (function () {
-        var g = document.getElementById("homeProducts");
-        if (!g || typeof PRODUCTS === "undefined") return;
-        var h = "";
-        for (var i = 0; i < PRODUCTS.length && i < 4; i++) {
-          var p = PRODUCTS[i];
-          h +=
-            '<div class="prod-card"><a class="thumb" href="/product?id=' +
-            p.id +
-            '"><img src="' +
-            p.img +
-            '" alt="' +
-            p.name +
-            '" loading="lazy"></a>' +
-            '<div class="prod-body"><div class="prod-brand">' +
-            p.brand +
-            "</div>" +
-            '<a class="prod-name" href="/product?id=' +
-            p.id +
-            '">' +
-            p.name +
-            "</a>" +
-            '<div class="prod-price">' +
-            p.price +
-            " جنيه</div>" +
-            '<button class="add-btn" data-id="' +
-            p.id +
-            '">أضف للسلة</button></div></div>';
-        }
-        g.innerHTML = h;
-        g.addEventListener("click", function (e) {
-          var b = e.target.closest && e.target.closest(".add-btn");
-          if (!b) return;
-          addToCart(b.getAttribute("data-id"));
-          b.textContent = "تمت الإضافة ✓";
-          b.classList.add("added");
-          setTimeout(function () {
-            b.textContent = "أضف للسلة";
-            b.classList.remove("added");
-          }, 1600);
-        });
-      })();
     </script>
   </body>
 </html>

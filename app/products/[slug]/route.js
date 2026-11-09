@@ -1,7 +1,7 @@
-// صفحة صنف: /medicine/<slug> — بتتبني ثابتة وقت البناء لكل صنف مكتمل فى data/catalog.json (SPEC §5.4).
-// المرحلة 4: كلها noindex,follow — الفتح لجوجل على موجات بقرار (سؤال 1 فى SPEC).
+// صفحة صنف: /products/<slug> — بتتبني ثابتة وقت البناء لكل صنف مكتمل فى data/catalog.json (SPEC §5.4).
+// 10/11/2026: اتنقلت من /medicine/<slug> واتفتحت لجوجل (index,follow) بقرار الصيدلي «اظهر كله لجوجل».
 import { items, getItem, ingredientOf, alternativesOf, meta } from '../../../lib/catalog/data.mjs';
-import { page, htmlResponse, esc, card, orderButton, breadcrumb, price, priceDate, ORG, SITE, DISCLAIMER } from '../../../lib/catalog/html.mjs';
+import { page, htmlResponse, esc, card, thumb, orderButton, breadcrumb, price, priceDate, ORG, SITE, DISCLAIMER } from '../../../lib/catalog/html.mjs';
 
 export const dynamic = 'force-static';
 export const dynamicParams = false;
@@ -26,14 +26,14 @@ export async function GET(_req, { params }) {
   const description = cut(`${it.usage ? it.usage + ' ' : ''}${nameAr} (${it.name_en}) بسعر ${price(it.price)} من صيدلية كوانيني — توصيل في شبين القناطر والقليوبية.`, 158);
 
   const rows = [
-    isDrug && it.active_ingredient && ['المادة الفعالة', ing ? `<a href="/medicine/ingredient/${ing.slug}">${esc(it.active_ingredient)}</a>` : esc(it.active_ingredient)],
+    isDrug && it.active_ingredient && ['المادة الفعالة', ing ? `<a href="/products/ingredient/${ing.slug}">${esc(it.active_ingredient)}</a>` : esc(it.active_ingredient)],
     it.form && ['الشكل', esc(formAr(it.form))],
     it.strength && ['التركيز', `<span dir="ltr">${esc(it.strength)}</span>`],
     it.category && ['التصنيف', `<span dir="ltr">${esc(it.category)}</span>`],
   ].filter(Boolean);
 
   const body = `<div class="pagehead"><div class="wrap"><div class="page-emblem"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#${isDrug ? 'pill' : 'bottle'}"></use></svg></div>
-<div class="eyebrow"><a href="/medicine">الأدوية والمنتجات</a>${ing ? ` · <a href="/medicine/ingredient/${ing.slug}">${esc(ing.name)}</a>` : ''}</div>
+<div class="eyebrow"><a href="/products">المنتجات</a>${ing ? ` · <a href="/products/ingredient/${ing.slug}">${esc(ing.name)}</a>` : ''}</div>
 <h1>${esc(nameAr)}</h1><p dir="ltr">${esc(it.name_en)}</p></div></div>
 <section><div class="wrap med-layout">
 <div class="med-main prose">
@@ -42,6 +42,7 @@ ${rows.length ? `<dl class="med-facts">${rows.map(([k, v]) => `<div><dt>${k}</dt
 <div class="disclaimer">${DISCLAIMER}</div>
 </div>
 <aside class="med-buy">
+${thumb(it)}
 <div class="med-price">${price(it.price)}</div>
 <div class="med-date">السعر آخر تحديث ${priceDate(meta.price_updated_at)}</div>
 ${orderButton(it)}
@@ -51,19 +52,19 @@ ${it.rx ? '<p class="med-note">الصنف ده بيتصرف بروشتة — ص�
 </div></section>
 ${alts.length ? `<section><div class="wrap"><h2 class="med-h2">بدائل بنفس المادة والتركيز</h2><div class="prod-grid med-grid">${alts.map(card).join('')}</div></div></section>` : ''}`;
 
-  const offer = { '@type': 'Offer', price: String(it.price), priceCurrency: 'EGP', url: `${SITE}/medicine/${it.slug}`, seller: ORG, priceValidUntil: undefined };
+  const offer = { '@type': 'Offer', price: String(it.price), priceCurrency: 'EGP', url: `${SITE}/products/${it.slug}`, seller: ORG, priceValidUntil: undefined };
   const product = {
     '@context': 'https://schema.org',
     '@type': isDrug ? ['Product', 'Drug'] : 'Product',
     name: it.name_en, alternateName: it.name_ar || undefined,
-    description: it.usage || undefined, category: it.category || undefined, url: `${SITE}/medicine/${it.slug}`,
+    description: it.usage || undefined, category: it.category || undefined, url: `${SITE}/products/${it.slug}`,
     ...(isDrug && it.active_ingredient ? { activeIngredient: it.active_ingredient, nonProprietaryName: it.active_ingredient } : {}),
     ...(isDrug && it.form ? { dosageForm: it.form } : {}),
     offers: offer,
   };
-  const trail = [['الرئيسية', '/'], ['الأدوية والمنتجات', '/medicine']];
-  if (ing) trail.push([ing.name, `/medicine/ingredient/${ing.slug}`]);
-  trail.push([nameAr, `/medicine/${it.slug}`]);
+  const trail = [['الرئيسية', '/'], ['المنتجات', '/products']];
+  if (ing) trail.push([ing.name, `/products/ingredient/${ing.slug}`]);
+  trail.push([nameAr, `/products/${it.slug}`]);
 
-  return htmlResponse(page({ path: `/medicine/${it.slug}`, title, description, jsonld: [JSON.parse(JSON.stringify(product)), breadcrumb(trail)], body }));
+  return htmlResponse(page({ path: `/products/${it.slug}`, title, description, jsonld: [JSON.parse(JSON.stringify(product)), breadcrumb(trail)], body }));
 }

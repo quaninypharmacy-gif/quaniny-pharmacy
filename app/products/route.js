@@ -1,4 +1,4 @@
-// /medicine — أول صفحة فى فهرس الكتالوج
+// /products — أول صفحة فى فهرس الكتالوج
 import { listingPage } from '../../lib/catalog/listing.mjs';
 import { htmlResponse } from '../../lib/catalog/html.mjs';
 

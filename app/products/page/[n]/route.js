@@ -1,4 +1,4 @@
-// /medicine/page/<n> — باقي صفحات الفهرس (الصفحة 1 مكانها /medicine بس، فـ /medicine/page/1 مش موجودة)
+// /products/page/<n> — باقي صفحات الفهرس (الصفحة 1 مكانها /products بس، فـ /products/page/1 مش موجودة)
 import { pageCount } from '../../../../lib/catalog/data.mjs';
 import { listingPage } from '../../../../lib/catalog/listing.mjs';
 import { htmlResponse } from '../../../../lib/catalog/html.mjs';

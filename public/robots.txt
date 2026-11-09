@@ -6,3 +6,4 @@ Disallow: /cart
 Disallow: /api/
 
 Sitemap: https://quaniny.com/sitemap.xml
+Sitemap: https://quaniny.com/products-sitemap.xml

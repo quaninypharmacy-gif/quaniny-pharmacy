@@ -36,26 +36,9 @@ function track(name, params) {
 var FREE_DELIVERY_MIN = 200;
 
 /* ---- المنتجات: انسخ الكارت ده وغيّر بياناته لإضافة منتج جديد ---- */
-var PRODUCTS = [
-  {
-    id: 'rily-gro',
-    name: 'RILY GRO سيرم الشعر بالكافيار',
-    brand: 'GRO Pharma — 120 مل',
-    price: 210,
-    img: 'rily-gro.webp',
-    video: '', // لينك embed من يوتيوب لما يتصور
-    short: 'سيرم معالج بالبروتين غني بزيت الأرجان والكيراتين ومستخلص الكافيار، لتغذية الشعر وتقويته من الجذور.',
-    uses: [
-      ['يعالج التقصف', 'يصلح أطراف الشعر التالفة ويقلل من التقصف'],
-      ['نعومة ولمعة', 'يمنح الشعر نعومة فائقة ولمعان صحي'],
-      ['فرد للشعر', 'يساعد على فرد الشعر ويقلل من الهيشان'],
-      ['يرطب الشعر', 'يرطب بعمق ويحافظ على رطوبته الطبيعية'],
-      ['يغذي الشعر', 'غني بزيت الأرجان والكيراتين ومستخلص الكافيار لتغذية الشعر وتقويته من الجذور']
-    ]
-  }
-];
+var PRODUCTS = []; /* 🩹 [10/11/2026] RILY GRO اتشال بطلب الصيدلي — كل الأصناف بقت صفحات /products/<slug> */
 
-/* 🆕 [9/11/2026] أصناف الكتالوج (/medicine) مش فى PRODUCTS — ودي القاعدة: 4000 صنف هنا = كل صفحة أبطأ 9 مرات
+/* 🆕 [9/11/2026] أصناف الكتالوج (/products/<slug>) مش فى PRODUCTS — ودي القاعدة: 4000 صنف هنا = كل صفحة أبطأ 9 مرات
    (dd498c6). فالصنف بيتحفظ فى السلة نفسها بالاسم والسعر والرابط ({id:'m<رقم>', n, p, u}) وP بتقراه من هناك. */
 function P(id) {
   for (var i = 0; i < PRODUCTS.length; i++) { if (PRODUCTS[i].id === id) return PRODUCTS[i]; }
@@ -65,7 +48,11 @@ function P(id) {
 }
 
 /* ---- السلة (متخزنة في متصفح العميل) ---- */
-function getCart() { try { return JSON.parse(localStorage.getItem('qcart') || '[]'); } catch (e) { return []; } }
+// 🩹 [10/11/2026] صنف قديم من PRODUCTS (زي rily-gro) اتشال من الموقع: يتشال من السلة كمان بدل ما يتحسب فى العدّاد من غير سعر
+function getCart() {
+  var c; try { c = JSON.parse(localStorage.getItem('qcart') || '[]'); } catch (e) { return []; }
+  return c.filter(function (x) { if (x.n) return true; for (var i = 0; i < PRODUCTS.length; i++) { if (PRODUCTS[i].id === x.id) return true; } return false; });
+}
 function saveCart(c) { try { localStorage.setItem('qcart', JSON.stringify(c)); } catch (e) {} updateBadge(); }
 function cartCount() { var c = getCart(), n = 0; for (var i = 0; i < c.length; i++) n += c[i].q; return n; }
 function addToCart(id, med) {
@@ -149,7 +136,6 @@ function chrome(active) {
         '<nav class="foot-col" aria-label="روابط سريعة"><h4>روابط سريعة</h4>' +
           '<a href="/">الرئيسية</a>' +
           '<a href="/products">المنتجات</a>' +
-          '<a href="/medicine">الأدوية وأسعارها</a>' +
           '<a href="/branches">فروعنا</a>' +
           '<a href="/ask">اسأل الصيدلي</a>' +
           '<a href="/about">عن كوانيني</a>' +

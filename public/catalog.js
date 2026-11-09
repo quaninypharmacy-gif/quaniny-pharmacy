@@ -1,5 +1,5 @@
-/* كتالوج /medicine: زرار «أضف للسلة» + البحث. الملف ده بيتحمّل فى صفحات الكتالوج بس.
-   فهرس البحث (/medicine/search-index.json) بيتجاب أول ما الزبون يكتب، مش مع الصفحة. */
+/* كتالوج /products: زرار «أضف للسلة» + البحث. الملف ده بيتحمّل فى صفحات الكتالوج بس.
+   فهرس البحث (/products/search-index.json) بيتجاب أول ما الزبون يكتب، مش مع الصفحة. */
 (function () {
   document.addEventListener('click', function (e) {
     var b = e.target.closest && e.target.closest('[data-med]');
@@ -28,7 +28,7 @@
 
   function load() {
     if (loading) return loading;
-    loading = fetch('/medicine/search-index.json').then(function (r) { return r.json(); }).then(function (rows) {
+    loading = fetch('/products/search-index.json').then(function (r) { return r.json(); }).then(function (rows) {
       idx = rows.map(function (r) { var t = [r[1], r[2], r[3]].join(' '); return { r: r, n: norm(t), l: loose(t) }; });
     });
     return loading;
@@ -48,7 +48,7 @@
       }
       box.innerHTML = hits.length
         ? '<ul>' + hits.map(function (r) {
-            return '<li><a href="/medicine/' + r[0] + '"><b>' + esc(r[1] || r[2]) + '</b><span dir="ltr">' + esc(r[2]) + '</span><em>' + esc(r[4]) + ' جنيه</em></a></li>';
+            return '<li><a href="/products/' + r[0] + '"><b>' + esc(r[1] || r[2]) + '</b><span dir="ltr">' + esc(r[2]) + '</span><em>' + esc(r[4]) + ' جنيه</em></a></li>';
           }).join('') + '</ul>'
         : '<p class="med-none">مش لاقيين الصنف ده — <a href="/delivery?mode=rx">صوّر الروشتة</a> أو <a href="https://wa.me/201036181518" target="_blank" rel="noopener">اسألنا على واتساب</a>.</p>';
     });

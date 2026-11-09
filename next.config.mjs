@@ -23,7 +23,16 @@ export default {
   trailingSlash: false,
   async redirects() {
     // زي cleanUrls: أي طلب بـ .html يتحوّل 308 للرابط النضيف
-    return pages.map(({ file, clean }) => ({ source: file, destination: clean, permanent: true }));
+    return [
+      ...pages.map(({ file, clean }) => ({ source: file, destination: clean, permanent: true })),
+      // 🆕 10/11/2026: /products بقت فهرس كل الأصناف (route handler) — صفحتا العناية القديمتين اتشالوا
+      // وروابط الكتالوج القديمة /medicine/* بتتحوّل لنفس الصنف تحت /products (قرار الصيدلي).
+      { source: '/products.html', destination: '/products', permanent: true },
+      { source: '/product.html', destination: '/products', permanent: true },
+      { source: '/product', destination: '/products', permanent: true },
+      { source: '/medicine', destination: '/products', permanent: true },
+      { source: '/medicine/:path*', destination: '/products/:path*', permanent: true },
+    ];
   },
   async rewrites() {
     return { beforeFiles: pages.map(({ file, clean }) => ({ source: clean, destination: file })) };

@@ -1,4 +1,4 @@
-// /medicine/ingredient/<slug> — صفحة مادة فعالة: كل الأصناف والتركيزات اللي عندنا (SPEC §5.4)
+// /products/ingredient/<slug> — صفحة مادة فعالة: كل الأصناف والتركيزات اللي عندنا (SPEC §5.4)
 // صفحة واحدة غنية للمادة أقوى فى البحث من 10 صفحات أصناف شبه بعض.
 import { ingredients, getIngredient } from '../../../../lib/catalog/data.mjs';
 import { page, htmlResponse, esc, card, breadcrumb, ORG, SITE, DISCLAIMER } from '../../../../lib/catalog/html.mjs';
@@ -10,7 +10,7 @@ export function generateStaticParams() { return ingredients.map((g) => ({ slug: 
 export async function GET(_req, { params }) {
   const g = getIngredient((await params).slug);
   if (!g) return new Response('Not found', { status: 404 });
-  const path = `/medicine/ingredient/${g.slug}`;
+  const path = `/products/ingredient/${g.slug}`;
   const prices = g.items.map((i) => i.price);
   const lo = Math.min(...prices), hi = Math.max(...prices);
   const strengths = [...new Set(g.items.map((i) => i.strength).filter(Boolean))];
@@ -21,7 +21,7 @@ export async function GET(_req, { params }) {
   const description = `${g.name}: ${g.items.length} صنف في صيدلية كوانيني${strengths.length ? ` بتركيزات ${strengths.slice(0, 4).join('، ')}` : ''}، من ${lo} لـ ${hi} جنيه. ${usage}`.slice(0, 158);
 
   const body = `<div class="pagehead"><div class="wrap"><div class="page-emblem"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#pill"></use></svg></div>
-<div class="eyebrow"><a href="/medicine">الأدوية والمنتجات</a> · مادة فعالة</div>
+<div class="eyebrow"><a href="/products">المنتجات</a> · مادة فعالة</div>
 <h1 dir="ltr">${esc(g.name)}</h1><p>${g.items.length} صنف عندنا — من ${lo} لـ ${hi} جنيه.</p></div></div>
 <section><div class="wrap prose med-intro">
 ${usage ? `<p>${esc(usage)}</p>` : ''}
@@ -32,8 +32,8 @@ ${usage ? `<p>${esc(usage)}</p>` : ''}
 
   const list = {
     '@context': 'https://schema.org', '@type': 'ItemList', name: g.name, url: SITE + path, numberOfItems: g.items.length,
-    itemListElement: g.items.map((it, i) => ({ '@type': 'ListItem', position: i + 1, url: `${SITE}/medicine/${it.slug}`, name: it.name_en })),
+    itemListElement: g.items.map((it, i) => ({ '@type': 'ListItem', position: i + 1, url: `${SITE}/products/${it.slug}`, name: it.name_en })),
   };
   return htmlResponse(page({ path, title, description, body,
-    jsonld: [list, breadcrumb([['الرئيسية', '/'], ['الأدوية والمنتجات', '/medicine'], [g.name, path]])] }));
+    jsonld: [list, breadcrumb([['الرئيسية', '/'], ['المنتجات', '/products'], [g.name, path]])] }));
 }
