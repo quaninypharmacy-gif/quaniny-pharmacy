@@ -87,6 +87,19 @@ Playwright 1.62، موبايل 390، شبكة 700kbps/300ms، معالج ÷4، �
 
 **المرحلة 0: خلصت 9/11/2026.**
 
+## 5.2 المرحلة 1 — النقل لـ Next.js (فرع `nextjs`، commit 627c641، 9/11/2026)
+
+**الطريقة:** الصفحات القديمة اتنقلت لـ `public/` بنفس البايتات، و`next.config.mjs` بيدّيها نفس روابط cleanUrls (rewrites + 308 من `.html`). الدوال: `lib/api/*.mjs` زي ما هي، و`pages/api/*.js` بتعيد تصديرها. Next.js 16.4.5، React 19.3.1. الكتالوج هيتبني بـ App Router جنبهم.
+
+**اللي اتقاس على Preview Vercel (`quaninypharmacy-git-nextjs-…`) ضد quaniny.com الحي:**
+- **36 من 36 متطابقين:** 28 صفحة وملف (HTML/CSS/JS/sitemap/robots/أيقونات/صور) **بايت ببايت**، و8 تحويلات بنفس الكود والوجهة (`/delivery/` · `/index.html` · `/delivery.html` · `/insurance/globemed/` · `/insurance/index.html` · `/insurance/` · `/about.html` · 404).
+- **الهيدرز:** نفس `cache-control` ونفس الضغط (br) ونفس `content-type`. الفرق الوحيد `x-robots-tag: noindex` — Vercel بيحطه على النسخ التجريبية بس، مش على الإنتاج.
+- **الدوال:** `/api/order` GET = 405، و`/api/health` = 200. جسم 2.5 ميجا لـ `/api/prescription` عدّى الـ parser ووصل الدالة (يعني حد 4.5mb شغال). على الـ Preview بترجع `not_configured` لأن متغيرات تليجرام وSupabase على Production بس — **إرسال طلب حقيقي لتليجرام لسه متجربش**، وده أول حاجة تتراقب بعد الدمج.
+- **CLS:** مقاسش لوحده على الـ Preview — الصفحات والـ CSS والـ JS نفس البايتات ونفس الهيدرز، فالتخطيط نفسه. يتقاس على الإنتاج بعد الدمج بنفس `baseline.cjs`.
+- **اختلاف مقصود:** ملفات `.md` و`schema.sql` و`package.json` مبقتش بتتخدم للزوار (كانت بتتخدم بالغلط على الموقع الثابت).
+
+**المرحلة 1: خلصت — مستنية موافقة صاحب الصيدلية على المرحلة 2 (الدمج في main).**
+
 ## 6. المخاطر
 
 | الخطر | التخفيف |
