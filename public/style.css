@@ -419,3 +419,6 @@ a.ins-item:hover{border-color:var(--purple);transform:translateY(-2px);box-shado
 a.br-map{background:var(--surface-2);border-style:dashed;justify-content:center;align-items:center;text-align:center;transition:border-color .18s}
 a.br-map:hover{border-color:var(--purple)}
 a.br-map p{margin-bottom:0}
+
+/* 10/11/2026: لينك كتالوج الأدوية فى صفحة المنتجات */
+.med-cta{margin:var(--s3) 0 var(--s5);text-align:center;font-size:var(--fs-sm)}

@@ -149,6 +149,7 @@ function chrome(active) {
         '<nav class="foot-col" aria-label="روابط سريعة"><h4>روابط سريعة</h4>' +
           '<a href="/">الرئيسية</a>' +
           '<a href="/products">المنتجات</a>' +
+          '<a href="/medicine">الأدوية وأسعارها</a>' +
           '<a href="/branches">فروعنا</a>' +
           '<a href="/ask">اسأل الصيدلي</a>' +
           '<a href="/about">عن كوانيني</a>' +
