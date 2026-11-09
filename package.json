@@ -1,5 +1,15 @@
 {
   "name": "quaniny-pharmacy",
   "private": true,
-  "type": "module"
+  "type": "module",
+  "scripts": {
+    "dev": "next dev -p 8124",
+    "build": "next build",
+    "start": "next start -p 8124"
+  },
+  "dependencies": {
+    "next": "16.4.5",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  }
 }
