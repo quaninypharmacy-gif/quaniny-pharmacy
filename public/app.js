@@ -55,16 +55,23 @@ var PRODUCTS = [
   }
 ];
 
-function P(id) { for (var i = 0; i < PRODUCTS.length; i++) { if (PRODUCTS[i].id === id) return PRODUCTS[i]; } return null; }
+/* 🆕 [9/11/2026] أصناف الكتالوج (/medicine) مش فى PRODUCTS — ودي القاعدة: 4000 صنف هنا = كل صفحة أبطأ 9 مرات
+   (dd498c6). فالصنف بيتحفظ فى السلة نفسها بالاسم والسعر والرابط ({id:'m<رقم>', n, p, u}) وP بتقراه من هناك. */
+function P(id) {
+  for (var i = 0; i < PRODUCTS.length; i++) { if (PRODUCTS[i].id === id) return PRODUCTS[i]; }
+  var c = getCart();
+  for (var j = 0; j < c.length; j++) { if (c[j].id === id && c[j].n) return { id: id, name: c[j].n, price: c[j].p, img: '/logo.webp', url: c[j].u }; }
+  return null;
+}
 
 /* ---- السلة (متخزنة في متصفح العميل) ---- */
 function getCart() { try { return JSON.parse(localStorage.getItem('qcart') || '[]'); } catch (e) { return []; } }
 function saveCart(c) { try { localStorage.setItem('qcart', JSON.stringify(c)); } catch (e) {} updateBadge(); }
 function cartCount() { var c = getCart(), n = 0; for (var i = 0; i < c.length; i++) n += c[i].q; return n; }
-function addToCart(id) {
+function addToCart(id, med) {
   var c = getCart(), f = false;
   for (var i = 0; i < c.length; i++) { if (c[i].id === id) { c[i].q++; f = true; } }
-  if (!f) c.push({ id: id, q: 1 });
+  if (!f) c.push(med ? { id: id, q: 1, n: med.n, p: med.p, u: med.u } : { id: id, q: 1 });
   saveCart(c);
   var p = P(id);
   track('add_to_cart', { currency: 'EGP', value: p ? p.price : 0, item_id: id });

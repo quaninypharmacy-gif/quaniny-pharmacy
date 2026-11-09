@@ -1,0 +1,38 @@
+/* صفحات الكتالوج /medicine — بتبني على كروت /products وتوكنز style.css (BRAND.md)، من غير ألوان أو خطوط جديدة */
+.med-grid .prod-body{padding:var(--s4)}
+.med-card .prod-name{padding-block:0 4px}
+.med-sub{font-size:var(--fs-xs);color:var(--ink-soft);margin:6px 0 10px}
+.med-card .add-btn{margin-top:10px}
+.add-btn.rx-btn{display:block;text-align:center;text-decoration:none}
+
+.med-layout{display:grid;grid-template-columns:1fr 300px;gap:var(--s6);align-items:start}
+.med-usage{font-size:var(--fs-md)}
+.med-facts{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:var(--s3);margin:var(--s4) 0}
+.med-facts div{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:var(--s3)}
+.med-facts dt{font-size:var(--fs-xs);color:var(--ink-soft)}
+.med-facts dd{margin:4px 0 0;font-family:'Cairo',sans-serif;font-weight:700;color:var(--purple-deep)}
+.med-buy{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:var(--s5);box-shadow:var(--shadow-sm);display:flex;flex-direction:column;gap:var(--s3)}
+.med-price{font-family:'Cairo',sans-serif;font-weight:800;font-size:var(--fs-xl);color:var(--orange-ink)}
+.med-date,.med-note{font-size:var(--fs-sm);color:var(--ink-soft);margin:0}
+.med-buy .add-btn{width:100%;min-height:48px}
+.med-h2{margin-bottom:var(--s4)}
+.med-intro{max-width:none}
+
+.med-search{position:relative;max-width:640px;margin:0 auto var(--s5)}
+.med-search input{width:100%;padding:14px var(--s4);border:1px solid var(--line-strong);border-radius:var(--r-md);font-family:'Tajawal',sans-serif;font-size:var(--fs-base);background:#fff;color:var(--ink)}
+.med-search input:focus{outline:2px solid var(--purple);outline-offset:1px}
+.med-results ul{list-style:none;margin:6px 0 0;padding:0;background:#fff;border:1px solid var(--line);border-radius:var(--r-md);box-shadow:var(--shadow-md);max-height:420px;overflow:auto}
+.med-results li a{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:10px var(--s4);text-decoration:none;color:var(--ink);border-bottom:1px solid var(--line)}
+.med-results li a:hover,.med-results li a:focus{background:var(--surface-2)}
+.med-results b{font-family:'Cairo',sans-serif;color:var(--purple-deep)}
+.med-results span{grid-column:1;font-size:var(--fs-xs);color:var(--ink-soft)}
+.med-results em{grid-row:1/3;grid-column:2;align-self:center;font-style:normal;font-weight:700;color:var(--orange-ink)}
+.med-none{margin:8px 0 0;font-size:var(--fs-sm)}
+
+.pager{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:var(--s6) 0 0}
+.pager a,.pager span{min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;padding:0 12px;border-radius:var(--r-sm);border:1px solid var(--line);text-decoration:none;color:var(--purple-deep);font-family:'Cairo',sans-serif;font-weight:700}
+.pager .pg-cur{background:var(--purple-deep);color:#fff;border-color:var(--purple-deep)}
+.pager .pg-gap{border:0;min-width:auto}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+@media (max-width:820px){.med-layout{grid-template-columns:1fr}.med-buy{order:-1}}

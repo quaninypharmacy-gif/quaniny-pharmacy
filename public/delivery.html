@@ -395,6 +395,9 @@
         if (co) document.getElementById("co").value = co;
         document.getElementById("send").classList.add("purple");
       }
+      // 🆕 [9/11/2026] جاي من صفحة صنف «اطلبه بروشتة» فى /medicine — اسم الصنف بيتكتب فى الملاحظات جاهز
+      var drug = qp("drug");
+      if (drug) document.getElementById("nt").value = "الصنف المطلوب: " + drug.slice(0, 120);
       document.querySelectorAll(".care-opt").forEach(function (el) {
         el.addEventListener("click", function () {
           document.querySelectorAll(".care-opt").forEach(function (x) {
