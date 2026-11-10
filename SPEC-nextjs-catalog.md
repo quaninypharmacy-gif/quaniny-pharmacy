@@ -207,3 +207,4 @@ Playwright 1.62، موبايل 390، شبكة 700kbps/300ms، معالج ÷4، �
 - الكارت: نفس مقاس كارت الشعار (4:3 / 1:1 موبايل)، lazy. صفحة الصنف: srcset 400/1000 + fetchpriority + `image` فى Product schema.
 - القياس على quaniny.com (موبايل، شبكة بطيئة، CPU×4): قبل — page/28 1.00–1.34s، صفحة الصنف 1.05–1.34s CLS 0.013، page/63 1.24–1.38s. بعد — page/28 1.13–1.26s، صفحة الصنف 1.18–1.30s CLS 0.007–0.009، page/63 1.14–1.25s CLS 0.018. الـ 10 صور اتشافوا محمّلين على الموقع الحقيقي.
 - الرجوع: Vercel rollback لـ `dpl_8AHVwsBQWfENUZawq7ziFurwj5ud` (3dd24d0)، أو base فاضي فى `data/images.json`.
+- 10/11/2026 (بعد النشر): الصور اتنقلت من jsDelivr لـ Cloudflare Pages (`quaniny-images.pages.dev`، مربوط بريبو quaniny-images، بيتنشر لوحده مع كل push). `_headers` فى الريبو = كاش سنة immutable لـ `p/*`، والموقع بيضيف `?v=<commit>` من `data/images.json` عشان الصورة المتعدلة توصل.
