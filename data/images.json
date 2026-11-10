@@ -1,5 +1,5 @@
 {
   "_note": "الأصناف اللي ليها صورة فى ريبو quaniny-images (p/<id>-400.webp و p/<id>-1000.webp). base متثبّت على commit عشان الكاش.",
-  "base": "",
+  "base": "https://cdn.jsdelivr.net/gh/quaninypharmacy-gif/quaniny-images@a657b36fc00c89f1651b64b6771a0b38f58c0a1c",
   "ids": [3219, 3262, 3341, 3411, 3432, 3538, 3549, 3622, 3629, 3631]
 }
