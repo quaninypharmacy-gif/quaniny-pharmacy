@@ -202,8 +202,8 @@ Playwright 1.62، موبايل 390، شبكة 700kbps/300ms، معالج ÷4، �
 ### 5.7 صور الأصناف — تجربة 10 أصناف (10/11/2026)
 
 - قرار الصيدلي: صورة الشركة/المتجر الكبير + قالب كوانيني (اللوجو الأساسي فوق شمال + شريط بنفسجي «صيدلية كوانيني · أدويتك وتأمينك وكل احتياجاتك في مكان واحد»). «التجميل» (خلفيات GPT) مؤجل؛ تجربة GPT غيّرت كلام العبوة نفسها رغم المنع.
-- الصور فى ريبو عام منفصل  ( و)، النسخة النهائية بس؛ الأصلية فى Quaniny () والقالب .
-- العرض: jsDelivr متثبّت على commit ( → base + ids)؛ كاش سنة immutable. صورة جديدة = commit جديد فى الريبو + تحديث base. قبل الـ 3,700 صنف: Cloudflare Pages (محتاج دخول الصيدلي) — تغيير base بس.
-- الكارت: نفس مقاس كارت الشعار (4:3 / 1:1 موبايل)، lazy. صفحة الصنف: srcset 400/1000 + fetchpriority +  فى Product schema.
+- الصور فى ريبو عام منفصل `quaninypharmacy-gif/quaniny-images` (`p/<id>-400.webp` و`p/<id>-1000.webp`)، النسخة النهائية بس؛ الأصلية فى Quaniny (`data/product-images/trial/raw`) والقالب `tools/product-images/render-template.js`.
+- العرض: jsDelivr متثبّت على commit (`data/images.json` → base + ids)؛ كاش سنة immutable. صورة جديدة = commit جديد فى الريبو + تحديث base. قبل الـ 3,700 صنف: Cloudflare Pages (محتاج دخول الصيدلي) — تغيير base بس.
+- الكارت: نفس مقاس كارت الشعار (4:3 / 1:1 موبايل)، lazy. صفحة الصنف: srcset 400/1000 + fetchpriority + `image` فى Product schema.
 - القياس على quaniny.com (موبايل، شبكة بطيئة، CPU×4): قبل — page/28 1.00–1.34s، صفحة الصنف 1.05–1.34s CLS 0.013، page/63 1.24–1.38s. بعد — page/28 1.13–1.26s، صفحة الصنف 1.18–1.30s CLS 0.007–0.009، page/63 1.14–1.25s CLS 0.018. الـ 10 صور اتشافوا محمّلين على الموقع الحقيقي.
-- الرجوع: Vercel rollback لـ  (3dd24d0)، أو base فاضي فى data/images.json.
+- الرجوع: Vercel rollback لـ `dpl_8AHVwsBQWfENUZawq7ziFurwj5ud` (3dd24d0)، أو base فاضي فى `data/images.json`.
