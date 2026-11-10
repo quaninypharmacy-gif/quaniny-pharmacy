@@ -1,6 +1,7 @@
 // صفحة صنف: /products/<slug> — بتتبني ثابتة وقت البناء لكل صنف مكتمل فى data/catalog.json (SPEC §5.4).
 // 10/11/2026: اتنقلت من /medicine/<slug> واتفتحت لجوجل (index,follow) بقرار الصيدلي «اظهر كله لجوجل».
 import { items, getItem, ingredientOf, alternativesOf, meta } from '../../../lib/catalog/data.mjs';
+import { imgOf } from '../../../lib/catalog/images.mjs';
 import { page, htmlResponse, esc, card, thumb, orderButton, breadcrumb, price, priceDate, ORG, SITE, DISCLAIMER } from '../../../lib/catalog/html.mjs';
 
 export const dynamic = 'force-static';
@@ -60,6 +61,7 @@ ${alts.length ? `<section><div class="wrap"><h2 class="med-h2">بدائل بنف
     description: it.usage || undefined, category: it.category || undefined, url: `${SITE}/products/${it.slug}`,
     ...(isDrug && it.active_ingredient ? { activeIngredient: it.active_ingredient, nonProprietaryName: it.active_ingredient } : {}),
     ...(isDrug && it.form ? { dosageForm: it.form } : {}),
+    ...(imgOf(it) ? { image: [imgOf(it).l] } : {}),
     offers: offer,
   };
   const trail = [['الرئيسية', '/'], ['المنتجات', '/products']];

@@ -45,3 +45,8 @@
 .med-buy .med-thumb{border:1px solid var(--line);border-radius:var(--r-md);max-height:260px;aspect-ratio:auto;min-height:200px}
 .med-buy .med-thumb img{width:72px;height:72px}
 @media (max-width:520px){.prod-card a.thumb.med-thumb{aspect-ratio:1/1;padding:var(--s3);gap:4px}.inner-page .med-grid{grid-template-columns:1fr 1fr;gap:var(--s3)}.med-grid .prod-body{padding:var(--s3)}.med-thumb .mt-ar{font-size:var(--fs-sm)}.med-thumb .mt-en{font-size:var(--fs-xs)}.med-grid .med-thumb img{width:40px!important;height:40px!important}.med-grid .add-btn{font-size:var(--fs-sm);padding-inline:6px}}
+/* 10/11/2026 صورة الصنف بالقالب (مربعة وخلفيتها بيضا): نفس مقاس كارت الشعار (4:3 ديسكتوب، 1:1 موبايل) والصورة contain فمفيش قص ولا اهتزاز */
+.med-photo,.prod-card a.thumb.med-photo{display:block;aspect-ratio:4/3;background:#fff;border-bottom:1px solid var(--line);overflow:hidden}
+.prod-card a.thumb.med-photo img,.med-photo img{width:100%;height:100%;aspect-ratio:auto;object-fit:contain;object-position:center}
+.med-buy .med-photo{aspect-ratio:1/1;border:1px solid var(--line);border-radius:var(--r-md)}
+@media (max-width:520px){.prod-card a.thumb.med-photo{aspect-ratio:1/1}}
