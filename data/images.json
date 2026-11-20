@@ -1,7 +1,7 @@
 {
   "_note": "الأصناف اللي ليها صورة فى ريبو quaniny-images (p/<id>-400.webp و p/<id>-1000.webp) على Cloudflare Pages (كاش سنة). صورة اتغيرت = غيّر v لـ commit الريبو الجديد.",
   "base": "https://quaniny-images.pages.dev",
-  "v": "24e04fb",
+  "v": "58e28fe",
   "ids": [
     34,
     459,
@@ -14,6 +14,7 @@
     2523,
     3219,
     3230,
+    3262,
     3341,
     3411,
     3432,
