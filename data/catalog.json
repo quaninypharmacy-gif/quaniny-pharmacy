@@ -474,8 +474,8 @@
    "active_ingredient": "Tetracosactide",
    "form": "Amp",
    "strength": "1MG/ML",
-   "category": "Diagnostic Agent (ACTH analogue)",
-   "usage": "يُستخدم كاختبار تشخيصي لتقييم كفاءة الغدة الكظرية (قصور الغدة الكظرية)، ويُعطى بالحقن تحت إشراف الطبيب.",
+   "category": "ACTH Analogue",
+   "usage": "معلّق للحقن العضلي يحتوي على تيتراكوزاكتيد (Tetracosactide) 1 مجم/مل، ويُستخدم تحت إشراف الطبيب.",
    "price": 80,
    "rx": false
   },
