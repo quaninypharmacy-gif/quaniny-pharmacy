@@ -68,5 +68,5 @@ ${alts.length ? `<section><div class="wrap"><h2 class="med-h2">بدائل بنف
   if (ing) trail.push([ing.name, `/products/ingredient/${ing.slug}`]);
   trail.push([nameAr, `/products/${it.slug}`]);
 
-  return htmlResponse(page({ path: `/products/${it.slug}`, title, description, jsonld: [JSON.parse(JSON.stringify(product)), breadcrumb(trail)], body }));
+  return htmlResponse(page({ path: `/products/${it.slug}`, title, description, jsonld: [JSON.parse(JSON.stringify(product)), breadcrumb(trail)], body, image: imgOf(it)?.l }));
 }
