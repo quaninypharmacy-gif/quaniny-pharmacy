@@ -62,6 +62,88 @@
    "active_ingredient": "البروبيوتيك",
    "category": "Probiotic Dietary Supplement",
    "usage": "مكمل غذائي يحتوي على بكتيريا نافعة (بروبيوتيك) لدعم صحة الجهاز الهضمي."
+  },
+  "613": {
+   "active_ingredient": "Dextromethorphan + Phenylephrine + Chlorpheniramine",
+   "category": "Cough and Cold",
+   "usage": "تخفيف أعراض الكحة والبرد (كحة، رشح، عطس، احتقان الأنف)"
+  },
+  "614": {
+   "active_ingredient": "Carvedilol + Hydrochlorothiazide"
+  },
+  "616": {
+   "active_ingredient": "Green Tea Extract + Coffee Seed Extract",
+   "strength": "315MG/110MG",
+   "category": "Herbal Medicine",
+   "usage": "مساعد في إنقاص الوزن مع نظام غذائي، ويخفف الإرهاق والضعف، ومضاد للأكسدة"
+  },
+  "617": {
+   "active_ingredient": "Benztropine Mesylate"
+  },
+  "619": {
+   "active_ingredient": "Paracetamol + Diphenhydramine",
+   "strength": "500MG/12.5MG"
+  },
+  "621": {
+   "active_ingredient": "Paracetamol + Dextromethorphan + Phenylephrine + Chlorpheniramine",
+   "strength": "500MG/10MG/5MG/2MG"
+  },
+  "625": {
+   "active_ingredient": "Salicylic Acid + Lactic Acid + Polidocanol"
+  },
+  "632": {
+   "active_ingredient": "Mebeverine + Chlordiazepoxide",
+   "strength": "135MG/5MG",
+   "category": "Antispasmodic"
+  },
+  "638": {
+   "active_ingredient": "Ciprofloxacin + Tinidazole",
+   "strength": "500MG/600MG",
+   "category": "Antibiotic",
+   "usage": ""
+  },
+  "704": {
+   "active_ingredient": "Nitazoxanide",
+   "category": "Antidiarrheal / Intestinal Antiseptic",
+   "usage": "علاج الإسهال والعدوى المعوية"
+  },
+  "718": {
+   "active_ingredient": "Azithromycin",
+   "category": "Antibiotic",
+   "usage": "مضاد حيوي لقطرة العين لعلاج عدوى العين البكتيرية (التهاب الملتحمة)"
+  },
+  "726": {
+   "active_ingredient": "Solidago virgaurea Extract",
+   "category": "",
+   "usage": ""
+  },
+  "797": {
+   "name_en": "Depo Pen 1.2 MIU vial",
+   "name_ar": "ديبو بين 1.2 مليون وحدة فيال",
+   "strength": "1.2MIU"
+  },
+  "813": {
+   "active_ingredient": "Ofloxacin + Dexamethasone"
+  },
+  "814": {
+   "active_ingredient": "Betamethasone dipropionate + Betamethasone sodium phosphate"
+  },
+  "828": {
+   "active_ingredient": "Calcipotriol + Betamethasone"
+  },
+  "830": {
+   "active_ingredient": "Empagliflozin + Linagliptin",
+   "strength": "10MG/5MG"
+  },
+  "831": {
+   "active_ingredient": "Empagliflozin + Linagliptin",
+   "strength": "25MG/5MG"
+  },
+  "832": {
+   "active_ingredient": "Empagliflozin"
+  },
+  "833": {
+   "active_ingredient": "Empagliflozin"
   }
  }
 }
