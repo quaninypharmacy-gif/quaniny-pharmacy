@@ -1,0 +1,67 @@
+{
+ "_note": "تصحيحات الموقع بموافقة أحمد (حسب العبوة). بتتطبق وقت البناء فوق catalog.json بالـ id، فمتتمسحش لو التصدير من PC1 اتعاد. لو الأصل اتصحح فى PC1 تبقى نفس القيم ومفيش ضرر.",
+ "by_id": {
+  "16": {
+   "category": "Acid Suppressant (P-CAB)",
+   "usage": "دواء يقلل إفراز حمض المعدة، ويُستخدم حسب وصف الطبيب."
+  },
+  "35": {
+   "active_ingredient": "Tetracosactide",
+   "category": "ACTH Analogue",
+   "usage": "معلّق للحقن العضلي يحتوي على تيتراكوزاكتيد (Tetracosactide) 1 مجم/مل، ويُستخدم تحت إشراف الطبيب."
+  },
+  "39": {
+   "active_ingredient": "Diclofenac diethylamine + Methyl salicylate + Menthol",
+   "form": "Emulgel"
+  },
+  "502": {
+   "active_ingredient": "Citicoline + L-Theanine + Ginkgo Biloba + L-Glutamine",
+   "category": "Dietary Supplement",
+   "usage": "مكمل غذائي يدعم الوظائف الإدراكية."
+  },
+  "503": {
+   "name_ar": "سيرفيتولكا كو فموي 60 مل محلول",
+   "name_en": "Cervetolka Co 60ml solution",
+   "active_ingredient": "Citicoline + Omega-3 + Ginkgo Biloba",
+   "form": "Solution",
+   "category": "Dietary Supplement",
+   "usage": "مكمل غذائي يدعم وظائف المخ الطبيعية."
+  },
+  "504": {
+   "active_ingredient": "Citicoline + Tyrosine",
+   "strength": "500MG/50MG",
+   "category": "Dietary Supplement",
+   "usage": "مكمل غذائي يدعم وظائف المخ الطبيعية."
+  },
+  "505": {
+   "name_ar": "سيرفيتولكا فموي 250 مجم/5 مل 60 مل محلول",
+   "name_en": "Cervetolka 250mg/5ml 60ml solution",
+   "active_ingredient": "Citicoline",
+   "form": "Solution",
+   "category": "Dietary Supplement",
+   "usage": "مكمل غذائي يدعم وظائف المخ الطبيعية."
+  },
+  "506": {
+   "active_ingredient": "Citicoline",
+   "category": "Dietary Supplement",
+   "usage": "مكمل غذائي يدعم وظائف المخ الطبيعية."
+  },
+  "548": {
+   "name_ar": "كروميوم ميباكو 200 ميكروجرام 20 كبسولة",
+   "name_en": "Chromium Mepaco 200mcg 20 cap",
+   "active_ingredient": "Chromium Picolinate 200mcg (equivalent to elemental Chromium 24.85mcg)",
+   "strength": "200MCG",
+   "usage": "مكمل غذائي ضمن برامج التحكم في الوزن. كل كبسولة تحتوي على كروميوم بيكولينات 200 ميكروجرام (يعادل 24.85 ميكروجرام كروميوم عنصري)."
+  },
+  "3234": {
+   "name_ar": "أكيوبان 30 مجم 30 قرص",
+   "name_en": "Acupan 30mg 30 tab"
+  },
+  "4088": {
+   "name_en": "360 probiotics cap",
+   "active_ingredient": "البروبيوتيك",
+   "category": "Probiotic Dietary Supplement",
+   "usage": "مكمل غذائي يحتوي على بكتيريا نافعة (بروبيوتيك) لدعم صحة الجهاز الهضمي."
+  }
+ }
+}
