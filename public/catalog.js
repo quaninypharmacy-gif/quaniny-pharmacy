@@ -13,20 +13,49 @@
 
   // 🆕 22/11/2026 متوفر / غير متوفر — availability.json فيه أرقام الأصناف الغير متوفرة بس (الـ ERP بيرفعه كل
   // ساعة على quaniny-images). لو الملف مااتقراش العلامات تفضل فاضية: من غير حالة مش متأكدين منها.
+  // 🆕 23/11/2026 عقد v2: checked_at = آخر قراءة ناجحة من السيستم. أقدم من 48 ساعة (قرار الصيدلي 23/11) ← «اسأل عن
+  // التوفر» بدل حالة ممكن تكون قديمة، حتى لو الصفحة مفتوحة من بدري. seq بيمنع نسخة أقدم توصل متأخر تغطي على أحدث.
+  // الملف بكاش 5 دقايق على الـ CDN، فالتحديث كل 30 دقيقة وعند الرجوع للصفحة أو للنت كفاية.
   var flags = document.querySelectorAll('.stock-flag[data-pid]');
-  if (flags.length && window.fetch) {
-    fetch('https://quaniny-images.pages.dev/availability.json', { cache: 'no-cache' })
+  var AV_URL = 'https://quaniny-images.pages.dev/availability.json';
+  var MAX_AGE = 48 * 3600 * 1000;
+  var av = null, lastFetch = 0;
+  function renderFlags() {
+    if (!av) return; // لسه مفيش بيانات سليمة — العلامة تفضل فاضية
+    var stale = av.checked && Date.now() - av.checked > MAX_AGE;
+    flags.forEach(function (el) {
+      var no = av.out[el.getAttribute('data-pid')];
+      var big = el.closest('.med-buy');
+      el.className = 'stock-flag ' + (stale ? 'is-ask' : no ? 'is-out' : 'is-in');
+      el.textContent = stale ? 'اسأل عن التوفر'
+        : no ? (big ? 'غير متوفر حاليًا — اطلبه والصيدلية هتأكد معاك' : 'غير متوفر حاليًا') : '✓ متوفر';
+    });
+  }
+  function loadAv() {
+    lastFetch = Date.now();
+    fetch(AV_URL, { cache: 'no-cache' })
       .then(function (r) { if (!r.ok) throw 0; return r.json(); })
       .then(function (a) {
         if (!a || !Array.isArray(a.out)) return;
+        var checked = a.v === 2 ? Date.parse(a.checked_at) : 0; // v1 القديم مالوش checked_at — بيتعرض زي الأول
+        if (a.v === 2 && !checked) return; // ملف بايظ — نسيب اللي معانا
+        var seq = a.v === 2 ? Number(a.seq) || 0 : 0;
+        if (av && seq < av.seq) return; // نسخة أقدم وصلت متأخر
         var out = {}; a.out.forEach(function (id) { out[id] = 1; });
-        flags.forEach(function (el) {
-          var no = out[el.getAttribute('data-pid')];
-          el.className = 'stock-flag ' + (no ? 'is-out' : 'is-in');
-          el.textContent = no ? (el.closest('.med-buy') ? 'غير متوفر حاليًا — اطلبه ونجيبهولك' : 'غير متوفر حاليًا') : '✓ متوفر';
-        });
+        av = { out: out, checked: checked, seq: seq };
+        renderFlags();
       })
-      .catch(function () {});
+      .catch(function () { renderFlags(); }); // الجلب فشل: نفحص صلاحية اللي معانا (ممكن يكون قدم)
+  }
+  if (flags.length && window.fetch) {
+    loadAv();
+    setInterval(function () { renderFlags(); if (!document.hidden && Date.now() - lastFetch > 30 * 60000) loadAv(); }, 10 * 60000);
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) return;
+      renderFlags(); // الصلاحية الأول، من غير ما نستنى الشبكة
+      if (Date.now() - lastFetch > 5 * 60000) loadAv();
+    });
+    window.addEventListener('online', loadAv);
   }
 
   var q = document.getElementById('medq'), box = document.getElementById('medres');
