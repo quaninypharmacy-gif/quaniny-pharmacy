@@ -11,6 +11,24 @@
     setTimeout(function () { b.textContent = t; b.classList.remove('added'); }, 1600);
   });
 
+  // 🆕 22/11/2026 متوفر / غير متوفر — availability.json فيه أرقام الأصناف الغير متوفرة بس (الـ ERP بيرفعه كل
+  // ساعة على quaniny-images). لو الملف مااتقراش العلامات تفضل فاضية: من غير حالة مش متأكدين منها.
+  var flags = document.querySelectorAll('.stock-flag[data-pid]');
+  if (flags.length && window.fetch) {
+    fetch('https://quaniny-images.pages.dev/availability.json', { cache: 'no-cache' })
+      .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+      .then(function (a) {
+        if (!a || !Array.isArray(a.out)) return;
+        var out = {}; a.out.forEach(function (id) { out[id] = 1; });
+        flags.forEach(function (el) {
+          var no = out[el.getAttribute('data-pid')];
+          el.className = 'stock-flag ' + (no ? 'is-out' : 'is-in');
+          el.textContent = no ? (el.closest('.med-buy') ? 'غير متوفر حاليًا — اطلبه ونجيبهولك' : 'غير متوفر حاليًا') : '✓ متوفر';
+        });
+      })
+      .catch(function () {});
+  }
+
   var q = document.getElementById('medq'), box = document.getElementById('medres');
   if (!q || !box) return;
   var idx = null, loading = null;

@@ -15,6 +15,11 @@
 .med-price{font-family:'Cairo',sans-serif;font-weight:800;font-size:var(--fs-xl);color:var(--orange-ink)}
 .med-date,.med-note{font-size:var(--fs-sm);color:var(--ink-soft);margin:0}
 .med-buy .add-btn{width:100%;min-height:48px}
+/* 22/11/2026 متوفر / غير متوفر — الارتفاع محجوز قبل ما الحالة توصل (من غير CLS)، والألوان من التوكنز الموجودة */
+.stock-flag{min-height:1.5em;font-size:var(--fs-sm);font-weight:700;line-height:1.5}
+.stock-flag.is-in{color:var(--green)}
+.stock-flag.is-out{color:var(--ink-soft)}
+.med-card .stock-flag{margin-top:4px}
 .med-h2{margin-bottom:var(--s4)}
 .med-intro{max-width:none}
 

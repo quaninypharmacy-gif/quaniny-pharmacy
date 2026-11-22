@@ -2,7 +2,7 @@
 // 10/11/2026: اتنقلت من /medicine/<slug> واتفتحت لجوجل (index,follow) بقرار الصيدلي «اظهر كله لجوجل».
 import { items, getItem, ingredientOf, alternativesOf, meta } from '../../../lib/catalog/data.mjs';
 import { imgOf } from '../../../lib/catalog/images.mjs';
-import { page, htmlResponse, esc, card, thumb, orderButton, breadcrumb, price, priceDate, ORG, SITE, DISCLAIMER } from '../../../lib/catalog/html.mjs';
+import { page, htmlResponse, esc, card, thumb, orderButton, stockFlag, breadcrumb, price, priceDate, ORG, SITE, DISCLAIMER } from '../../../lib/catalog/html.mjs';
 
 export const dynamic = 'force-static';
 export const dynamicParams = false;
@@ -46,6 +46,7 @@ ${rows.length ? `<dl class="med-facts">${rows.map(([k, v]) => `<div><dt>${k}</dt
 ${thumb(it)}
 <div class="med-price">${price(it.price)}</div>
 <div class="med-date">السعر آخر تحديث ${priceDate(meta.price_updated_at)}</div>
+${stockFlag(it)}
 ${orderButton(it)}
 ${it.rx ? '<p class="med-note">الصنف ده بيتصرف بروشتة — صوّرها وابعتها وهنراجعها ونتصل بيك.</p>' : '<p class="med-note">الدفع عند الاستلام — وهنتصل بيك نأكد الطلب قبل التوصيل.</p>'}
 <a class="text-link" href="https://wa.me/201036181518?text=${encodeURIComponent('عايز أسأل عن ' + it.name_en)}" target="_blank" rel="noopener">اسأل الصيدلي على واتساب</a>
