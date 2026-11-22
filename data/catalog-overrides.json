@@ -144,6 +144,19 @@
   },
   "833": {
    "active_ingredient": "Empagliflozin"
+  },
+  "1051": {
+   "active_ingredient": "Eplerenone",
+   "category": "Aldosterone receptor antagonist",
+   "usage": "علاج ارتفاع ضغط الدم"
+  },
+  "1052": {
+   "active_ingredient": "Eplerenone",
+   "category": "Aldosterone receptor antagonist",
+   "usage": "علاج ارتفاع ضغط الدم"
+  },
+  "1180": {
+   "active_ingredient": "Diclofenac potassium 50mg + Methocarbamol 500mg"
   }
  }
 }
