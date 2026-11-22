@@ -14,6 +14,15 @@ const formAr = (f) => FORM_AR[String(f || '').toLowerCase().replace(/[^a-z]/g, '
 
 const cut = (s, n) => (s.length <= n ? s : s.slice(0, n - 1).replace(/\s+\S*$/, '') + '…');
 
+
+// عناوين الأصناف بكلام البحث: الاسم التجاري عربي كامل + الإنجليزي المختصر + «السعر» (تجربة ١٠ أصناف بموافقة الصيدلي ٢٣/١١ قبل التعميم).
+// جوجل مالهاش حد بعدد الحروف — القص بيحصل في العرض على قد الجهاز، فبنخلي هوية الصنف (الاسم الكامل) في الأول واسم الصيدلية في الآخر.
+const EN_FORMS = /^(tab|tabs|cap|caps|sachet|sachets|amp|amps|vial|vials|syrup|susp|cream|gel|ointment|drops|drop|spray|lotion|solution|emulgel|foam|powder|eye|ear|nasal)$/i;
+const shortEnName = (s) => { let t = String(s || '').trim().split(/\s+/);
+  while (t.length > 1 && EN_FORMS.test(t[t.length - 1])) t.pop();
+  while (t.length > 1 && /^\d+$/.test(t[t.length - 1])) t.pop();
+  if (t.length > 2 && /^\d+ml$/i.test(t[t.length - 1]) && /\d\s*(mg|%|mcg|iu)/i.test(t.join(' '))) t.pop();
+  return t.join(' '); };
 export async function GET(_req, { params }) {
   const { slug } = await params;
   const it = getItem(slug);
@@ -23,7 +32,10 @@ export async function GET(_req, { params }) {
   const nameAr = it.name_ar || it.name_en;
   const isDrug = it.type === 'drug';
 
-  const title = cut(isDrug && it.active_ingredient ? `${nameAr} — ${it.active_ingredient} | صيدلية كوانيني` : `${nameAr} | صيدلية كوانيني`, 70);
+  const TITLE_PILOT = new Set(['augmentin-1g-14-tab','shalgaten-400mg-30-cap','deslorastamine-0-5mg-ml-120ml-syrup','cypentola-1-pct-15ml-eye-drops','panadol-advance-500mg-48-tab','cataflam-50mg-20-tab','brufen-100mg-5ml-150ml-syrup','nexium-40mg-28-tab','antinal-200mg-24-cap','zithromax-250mg-6-cap']);
+  const title = TITLE_PILOT.has(it.slug)
+    ? `${nameAr} (${shortEnName(it.name_en)}) — السعر | صيدلية كوانيني`
+    : cut(isDrug && it.active_ingredient ? `${nameAr} — ${it.active_ingredient} | صيدلية كوانيني` : `${nameAr} | صيدلية كوانيني`, 70);
   const description = cut(`${it.usage ? it.usage + ' ' : ''}${nameAr} (${it.name_en}) بسعر ${price(it.price)} من صيدلية كوانيني — توصيل في شبين القناطر والقليوبية.`, 158);
 
   const rows = [
