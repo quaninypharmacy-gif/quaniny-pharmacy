@@ -162,6 +162,11 @@
    "active_ingredient": "Dapoxetine",
    "category": "Selective Serotonin Reuptake Inhibitor (SSRI)",
    "usage": "يستخدم لعلاج سرعة القذف عند الرجال البالغين"
+  },
+  "1099": {
+   "active_ingredient": "Ursodeoxycholic acid",
+   "category": "Bile acid preparation",
+   "usage": "يُستخدم لإذابة حصوات المرارة الكوليسترولية غير الظاهرة بالأشعة (حتى 15 مم) عند وجود مرارة تعمل، ويُؤخذ حسب إرشاد الطبيب."
   }
  }
 }
