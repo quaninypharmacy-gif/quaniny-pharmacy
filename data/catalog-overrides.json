@@ -167,6 +167,17 @@
    "active_ingredient": "Ursodeoxycholic acid",
    "category": "Bile acid preparation",
    "usage": "يُستخدم لإذابة حصوات المرارة الكوليسترولية غير الظاهرة بالأشعة (حتى 15 مم) عند وجود مرارة تعمل، ويُؤخذ حسب إرشاد الطبيب."
+  },
+  "1147": {
+   "strength": "0.5MG/ML"
+  },
+  "1177": {
+   "active_ingredient": "Troxerutin + Carbazochrome",
+   "strength": "150MG + 1.5MG per 3ML"
+  },
+  "1352": {
+   "active_ingredient": "Probenecid + Colchicine",
+   "strength": "500MG + 0.5MG"
   }
  }
 }
