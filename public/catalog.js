@@ -25,6 +25,7 @@
       .then(function (r) { if (!r.ok) throw 0; return r.json(); })
       .catch(function (e) { if (i + 1 < AV_URLS.length) return getAv(i + 1); throw e; });
   }
+  // 23/11 (بالليل) الجملة بقت «هتحاول توفره» بدل «هتأكد معاك» — قرار الصيدلي
   var MAX_AGE = 48 * 3600 * 1000;
   var av = null, lastFetch = 0;
   function renderFlags() {
@@ -35,7 +36,7 @@
       var big = el.closest('.med-buy');
       el.className = 'stock-flag ' + (stale ? 'is-ask' : no ? 'is-out' : 'is-in');
       el.textContent = stale ? 'اسأل عن التوفر'
-        : no ? (big ? 'غير متوفر حاليًا — اطلبه والصيدلية هتأكد معاك' : 'غير متوفر حاليًا') : '✓ متوفر';
+        : no ? (big ? 'غير متوفر حاليًا — اطلبه والصيدلية هتحاول توفره' : 'غير متوفر حاليًا') : '✓ متوفر';
     });
   }
   function loadAv() {

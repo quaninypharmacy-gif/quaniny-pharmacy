@@ -20,7 +20,7 @@
 .stock-flag.is-in{color:var(--green)}
 .stock-flag.is-out,.stock-flag.is-ask{color:var(--ink-soft)}
 .med-card .stock-flag{margin-top:4px}
-/* 23/11: جملة «غير متوفر حاليًا — اطلبه والصيدلية هتأكد معاك» بتنزل سطرين على 360 — المكان محجوز سطرين فى صفحة الصنف */
+/* 23/11: جملة «غير متوفر حاليًا — اطلبه والصيدلية هتحاول توفره» بتنزل سطرين على 360 — المكان محجوز سطرين فى صفحة الصنف */
 .med-buy .stock-flag{min-height:3em}
 .med-h2{margin-bottom:var(--s4)}
 .med-intro{max-width:none}
