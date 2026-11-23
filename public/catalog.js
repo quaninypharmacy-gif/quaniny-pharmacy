@@ -17,7 +17,14 @@
   // التوفر» بدل حالة ممكن تكون قديمة، حتى لو الصفحة مفتوحة من بدري. seq بيمنع نسخة أقدم توصل متأخر تغطي على أحدث.
   // الملف بكاش 5 دقايق على الـ CDN، فالتحديث كل 30 دقيقة وعند الرجوع للصفحة أو للنت كفاية.
   var flags = document.querySelectorAll('.stock-flag[data-pid]');
-  var AV_URL = 'https://quaniny-images.pages.dev/availability.json';
+  // 🆕 23/11/2026 المصدر الأساسي R2 (bucket خاص، بيتقرا من Pages Function وبيتحدّث كل ساعة)، والملف الثابت على
+  // Pages احتياطي لو R2 مارجعش. لو الاحتياطي أقدم، seq و checked_at بيحموا: مش هيغطي على أحدث، ولو قدّم ← «اسأل».
+  var AV_URLS = ['https://quaniny-images.pages.dev/api/availability.json', 'https://quaniny-images.pages.dev/availability.json'];
+  function getAv(i) {
+    return fetch(AV_URLS[i], { cache: 'no-cache' })
+      .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+      .catch(function (e) { if (i + 1 < AV_URLS.length) return getAv(i + 1); throw e; });
+  }
   var MAX_AGE = 48 * 3600 * 1000;
   var av = null, lastFetch = 0;
   function renderFlags() {
@@ -33,8 +40,7 @@
   }
   function loadAv() {
     lastFetch = Date.now();
-    fetch(AV_URL, { cache: 'no-cache' })
-      .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+    getAv(0)
       .then(function (a) {
         if (!a || !Array.isArray(a.out)) return;
         var checked = a.v === 2 ? Date.parse(a.checked_at) : 0; // v1 القديم مالوش checked_at — بيتعرض زي الأول
