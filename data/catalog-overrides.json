@@ -178,6 +178,19 @@
   "1352": {
    "active_ingredient": "Probenecid + Colchicine",
    "strength": "500MG + 0.5MG"
+  },
+  "1567": {
+   "active_ingredient": "Lactoferrin + Vitamin C + Vitamin D3 + Zinc + Echinacea Purpurea"
+  },
+  "1469": {
+   "name_ar": "آيروسبيكت 20 قرص مغلف",
+   "active_ingredient": "Iron + Vitamins + Minerals"
+  },
+  "3441": {
+   "name_ar": "شاى اخضر ايزيس ١٢ ظرف"
+  },
+  "4111": {
+   "name_ar": "ايزيس بقدونس وكرفس ٢٠ كيس"
   }
  }
 }
