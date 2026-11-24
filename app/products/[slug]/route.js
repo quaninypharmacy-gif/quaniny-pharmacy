@@ -32,11 +32,19 @@ export async function GET(_req, { params }) {
   const nameAr = it.name_ar || it.name_en;
   const isDrug = it.type === 'drug';
 
+  // تخصيص بموافقة الصيدلي ٢٤/١١: عنوان ووصف صفحة ريلى جرو (المادة الفعالة «Hair Supplement» مش مادة فعالة حقيقية وبتبوّظ عنوان جوجل).
+  const META_OVERRIDES = {
+    'rily-grow-120-ml-serum': {
+      title: 'ريلى جرو ١٢٠ ملى سيروم (Rily Grow) — السعر | صيدلية كوانيني',
+      description: (x) => `ريلى جرو سيروم للشعر ١٢٠ مل بسعر ${price(x.price)} من صيدلية كوانيني — تغذية وتقوية للشعر، وتوصيل في شبين القناطر والقليوبية.`,
+    },
+  };
   const TITLE_PILOT = new Set(['augmentin-1g-14-tab','shalgaten-400mg-30-cap','deslorastamine-0-5mg-ml-120ml-syrup','cypentola-1-pct-15ml-eye-drops','panadol-advance-500mg-48-tab','cataflam-50mg-20-tab','brufen-100mg-5ml-150ml-syrup','nexium-40mg-28-tab','antinal-200mg-24-cap','zithromax-250mg-6-cap']);
-  const title = TITLE_PILOT.has(it.slug)
+  const metaOverride = META_OVERRIDES[it.slug];
+  const title = metaOverride ? metaOverride.title : TITLE_PILOT.has(it.slug)
     ? `${nameAr} (${shortEnName(it.name_en)}) — السعر | صيدلية كوانيني`
     : cut(isDrug && it.active_ingredient ? `${nameAr} — ${it.active_ingredient} | صيدلية كوانيني` : `${nameAr} | صيدلية كوانيني`, 70);
-  const description = cut(`${it.usage ? it.usage + ' ' : ''}${nameAr} (${it.name_en}) بسعر ${price(it.price)} من صيدلية كوانيني — توصيل في شبين القناطر والقليوبية.`, 158);
+  const description = metaOverride ? metaOverride.description(it) : cut(`${it.usage ? it.usage + ' ' : ''}${nameAr} (${it.name_en}) بسعر ${price(it.price)} من صيدلية كوانيني — توصيل في شبين القناطر والقليوبية.`, 158);
 
   const rows = [
     isDrug && it.active_ingredient && ['المادة الفعالة', ing ? `<a href="/products/ingredient/${ing.slug}">${esc(it.active_ingredient)}</a>` : esc(it.active_ingredient)],
