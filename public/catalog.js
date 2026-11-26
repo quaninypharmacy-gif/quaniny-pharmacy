@@ -3,7 +3,7 @@
 (function () {
   document.addEventListener('click', function (e) {
     var b = e.target.closest && e.target.closest('[data-med]');
-    if (!b) return;
+    if (!b || b.style.display === 'none') return; // 26/11: غير متوفر — الزرار متخبي ومكانه واتساب
     var m; try { m = JSON.parse(b.getAttribute('data-med')); } catch (_) { return; }
     addToCart(m.id, m);
     var t = b.textContent;
@@ -19,37 +19,45 @@
   var flags = document.querySelectorAll('.stock-flag[data-pid]');
   // 🆕 23/11/2026 المصدر الأساسي R2 (bucket خاص، بيتقرا من Pages Function وبيتحدّث كل ساعة)، والملف الثابت على
   // Pages احتياطي لو R2 مارجعش. لو الاحتياطي أقدم، seq و checked_at بيحموا: مش هيغطي على أحدث، ولو قدّم ← «اسأل».
-  var AV_URLS = ['https://quaniny-images.pages.dev/api/availability.json', 'https://quaniny-images.pages.dev/availability.json'];
-  function getAv(i) {
-    return fetch(AV_URLS[i], { cache: 'no-cache' })
-      .then(function (r) { if (!r.ok) throw 0; return r.json(); })
-      .catch(function (e) { if (i + 1 < AV_URLS.length) return getAv(i + 1); throw e; });
-  }
-  // 23/11 (بالليل) الجملة بقت «هتحاول توفره» بدل «هتأكد معاك» — قرار الصيدلي
-  var MAX_AGE = 48 * 3600 * 1000;
+  // 26/11/2026 الجلب والقراءة اتنقلوا app.js (avGet/avParse/avStale) عشان السلة بتستخدمهم كمان
   var av = null, lastFetch = 0;
+  // 🆕 26/11/2026 (قرار الصيدلي 26/11) غير متوفر مؤكد ← «أضف للسلة» يتخبى ومكانه «اسأل على واتساب» برسالة فيها
+  // اسم الصنف. لو رجع متوفر أو الحالة قدمت (أقدم من 48 ساعة) الزرار يرجع — المنع على المؤكد بس.
+  function setBuy(flag, out) {
+    var btn = flag.parentNode && flag.parentNode.querySelector('button.add-btn[data-med]');
+    if (!btn) return; // أصناف الروشتة: «اطلبه بروشتة» زي ما هو
+    var wa = btn.nextElementSibling && btn.nextElementSibling.classList.contains('wa-btn') ? btn.nextElementSibling : null;
+    if (out && !wa) {
+      var m; try { m = JSON.parse(btn.getAttribute('data-med')); } catch (_) { return; }
+      wa = document.createElement('a');
+      wa.className = btn.className.replace(/\badded\b/, '') + ' wa-btn';
+      wa.href = waAsk(m.n, m.u); wa.target = '_blank'; wa.rel = 'noopener';
+      wa.textContent = flag.closest('.med-buy') ? 'اسأل الصيدلي على واتساب' : 'اسأل على واتساب';
+      btn.parentNode.insertBefore(wa, btn.nextSibling);
+    }
+    btn.style.display = out ? 'none' : '';
+    if (wa) wa.style.display = out ? '' : 'none';
+  }
   function renderFlags() {
     if (!av) return; // لسه مفيش بيانات سليمة — العلامة تفضل فاضية
-    var stale = av.checked && Date.now() - av.checked > MAX_AGE;
+    var stale = avStale(av);
     flags.forEach(function (el) {
-      var no = av.out[el.getAttribute('data-pid')];
+      var no = !stale && av.out[el.getAttribute('data-pid')];
       var big = el.closest('.med-buy');
       el.className = 'stock-flag ' + (stale ? 'is-ask' : no ? 'is-out' : 'is-in');
       el.textContent = stale ? 'اسأل عن التوفر'
-        : no ? (big ? 'غير متوفر حاليًا — اطلبه والصيدلية هتحاول توفره' : 'غير متوفر حاليًا') : '✓ متوفر';
+        : no ? (big ? 'غير متوفر حاليًا — اسأل الصيدلي عن البديل أو ميعاد توفره' : 'غير متوفر حاليًا') : '✓ متوفر';
+      setBuy(el, !!no);
     });
   }
   function loadAv() {
     lastFetch = Date.now();
-    getAv(0)
+    avGet(0)
       .then(function (a) {
-        if (!a || !Array.isArray(a.out)) return;
-        var checked = a.v === 2 ? Date.parse(a.checked_at) : 0; // v1 القديم مالوش checked_at — بيتعرض زي الأول
-        if (a.v === 2 && !checked) return; // ملف بايظ — نسيب اللي معانا
-        var seq = a.v === 2 ? Number(a.seq) || 0 : 0;
-        if (av && seq < av.seq) return; // نسخة أقدم وصلت متأخر
-        var out = {}; a.out.forEach(function (id) { out[id] = 1; });
-        av = { out: out, checked: checked, seq: seq };
+        var n = avParse(a);
+        if (!n) return; // ملف بايظ — نسيب اللي معانا
+        if (av && n.seq < av.seq) return; // نسخة أقدم وصلت متأخر
+        av = n;
         renderFlags();
       })
       .catch(function () { renderFlags(); }); // الجلب فشل: نفحص صلاحية اللي معانا (ممكن يكون قدم)

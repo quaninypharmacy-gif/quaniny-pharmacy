@@ -64,6 +64,35 @@ function addToCart(id, med) {
   track('add_to_cart', { currency: 'EGP', value: p ? p.price : 0, item_id: id });
 }
 function setQty(id, q) { var c = getCart(); for (var i = 0; i < c.length; i++) { if (c[i].id === id) { c[i].q = q; if (q < 1) c.splice(i, 1); break; } } saveCart(c); }
+
+/* 🆕 26/11/2026 التوافر مشترك بين الكتالوج والسلة (قرار الصيدلي 26/11: الصنف الغير متوفر ميتضافش للسلة،
+   ومكانه «اسأل على واتساب» — بدل «اطلبه والصيدلية هتحاول توفره» بتاع 23/11).
+   availability.json فيه أرقام الأصناف الغير متوفرة بس (الـ ERP بيرفعه كل ساعة). R2 أساسي والملف الثابت احتياطي.
+   المنع على «غير متوفر» المؤكد بس: لو الملف مااتقراش أو أقدم من 48 ساعة ← مسموح (مش هنمنع بيع على معلومة قديمة).
+   ونفس القاعدة بالظبط فى lib/api/order.mjs على السيرفر — لو غيّرت هنا غيّر هناك. */
+var AV_URLS = ['https://quaniny-images.pages.dev/api/availability.json', 'https://quaniny-images.pages.dev/availability.json'];
+var AV_MAX_AGE = 48 * 3600 * 1000;
+function avGet(i) {
+  i = i || 0;
+  return fetch(AV_URLS[i], { cache: 'no-cache' })
+    .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+    .catch(function (e) { if (i + 1 < AV_URLS.length) return avGet(i + 1); throw e; });
+}
+// null لو الملف بايظ. v1 القديم مالوش checked_at
+function avParse(a) {
+  if (!a || !Array.isArray(a.out)) return null;
+  var checked = a.v === 2 ? Date.parse(a.checked_at) : 0;
+  if (a.v === 2 && !checked) return null;
+  var out = {}; a.out.forEach(function (id) { out[id] = 1; });
+  return { out: out, checked: checked, seq: a.v === 2 ? Number(a.seq) || 0 : 0 };
+}
+function avStale(av) { return !!(av && av.checked && Date.now() - av.checked > AV_MAX_AGE); }
+// صنف الكتالوج id = 'm<رقم>'. الأصناف القديمة اللي فى PRODUCTS مش فى ملف التوافر ← دايمًا مسموحة
+function avIsOut(av, id) { return !!(av && !avStale(av) && /^m\d+$/.test(id) && av.out[id.slice(1)]); }
+function waAsk(name, url) {
+  return 'https://wa.me/' + WA + '?text=' + encodeURIComponent('السلام عليكم، عايز أسأل عن ' + name +
+    ' — مكتوب على الموقع إنه غير متوفر. فيه بديل أو هيتوفر إمتى؟' + (url ? '\nhttps://quaniny.com' + url : ''));
+}
 function updateBadge() {
   var n = cartCount();
   ['cartCount', 'qbarCount'].forEach(function (id) {

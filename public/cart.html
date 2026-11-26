@@ -52,15 +52,26 @@ function freeship(tot){
    '<small>الطلبات الأقل من '+FREE_DELIVERY_MIN+' جنيه رسوم توصيلها حسب عنوانك.</small></span>';
  }
 }
+/* 🆕 26/11/2026 (قرار الصيدلي 26/11) صنف اتحط فى السلة وبعدين خلص: بيفضل ظاهر بعلامة «غير متوفر»، مبيتحسبش
+   فى الإجمالي، وجنبه «شيله» و«اسأل على واتساب» — مبيتشالش من ورا الزبون. والإرسال مقفول لحد ما يتشال.
+   cartAv من availability.json (avGet/avParse فى app.js)، ولو مااتقراش ← مفيش منع. السيرفر بيفحص تاني. */
+var cartAv=null;
+function cartOut(){var c=getCart(),o=[];for(var i=0;i<c.length;i++){if(avIsOut(cartAv,c[i].id)){var p=P(c[i].id);if(p)o.push(p.name)}}return o}
 function render(){
- var c=getCart(),box=document.getElementById('items'),h='',tot=0;
+ var c=getCart(),box=document.getElementById('items'),h='',tot=0,nOut=0;
  if(!c.length){box.innerHTML='<div class="empty"><p>السلة فاضية.</p><p><a href="/products">تصفح المنتجات</a></p></div>';document.getElementById('checkout').style.display='none';return}
- for(var i=0;i<c.length;i++){var p=P(c[i].id);if(!p)continue;tot+=p.price*c[i].q;
+ for(var i=0;i<c.length;i++){var p=P(c[i].id);if(!p)continue;
+ if(avIsOut(cartAv,p.id)){nOut++;
+  h+='<div class="cart-row is-out"><img src="'+p.img+'" alt="'+p.name+'"><div class="cart-info"><div class="n">'+p.name+'</div><div class="p out">غير متوفر حاليًا — مش محسوب فى الإجمالي</div><a class="out-wa" href="'+waAsk(p.name,p.url)+'" target="_blank" rel="noopener">اسأل على واتساب عن البديل</a></div><div class="qty"><button class="rm" data-a="x" data-id="'+p.id+'">شيله</button></div></div>';
+  continue;}
+ tot+=p.price*c[i].q;
  h+='<div class="cart-row"><img src="'+p.img+'" alt="'+p.name+'"><div class="cart-info"><div class="n">'+p.name+'</div><div class="p">'+p.price+' جنيه</div></div><div class="qty"><button data-a="-" data-id="'+p.id+'">−</button><span>'+c[i].q+'</span><button data-a="+" data-id="'+p.id+'">+</button></div></div>';}
+ if(nOut)h='<div class="cart-out-note">'+(nOut>1?'فيه '+nOut+' أصناف':'فيه صنف')+' فى السلة بقى غير متوفر. شيله عشان تقدر تأكد الطلب.</div>'+h;
  box.innerHTML=h;document.getElementById('checkout').style.display='';document.getElementById('total').textContent=tot+' جنيه';freeship(tot);
 }
 render();
-document.getElementById('items').addEventListener('click',function(e){var b=e.target.closest('button[data-id]');if(!b)return;var id=b.getAttribute('data-id'),c=getCart(),q=0;for(var i=0;i<c.length;i++)if(c[i].id===id)q=c[i].q;setQty(id,b.getAttribute('data-a')==='+'?q+1:q-1);render();});
+if(window.fetch)avGet(0).then(function(a){var n=avParse(a);if(n){cartAv=n;render();}}).catch(function(){});
+document.getElementById('items').addEventListener('click',function(e){var b=e.target.closest('button[data-id]');if(!b)return;var id=b.getAttribute('data-id'),a=b.getAttribute('data-a'),c=getCart(),q=0;for(var i=0;i<c.length;i++)if(c[i].id===id)q=c[i].q;setQty(id,a==='x'?0:a==='+'?q+1:q-1);render();});
 function showErr(m){var e=document.getElementById('err');e.textContent=m;e.style.display='';}
 document.getElementById('send').addEventListener('click',async function(){
  track('begin_checkout',{currency:'EGP',value:getCart().reduce(function(t,i){var p=P(i.id);return t+(p?p.price*i.q:0)},0)});
@@ -69,13 +80,23 @@ document.getElementById('send').addEventListener('click',async function(){
  if(n.length<2){showErr('من فضلك اكتب اسمك.');return}
  if(!/^0?1[0-9]{9}$/.test(t.replace(/\s|-/g,''))){showErr('رقم التليفون مش مظبوط.');return}
  if(a.length<6){showErr('من فضلك اكتب العنوان بالتفصيل.');return}
+ var outN=cartOut();
+ if(outN.length){showErr('شيل الأصناف الغير متوفرة الأول: '+outN.join('، '));return}
  var c=getCart(),items=[];
- for(var i=0;i<c.length;i++){var p=P(c[i].id);if(p)items.push({name:p.name,qty:c[i].q,price:p.price})}
+ // 26/11: id بيتبعت عشان السيرفر يفحص التوافر (الأسماء بس مكانتش تكفي)
+ for(var i=0;i<c.length;i++){var p=P(c[i].id);if(p)items.push({id:p.id,name:p.name,qty:c[i].q,price:p.price})}
  if(!items.length){showErr('السلة فاضية.');return}
  btn.disabled=true;btn.textContent='جاري الإرسال...';
  try{
   var r=await fetch('/api/order',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:n,phone:t,address:a,note:nt,items:items})});
   var d=await r.json().catch(function(){return{}});
+  // 26/11: السيرفر لقى صنف خلص بعد ما الصفحة اتفتحت ← نعلّمه فى السلة بدل رسالة خطأ عامة
+  if(r.status===409&&d&&d.error==='out_of_stock'&&Array.isArray(d.out)){
+   if(!cartAv)cartAv={out:{},checked:Date.now(),seq:0};
+   d.out.forEach(function(x){cartAv.out[x]=1});render();
+   btn.disabled=false;btn.textContent='تأكيد الطلب';
+   showErr('الأصناف دي خلصت دلوقتي: '+(d.names||[]).join('، ')+'. شيلها وأكد الطلب تاني.');return;
+  }
   if(!r.ok||!d.ok)throw new Error((d&&d.error)||('http_'+r.status));
   try{localStorage.removeItem('qcart')}catch(e){}
   document.getElementById('ph').style.display='none';

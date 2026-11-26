@@ -3,7 +3,7 @@
 .med-card .prod-name{padding-block:0 4px}
 .med-sub{font-size:var(--fs-xs);color:var(--ink-soft);margin:6px 0 10px}
 .med-card .add-btn{margin-top:10px}
-.add-btn.rx-btn{display:block;text-align:center;text-decoration:none}
+.add-btn.rx-btn,.add-btn.wa-btn{display:block;text-align:center;text-decoration:none}
 
 .med-layout{display:grid;grid-template-columns:1fr 300px;gap:var(--s6);align-items:start}
 .med-usage{font-size:var(--fs-md)}
@@ -20,7 +20,7 @@
 .stock-flag.is-in{color:var(--green)}
 .stock-flag.is-out,.stock-flag.is-ask{color:var(--ink-soft)}
 .med-card .stock-flag{margin-top:4px}
-/* 23/11: جملة «غير متوفر حاليًا — اطلبه والصيدلية هتحاول توفره» بتنزل سطرين على 360 — المكان محجوز سطرين فى صفحة الصنف */
+/* 23/11 (26/11: الجملة بقت «— اسأل الصيدلي عن البديل أو ميعاد توفره»): جملة الغير متوفر بتنزل سطرين على 360 — المكان محجوز سطرين فى صفحة الصنف */
 .med-buy .stock-flag{min-height:3em}
 .med-h2{margin-bottom:var(--s4)}
 .med-intro{max-width:none}

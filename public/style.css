@@ -170,6 +170,12 @@ section{padding:clamp(34px,7vw,52px) 0}
 /* 40px بدل 32 — هدف لمس معقول على الموبايل. */
 .qty button{width:40px;height:40px;border-radius:var(--r-sm);border:1px solid var(--line-strong);background:var(--bg);font-size:1.15rem;cursor:pointer;color:var(--purple-deep);transition:border-color .18s,background .18s}
 .qty button:hover{border-color:var(--purple);background:#fff}
+/* 26/11/2026 صنف فى السلة بقى غير متوفر — باهت ومش محسوب، وزرار «شيله» عريض بدل − و + */
+.cart-row.is-out img{opacity:.45}
+.cart-info .p.out{color:var(--ink-soft);font-size:var(--fs-sm)}
+.cart-info .out-wa{font-size:var(--fs-sm);font-weight:700;color:var(--purple)}
+.qty button.rm{width:auto;padding-inline:var(--s3);font-size:var(--fs-sm);font-weight:700}
+.cart-out-note{background:var(--surface);border:1px solid var(--line-strong);border-radius:var(--r-md);padding:var(--s3) var(--s4);margin-bottom:var(--s3);font-weight:700;color:var(--purple-deep)}
 .total-box{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:var(--s4) var(--s5);margin:var(--s4) 0;display:flex;justify-content:space-between;font-family:'Cairo',sans-serif;font-weight:800;font-size:var(--fs-lg);color:var(--purple-deep)}
 .total-box span:last-child{color:var(--orange-ink)}
 
