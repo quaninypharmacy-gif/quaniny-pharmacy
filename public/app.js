@@ -172,6 +172,8 @@ function chrome(active) {
         '<div class="foot-col foot-contact"><h4>تواصل معنا</h4>' +
           '<a href="tel:' + PHONE + '" class="fc-phone">' + PHONE + '</a>' +
           '<a href="https://wa.me/' + WA + '" target="_blank" rel="noopener">واتساب</a>' +
+          // 🆕 27/11/2026 قناة يوتيوب (فيديوهات الشرح العلمي — قرار الصيدلي 27/11)
+          '<a href="https://www.youtube.com/@quaninypharmacy" target="_blank" rel="noopener">قناتنا على يوتيوب</a>' +
           '<span class="fc-hours">يوميًا 12 الضهر – 12 بالليل · الجمعة إجازة</span>' +
         '</div>' +
       '</div>' +

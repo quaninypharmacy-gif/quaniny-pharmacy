@@ -2,6 +2,7 @@
 // (16 صفحة الموقع اللي متسجلة فى Search Console) ومتسجلة فى robots.txt. الحد 50 ألف رابط — إحنا ~4 آلاف.
 import { items, ingredients, pageCount, meta } from '../../lib/catalog/data.mjs';
 import { SITE } from '../../lib/catalog/html.mjs';
+import { guides, comparisons, isDraft } from '../../lib/catalog/content.mjs';
 
 export const dynamic = 'force-static';
 export function GET() {
@@ -11,6 +12,9 @@ export function GET() {
     ...Array.from({ length: pageCount - 1 }, (_, i) => `/products/page/${i + 2}`),
     ...ingredients.map((g) => `/products/ingredient/${g.slug}`),
     ...items.map((it) => `/products/${it.slug}`),
+    // 🆕 27/11/2026 الأدلة والمقارنات المراجَعة بس (المسودة noindex ومش فى الخريطة حتى فى المعاينة المحلية)
+    ...guides.filter((g) => !isDraft(g)).map((g) => `/guides/${g.slug}`),
+    ...comparisons.filter((c) => !isDraft(c)).map((c) => `/compare/${c.slug}`),
   ];
   const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u) => `<url><loc>${SITE}${u}</loc>${lm}</url>`).join('\n')}\n</urlset>\n`;
   return new Response(xml, { headers: { 'content-type': 'application/xml; charset=utf-8' } });

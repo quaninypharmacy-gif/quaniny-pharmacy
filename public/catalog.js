@@ -119,3 +119,25 @@
   q.addEventListener('input', function () { clearTimeout(t); t = setTimeout(run, 150); });
   q.addEventListener('focus', load, { once: true });
 })();
+
+/* 🆕 27/11/2026 فيديو يوتيوب خفيف (lib/catalog/video.mjs): الـ iframe بيتحمّل بالضغط بس — قبلها صورة وزرار.
+   youtube-nocookie + rel=0: من غير كوكيز تتبع قبل التشغيل، والمقترحات آخر الفيديو من نفس القناة.
+   الـ iframe بياخد نفس الصندوق 16:9 فالصفحة متتحركش. */
+(function () {
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a.yt-lite[data-yt]');
+    if (!a || e.ctrlKey || e.metaKey || e.shiftKey) return;
+    var id = a.getAttribute('data-yt');
+    if (!/^[A-Za-z0-9_-]{11}$/.test(id)) return;
+    e.preventDefault();
+    var f = document.createElement('iframe');
+    f.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&playsinline=1';
+    f.title = a.getAttribute('data-title') || 'فيديو';
+    f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+    f.allowFullscreen = true;
+    f.referrerPolicy = 'strict-origin-when-cross-origin';
+    f.className = 'yt-frame';
+    a.replaceWith(f);
+    f.focus();
+  });
+})();

@@ -3,6 +3,8 @@
 import { items, getItem, ingredientOf, alternativesOf, meta } from '../../../lib/catalog/data.mjs';
 import { imgOf } from '../../../lib/catalog/images.mjs';
 import { page, htmlResponse, esc, card, thumb, orderButton, stockFlag, breadcrumb, price, priceDate, ORG, SITE, DISCLAIMER } from '../../../lib/catalog/html.mjs';
+import { productVideos, guidesOf, comparisonsOf } from '../../../lib/catalog/content.mjs';
+import { videoBlock, videoLd } from '../../../lib/catalog/video.mjs';
 
 export const dynamic = 'force-static';
 export const dynamicParams = false;
@@ -46,6 +48,15 @@ export async function GET(_req, { params }) {
     : cut(isDrug && it.active_ingredient ? `${nameAr} — ${it.active_ingredient} | صيدلية كوانيني` : `${nameAr} | صيدلية كوانيني`, 70);
   const description = metaOverride ? metaOverride.description(it) : cut(`${it.usage ? it.usage + ' ' : ''}${nameAr} (${it.name_en}) بسعر ${price(it.price)} من صيدلية كوانيني — توصيل في شبين القناطر والقليوبية.`, 158);
 
+  // 🆕 27/11/2026 فيديو الصنف فوق الوصف (على الموبايل بيبقى تحت السعر وزرار السلة — .med-buy order:-1)،
+  // و«اعرف أكتر» للدليل والمقارنة اللي الصنف ده فيهم (data/guides.json و data/comparisons.json).
+  const vids = productVideos(it.slug);
+  const links = [
+    ...guidesOf(it).map((g) => `<a href="/guides/${g.slug}">${esc(g.link_text || g.name)}</a>`),
+    ...comparisonsOf(it).map((c) => `<a href="/compare/${c.slug}">${esc(c.link_text || c.name)}</a>`),
+  ];
+  const learn = links.length ? `<p class="learn-more">اعرف أكتر: ${links.join(' · ')}</p>` : '';
+
   const rows = [
     isDrug && it.active_ingredient && ['المادة الفعالة', ing ? `<a href="/products/ingredient/${ing.slug}">${esc(it.active_ingredient)}</a>` : esc(it.active_ingredient)],
     it.form && ['الشكل', esc(formAr(it.form))],
@@ -58,8 +69,10 @@ export async function GET(_req, { params }) {
 <h1>${esc(nameAr)}</h1><p dir="ltr">${esc(it.name_en)}</p></div></div>
 <section><div class="wrap med-layout">
 <div class="med-main prose">
+${vids.map((v) => videoBlock(v)).join('')}
 ${it.usage ? `<p class="med-usage">${esc(it.usage)}</p>` : ''}
 ${rows.length ? `<dl class="med-facts">${rows.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl>` : ''}
+${learn}
 <div class="disclaimer">${DISCLAIMER}</div>
 </div>
 <aside class="med-buy">
@@ -89,5 +102,5 @@ ${alts.length ? `<section><div class="wrap"><h2 class="med-h2">بدائل بنف
   if (ing) trail.push([ing.name, `/products/ingredient/${ing.slug}`]);
   trail.push([nameAr, `/products/${it.slug}`]);
 
-  return htmlResponse(page({ path: `/products/${it.slug}`, title, description, jsonld: [JSON.parse(JSON.stringify(product)), breadcrumb(trail)], body }));
+  return htmlResponse(page({ path: `/products/${it.slug}`, title, description, jsonld: [JSON.parse(JSON.stringify(product)), breadcrumb(trail), ...vids.map((v) => videoLd(v, `/products/${it.slug}`))], body }));
 }

@@ -1,0 +1,4 @@
+{
+  "_doc": "مقارنات صنفين (قرار الصيدلي 27/11/2026) — /compare/<slug>. الحقول: slug (مثال eva-vs-vichy-cleanser)، a و b = slug الصنفين فى الكتالوج (لو واحد مش موجود الصفحة مبتتبنيش)، name (H1)، link_text (اللينك فى صفحة كل صنف)، title (عنوان جوجل)، description، keywords، lead، intro[]، rows[{label,a,b}]، outro[]، sources[{label,url}] — كل صف لازم يكون من مصدر (العبوة، النشرة، الموقع الرسمي)، ومن غير ما نقلل من الطرف التاني. reviewed: true بعد مراجعة الصيدلي بس.",
+  "comparisons": []
+}

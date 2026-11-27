@@ -1,0 +1,8 @@
+{
+  "_doc": "فيديوهات يوتيوب على الموقع (قرار الصيدلي 27/11/2026). كل فيديو: id = الـ 11 حرف بعد watch?v= فى لينك يوتيوب، title، description (جملتين بكلام البحث)، upload_date (YYYY-MM-DD زي يوتيوب)، duration (PT4M30S)، summary = نقط «الخلاصة» اللي بتتكتب تحت الفيديو، keywords، place = مكانه: {type:'product', slug} صفحة صنف · {type:'guide', slug} دليل مادة · {type:'compare', slug} مقارنة · {type:'home'} الرئيسية (لسه بالإيد فى index.html). reviewed: true بعد ما الصيدلي يراجع — من غيرها الفيديو مبيظهرش على الموقع.",
+  "channel": {
+    "name": "Quaniny pharmacy - صيدلية كوانيني",
+    "url": "https://www.youtube.com/@quaninypharmacy"
+  },
+  "videos": []
+}

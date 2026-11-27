@@ -57,3 +57,25 @@
 .prod-card a.thumb.med-photo img,.med-photo img{width:100%;height:100%;aspect-ratio:auto;object-fit:contain;object-position:center}
 .med-buy .med-photo{aspect-ratio:1/1;border:1px solid var(--line);border-radius:var(--r-md)}
 @media (max-width:520px){.prod-card a.thumb.med-photo{aspect-ratio:1/1}}
+/* 🆕 27/11/2026 فيديو يوتيوب خفيف + الدليل + المقارنة */
+.yt-block{margin:0 0 var(--s5)}
+.yt-video{margin:0}
+.yt-lite,.yt-frame{display:block;position:relative;width:100%;aspect-ratio:16/9;border:0;border-radius:var(--r-lg);overflow:hidden;background:#1d1328}
+.yt-lite img{width:100%;height:100%;object-fit:cover;display:block}
+.yt-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:transform .15s}
+.yt-lite:hover .yt-play,.yt-lite:focus-visible .yt-play{transform:scale(1.08)}
+.yt-lite:focus-visible{outline:3px solid var(--purple);outline-offset:3px}
+.yt-video figcaption{margin-top:var(--s2);font-size:var(--fs-sm);color:var(--ink-soft)}
+.yt-summary{margin-top:var(--s4);background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r-md);padding:var(--s4) var(--s5)}
+.yt-summary h2,.yt-summary h3{font-size:1.1rem;margin:0 0 var(--s2)}
+.yt-summary ul{margin:0;padding-inline-start:1.2em;line-height:1.85}
+.yt-channel{display:inline-block;margin-top:var(--s3)}
+.learn-more{margin:var(--s4) 0 0;padding:var(--s3) var(--s4);background:var(--brand-mint);border-radius:var(--r-md);line-height:1.8}
+.learn-more a{font-weight:700}
+.draft-banner{background:#fff4d6;color:#6b4a00;border-bottom:1px solid #f0d58a;text-align:center;padding:10px var(--s4);font-weight:700}
+.guide-body{max-width:760px}
+.cmp-table{width:100%;border-collapse:collapse;margin:var(--s4) 0;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;font-size:var(--fs-sm)}
+.cmp-table th,.cmp-table td{padding:10px var(--s3);border-bottom:1px solid var(--line);text-align:start;vertical-align:top;line-height:1.7}
+.cmp-table thead th{background:var(--surface-2);font-family:'Cairo',sans-serif}
+.cmp-wrap{overflow-x:auto}
+.cmp-sources{font-size:var(--fs-sm);color:var(--ink-soft)}
