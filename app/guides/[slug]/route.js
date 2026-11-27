@@ -19,9 +19,12 @@ export async function GET(_req, { params }) {
   const vids = guideVideos(g.slug);
   const ing = g.related_ingredient ? getIngredient(g.related_ingredient) : null;
   const paras = (a) => (a || []).map((p) => `<p>${esc(p)}</p>`).join('');
+  // 🆕 27/11 دليل لأدوية بروشتة (حقن التخسيس): مكانه «اسأل الصيدلي» مش «المنتجات»، ومن غير أصناف ولا سلة — بيخلص بسؤال على الواتساب
+  const sec = g.section || { name: 'المنتجات', href: '/products' };
+  const cta = g.cta ? `<p class="learn-more">${esc(g.cta)}: <a href="https://wa.me/201036181518" target="_blank" rel="noopener" dir="ltr">واتساب 01036181518</a> · <a href="/ask">اسأل الصيدلي</a></p>` : '';
 
   const body = `${draft ? DRAFT_BANNER : ''}<div class="pagehead"><div class="wrap"><div class="page-emblem"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#bottle"></use></svg></div>
-<div class="eyebrow"><a href="/products">المنتجات</a> · دليل</div>
+<div class="eyebrow"><a href="${sec.href}">${esc(sec.name)}</a> · دليل</div>
 <h1>${esc(g.name)}</h1>${g.lead ? `<p>${esc(g.lead)}</p>` : ''}</div></div>
 <section><div class="wrap prose guide-body">
 ${vids.map((v) => videoBlock(v)).join('')}
@@ -31,6 +34,7 @@ ${g.itemsList.length ? `<section><div class="wrap"><h2 class="med-h2">${esc(g.pr
 <section><div class="wrap prose guide-body">
 ${(g.sections || []).map((s) => `<h2>${esc(s.h2)}</h2>${paras(s.p)}${s.list ? `<ul>${s.list.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>` : ''}`).join('\n')}
 ${ing ? `<p class="learn-more">أدوية فيها نفس المادة: <a href="/products/ingredient/${ing.slug}" dir="ltr">${esc(ing.name)}</a></p>` : ''}
+${cta}
 <div class="disclaimer">${DISCLAIMER}</div>
 </div></section>`;
 
@@ -41,6 +45,6 @@ ${ing ? `<p class="learn-more">أدوية فيها نفس المادة: <a href=
     ...(g.keywords && g.keywords.length ? { keywords: g.keywords.join(', ') } : {}),
     ...(g.about ? { about: { '@type': 'Thing', name: g.about } } : {}),
   };
-  return htmlResponse(page({ path, title: g.title, description: g.description, robots: draft ? 'noindex,nofollow' : 'index,follow', body,
-    jsonld: [article, breadcrumb([['الرئيسية', '/'], ['المنتجات', '/products'], [g.name, path]]), ...vids.map((v) => videoLd(v, path))] }));
+  return htmlResponse(page({ path, active: sec.href, title: g.title, description: g.description, robots: draft ? 'noindex,nofollow' : 'index,follow', body,
+    jsonld: [article, breadcrumb([['الرئيسية', '/'], [sec.name, sec.href], [g.name, path]]), ...vids.map((v) => videoLd(v, path))] }));
 }

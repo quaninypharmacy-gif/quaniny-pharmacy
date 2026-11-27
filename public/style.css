@@ -444,3 +444,4 @@ a.br-map p{margin-bottom:0}
 .yt-short .yt-lite,.yt-short .yt-frame{aspect-ratio:9/16}
 .yt-short-text h2{margin-top:0}
 @media (max-width:700px){.yt-short-row{grid-template-columns:1fr;gap:var(--s5)}.yt-short{max-width:300px;margin:0 auto}}
+.yt-block>.yt-short{margin-inline:auto}
