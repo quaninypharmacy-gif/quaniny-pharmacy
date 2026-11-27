@@ -425,3 +425,22 @@ a.ins-item:hover{border-color:var(--purple);transform:translateY(-2px);box-shado
 a.br-map{background:var(--surface-2);border-style:dashed;justify-content:center;align-items:center;text-align:center;transition:border-color .18s}
 a.br-map:hover{border-color:var(--purple)}
 a.br-map p{margin-bottom:0}
+/* 🆕 27/11/2026 فيديو يوتيوب خفيف (صورة + زرار، الـ iframe بالضغط من app.js) — اتنقل من catalog.css */
+.yt-block{margin:0 0 var(--s5)}
+.yt-video{margin:0}
+.yt-lite,.yt-frame{display:block;position:relative;width:100%;aspect-ratio:16/9;border:0;border-radius:var(--r-lg);overflow:hidden;background:#1d1328}
+.yt-lite img{width:100%;height:100%;object-fit:cover;display:block}
+.yt-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:transform .15s}
+.yt-lite:hover .yt-play,.yt-lite:focus-visible .yt-play{transform:scale(1.08)}
+.yt-lite:focus-visible{outline:3px solid var(--purple);outline-offset:3px}
+.yt-video figcaption{margin-top:var(--s2);font-size:var(--fs-sm);color:var(--ink-soft)}
+.yt-summary{margin-top:var(--s4);background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r-md);padding:var(--s4) var(--s5)}
+.yt-summary h2,.yt-summary h3{font-size:1.1rem;margin:0 0 var(--s2)}
+.yt-summary ul{margin:0;padding-inline-start:1.2em;line-height:1.85}
+.yt-channel{display:inline-block;margin-top:var(--s3)}
+/* الـ Shorts طولية 9:16: عمود ضيق جنب النص على الكمبيوتر، وفوق النص فى النص على الموبايل. المقاس ثابت = من غير CLS */
+.yt-short-row{display:grid;grid-template-columns:minmax(0,280px) minmax(0,1fr);gap:var(--s6);align-items:start}
+.yt-short{width:100%;max-width:280px}
+.yt-short .yt-lite,.yt-short .yt-frame{aspect-ratio:9/16}
+.yt-short-text h2{margin-top:0}
+@media (max-width:700px){.yt-short-row{grid-template-columns:1fr;gap:var(--s5)}.yt-short{max-width:300px;margin:0 auto}}

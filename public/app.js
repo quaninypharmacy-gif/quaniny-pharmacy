@@ -195,3 +195,26 @@ function chrome(active) {
     updateBadge();
   });
 }
+
+/* 🆕 27/11/2026 فيديو يوتيوب خفيف (lib/catalog/video.mjs + الصفحات الثابتة زي /insurance): الـ iframe بيتحمّل بالضغط بس — قبلها صورة وزرار.
+   youtube-nocookie + rel=0: من غير كوكيز تتبع قبل التشغيل، والمقترحات آخر الفيديو من نفس القناة.
+   الـ iframe بياخد نفس الصندوق (16:9، أو 9:16 للـ Shorts بـ .yt-short) فالصفحة متتحركش.
+   اتنقل من catalog.js لهنا 27/11 عشان الصفحات الثابتة مش بتحمّل catalog.js. */
+(function () {
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a.yt-lite[data-yt]');
+    if (!a || e.ctrlKey || e.metaKey || e.shiftKey) return;
+    var id = a.getAttribute('data-yt');
+    if (!/^[A-Za-z0-9_-]{11}$/.test(id)) return;
+    e.preventDefault();
+    var f = document.createElement('iframe');
+    f.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&playsinline=1';
+    f.title = a.getAttribute('data-title') || 'فيديو';
+    f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+    f.allowFullscreen = true;
+    f.referrerPolicy = 'strict-origin-when-cross-origin';
+    f.className = 'yt-frame';
+    a.replaceWith(f);
+    f.focus();
+  });
+})();

@@ -858,7 +858,7 @@ Audit خارجي على النسخة المنشورة. **اتفحصت ادعاء
 
 ## فيديوهات الشرح العلمي + الأدلة + المقارنات (27/11/2026)
 
-قرار الصيدلي: القناة `https://www.youtube.com/@quaninypharmacy`، والفيديو بيتعرض **embed خفيف** (`lib/catalog/video.mjs` + `public/catalog.js`): صورة وزرار، والـ iframe (youtube-nocookie، rel=0) بالضغط بس، فى صندوق 16:9 ثابت (CLS صفر قبل وبعد التشغيل).
+قرار الصيدلي: القناة `https://www.youtube.com/@quaninypharmacy`، والفيديو بيتعرض **embed خفيف** (`lib/catalog/video.mjs`؛ معالج الضغط فى `public/app.js` وCSS `.yt-*` فى `style.css` عشان الصفحات الثابتة كمان): صورة وزرار، والـ iframe (youtube-nocookie، rel=0) بالضغط بس، فى صندوق 16:9 ثابت أو 9:16 للـ Shorts (`.yt-short`) — CLS صفر قبل وبعد التشغيل. الصفحات الثابتة بتتكتب بالإيد (أول واحدة `/insurance` 27/11: Short التأمين + VideoObject + صورة webp محلية من الـ thumbnail الطولي `oardefault.jpg`).
 - المحتوى بالإيد فى `data/videos.json` و`data/guides.json` و`data/comparisons.json` (مش من تصدير الـ ERP). **مفيش حاجة بتتبني غير `reviewed: true`** بعد مراجعة الصيدلي؛ `QUANINY_DRAFTS=1` للمعاينة المحلية بس (noindex + شريط مسودة).
 - الأماكن: فيديو الصنف أول `.med-main` (على الموبايل تحت السعر وزرار السلة لأن `.med-buy` order:-1)، دليل المادة `/guides/<slug>` بأصناف بيختارها الصيدلي، المقارنة `/compare/<slug>` (الصنفين لازم فى الكتالوج، كل صف بمصدر، من غير تقليل من الطرف التاني)، الرئيسية فيديو تعريفي واحد بس (لسه بالإيد).
 - SEO: `VideoObject` لكل فيديو، `Article` للدليل والمقارنة، «الخلاصة» نص تحت الفيديو، والمراجَع بس فى `products-sitemap.xml`. الكلمات المفتاحية بتتحط فى العنوان والـ H1/H2 والنص — مفيش `meta keywords` (جوجل بيتجاهلها).
