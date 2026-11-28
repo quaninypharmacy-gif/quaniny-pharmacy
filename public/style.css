@@ -318,8 +318,7 @@ a.ins-item:hover{border-color:var(--purple);transform:translateY(-2px);box-shado
 .areas{display:flex;flex-wrap:wrap;gap:var(--s2);justify-content:center;max-width:880px;margin:0 auto}
 .areas .area{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-pill);padding:8px var(--s4);font-size:var(--fs-sm);color:var(--ink)}
 
-/* شريط التوصيل المجاني. في السلة بيتحسب لحظيًا ويوري الناقص؛ في باقي
-   الصفحات بيتكتب نص ثابت. الحد نفسه في FREE_DELIVERY_MIN في app.js. */
+/* شريط التوصيل المجاني — نص ثابت فى كل الصفحات (28/11: التوصيل المحلي ببلاش دايمًا، مفيش حد أدنى). */
 .freeship{display:flex;align-items:flex-start;gap:var(--s3);background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:var(--s3) var(--s4);margin-bottom:var(--s3);font-family:'Tajawal',sans-serif;font-size:var(--fs-md);color:var(--ink-soft)}
 .freeship .ico{font-size:1.3rem;line-height:1.1;flex:none}
 .freeship .txt{flex:1}

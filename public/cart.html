@@ -37,20 +37,12 @@
 </div></section>
 </main>
 <script>
-/* بيوري العميل قد إيه ناقصه للتوصيل المجاني. الرقم من FREE_DELIVERY_MIN
-   في app.js — متكتبوش هنا تاني. */
-function freeship(tot){
+/* 🩹 28/11/2026 التوصيل المحلي ببلاش دايمًا (قرار الصيدلي 17/11) — عدّاد «ناقصك X جنيه» اتشال. */
+function freeship(){
  var el=document.getElementById('fs');if(!el)return;
- if(tot>=FREE_DELIVERY_MIN){
-  el.className='freeship done';
-  el.innerHTML='<span class="ico">🛵</span><span class="txt"><b>التوصيل مجاني على طلبك</b></span>';
- }else{
-  var left=FREE_DELIVERY_MIN-tot;
-  el.className='freeship';
-  el.innerHTML='<span class="ico">🛵</span><span class="txt">ناقصك <b>'+left+' جنيه</b> والتوصيل يبقى مجاني'+
-   '<span class="track"><i style="width:'+Math.round(tot/FREE_DELIVERY_MIN*100)+'%"></i></span>'+
-   '<small>الطلبات الأقل من '+FREE_DELIVERY_MIN+' جنيه رسوم توصيلها حسب عنوانك.</small></span>';
- }
+ el.className='freeship done';
+ el.innerHTML='<span class="ico">🛵</span><span class="txt"><b>التوصيل ببلاش على طلبك</b>'+
+  '<small>برة مناطق التوصيل؟ مصاريف الشحن حسب المحافظة، وبنقولهالك قبل ما نأكد الطلب.</small></span>';
 }
 /* 🆕 26/11/2026 (قرار الصيدلي 26/11) صنف اتحط فى السلة وبعدين خلص: بيفضل ظاهر بعلامة «غير متوفر»، مبيتحسبش
    فى الإجمالي، وجنبه «شيله» و«اسأل على واتساب» — مبيتشالش من ورا الزبون. والإرسال مقفول لحد ما يتشال.
@@ -67,7 +59,7 @@ function render(){
  tot+=p.price*c[i].q;
  h+='<div class="cart-row"><img src="'+p.img+'" alt="'+p.name+'"><div class="cart-info"><div class="n">'+p.name+'</div><div class="p">'+p.price+' جنيه</div></div><div class="qty"><button data-a="-" data-id="'+p.id+'">−</button><span>'+c[i].q+'</span><button data-a="+" data-id="'+p.id+'">+</button></div></div>';}
  if(nOut)h='<div class="cart-out-note">'+(nOut>1?'فيه '+nOut+' أصناف':'فيه صنف')+' فى السلة بقى غير متوفر. شيله عشان تقدر تأكد الطلب.</div>'+h;
- box.innerHTML=h;document.getElementById('checkout').style.display='';document.getElementById('total').textContent=tot+' جنيه';freeship(tot);
+ box.innerHTML=h;document.getElementById('checkout').style.display='';document.getElementById('total').textContent=tot+' جنيه';freeship();
 }
 render();
 if(window.fetch)avGet(0).then(function(a){var n=avParse(a);if(n){cartAv=n;render();}}).catch(function(){});
@@ -96,6 +88,11 @@ document.getElementById('send').addEventListener('click',async function(){
    d.out.forEach(function(x){cartAv.out[x]=1});render();
    btn.disabled=false;btn.textContent='تأكيد الطلب';
    showErr('الأصناف دي خلصت دلوقتي: '+(d.names||[]).join('، ')+'. شيلها وأكد الطلب تاني.');return;
+  }
+  // 🆕 28/11: السعر بيتحسب على السيرفر من الكتالوج — صنف مبقاش على الموقع بيرجع باسمه عشان الزبون يشيله
+  if(r.status===409&&d&&d.error==='unknown_item'){
+   btn.disabled=false;btn.textContent='تأكيد الطلب';
+   showErr('الأصناف دي مبقتش موجودة على الموقع: '+(d.names||[]).join('، ')+'. شيلها وأكد الطلب تاني، أو اسألنا على واتساب.');return;
   }
   if(!r.ok||!d.ok)throw new Error((d&&d.error)||('http_'+r.status));
   try{localStorage.removeItem('qcart')}catch(e){}
